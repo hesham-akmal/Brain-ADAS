@@ -1,0 +1,6 @@
+# folders
+venv/
+.idea/
+
+# python cache files
+*.pyc

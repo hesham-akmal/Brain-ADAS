@@ -1,0 +1,6 @@
+#pip install -r requirements.txt
+#python3 -m pip install hidapi
+#python3 -m pip install pyhidapi
+pywinusb==0.4.2
+pycrypto==2.6.1
+#hidapi==0.7.99.post21

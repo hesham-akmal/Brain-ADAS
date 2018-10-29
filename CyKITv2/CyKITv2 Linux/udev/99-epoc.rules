@@ -1,0 +1,8 @@
+# UDEV rule for the Emotiv EPOC+ headset.
+#
+# Once installed into /etc/udev/rules.d, udev will recognize the headset and set the mode so that
+# the pyhidapi library can open the hid device.
+#
+# Note: Obtain the idVendor and idProduct from your lsusb output.
+#
+KERNEL=="hidraw*", ATTRS{idVendor}=="1234", ATTRS{idProduct}=="ed02", MODE="0666", NAME="eeg/epoc%n"

@@ -1,0 +1,166 @@
+en it
+   tried to say "No such path 'missing' in HEAD".
+   (merge a46442f jk/blame-commit-label later to maint).
+
+ * "git rerere" (invoked internally from many mergy operations) did
+   not correctly signal errors when it attempted to update the working
+   tree files but failed for whatever reason.
+   (merge 89ea903 jn/rerere-fail-on-auto-update-failure later to maint).
+
+ * Setting diff.submodule to 'log' made "git format-patch" produce
+   broken patches.
+   (merge 339de50 dk/format-patch-ignore-diff-submodule later to maint).
+
+ * After attempting and failing a password-less authentication (e.g.,
+   Kerberos), libcURL refuses to fall back to password-based Basic
+   authentication without a bit of help/encouragement.
+   (merge 4dbe664 bc/http-fallback-to-password-after-krb-fails later to maint).
+
+ * The "git push" documentation for the "--repo=<there>" option was
+   easily misunderstood.
+   (merge 57b92a7 mg/push-repo-option-doc later to maint).
+
+ * Code to read a branch name from various files in the .git/
+   directory would have overrun array limits if asked to read an empty
+   file.
+   (merge 66ec904 jk/status-read-branch-name-fix later to maint).
+
+ * Remove a superfluous conditional that is always true.
+   (merge 94ee8e2 jk/remote-curl-an-array-in-struct-cannot-be-null later to maint).
+
+ * The "git diff --raw" documentation incorrectly implied that C(opy)
+   and R(ename) are the only statuses that can be followed by a score
+   number.
+   (merge ac1c2d9 jc/diff-format-doc later to maint).
+
+ * A broken pack .idx file in the receiving repository prevented the
+   dumb http transport from fetching a good copy of it from the other
+   side.
+   (merge 8b9c2dd jk/dumb-http-idx-fetch-fix later to maint).
+
+ * The error message from "git commit", when a non-existing author
+   name was given as value to the "--author=" parameter, has been
+   reworded to avoid misunderstanding.
+   (merge 1044b1f mg/commit-author-no-match-malformed-message later to maint).
+
+ * "git log --help" used to show rev-list options that are irrelevant
+   to the "log" command.
+   (merge 3cab02d jc/doc-log-rev-list-options later to maint).
+
+ * "git apply --whitespace=fix" used to under-allocate memory when the
+   fix resulted in a longer text than the original patch.
+   (merge 407a792 jc/apply-ws-fix-expands later to maint).
+
+ * The interactive "show a list and let the user choose from it"
+   interface used by "git add -i" unnecessarily prompted the user even
+   when the candidate list was empty, against which the only "choice"
+   the user could have made was to choose nothing.
+   (merge a9c4641 ak/add-i-empty-candidates later to maint).
+
+ * The todo list created by "git rebase -i" did not fully honor
+   core.abbrev settings.
+   (merge edb72d5 ks/rebase-i-abbrev later to maint).
+
+ * "git fetch" over a remote-helper that cannot respond to the "list"
+   command could not fetch from a symbolic reference (e.g., HEAD).
+   (merge 33cae54 mh/deref-symref-over-helper-transport later to maint).
+
+ * "git push --signed" gave an incorrectly worded error message when
+   the other side did not support the capability.
+
+ * The "git push --signed" protocol extension did not limit what the
+   "nonce" (a server-chosen string) could contain nor how long it
+   could be, which was unnecessarily lax. Limit both the length and
+   the alphabet to a reasonably small space that can still have enough
+   entropy.
+   (merge afcb6ee jc/push-cert later to maint).
+
+ * The completion script (in contrib/) clobbered the shell variable $x
+   in the global shell namespace.
+   (merge 852ff1c ma/bash-completion-leaking-x later to maint).
+
+ * We incorrectly formatted a "uintmax_t" integer that doesn't fit in
+   "int".
+   (merge d306f3d jk/decimal-width-for-uintmax later to maint).
+
+ * The configuration parser used to be confused when reading
+   configuration from a blob object that ends with a lone CR.
+   (merge 1d0655c jk/config-no-ungetc-eof later to maint).
+
+ * The pack bitmap support did not build with older versions of GCC.
+   (merge bd4e882 jk/pack-bitmap later to maint).
+
+ * The documentation wasn't clear that "remote.<nick>.pushURL" and
+   "remote.<nick>.URL" are there to name the same repository accessed
+   via different transports, not two separate repositories.
+   (merge 697f652 jc/remote-set-url-doc later to maint).
+
+ * Older GnuPG implementations may not correctly import the keyring
+   material we prepare for the tests to use.
+   (merge 1f985d6 ch/new-gpg-drops-rfc-1991 later to maint).
+
+ * The credential helper for Windows (in contrib/) used to mishandle
+   user names that contain an at-sign.
+   (merge 13d261e av/wincred-with-at-in-username-fix later to maint).
+
+ * "diff-highlight" (in contrib/) used to show byte-by-byte
+   differences, which could cause multi-byte characters to be chopped
+   in the middle. It learned to pay attention to character boundaries
+   (assuming UTF-8).
+   (merge 8d00662 jk/colors later to maint).
+
+ * Document longstanding configuration variable naming rules in
+   CodingGuidelines.
+   (merge 35840a3 jc/conf-var-doc later to maint).
+
+ * An earlier workaround to squelch unhelpful deprecation warnings
+   from the compiler on OS X unnecessarily set a minimum required
+   version of the OS, which the user might want to raise (or lower)
+   for other reasons.
+   (merge 88c03eb es/squelch-openssl-warnings-on-macosx later to maint).
+
+ * Certain older vintages of cURL give irregular output from
+   "curl-config --vernum", which confused our build system.
+   (merge 3af6792 tc/curl-vernum-output-broken-in-7.11 later to maint).
+
+ * In v2.2.0, we broke "git prune" that runs in a repository that
+   borrows from an alternate object store.
+   (merge b0a4264 jk/prune-mtime later to maint).
+
+ * "git submodule add" failed to squash "path/to/././submodule" to
+   "path/to/submodule".
+   (merge 8196e72 ps/submodule-sanitize-path-upon-add later to maint).
+
+ * "git merge-file" did not work correctly when invoked in a
+   subdirectory.
+   (merge 204a8ff ab/merge-file-prefix later to maint).
+
+ * "git blame" could die trying to free an uninitialized piece of
+   memory.
+   (merge e600592 es/blame-commit-info-fix later to maint).
+
+ * "git fast-import" used to crash when it could not close and
+   finalize the resulting packfile cleanly.
+   (merge 5e915f3 jk/fast-import-die-nicely-fix later to maint).
+
+ * "update-index --refresh" used to leak memory when an entry could
+   not be refreshed for whatever reason.
+   (merge bc1c2ca sb/plug-leak-in-make-cache-entry later to maint).
+
+ * The "interpolated-path" option of "git daemon" inserted any string
+   the client declared on the "host=" capability request without
+   checking. Sanitize and limit %H and %CH to a saner and a valid DNS
+   name.
+   (merge b485373 jk/daemon-interpolate later to maint).
+
+ * "git daemon" unnecessarily looked up the hostname even when "%CH"
+   and "%IP" interpolations were not requested.
+   (merge dc8edc8 rs/daemon-interpolate later to maint).
+
+ * We relied on "--no-" prefix handling in Perl's Getopt::Long
+   package, even though that support didn't exist in Perl 5.8 (which
+   we still support). Manually add support to help people with older
+   Getopt::Long packages.
+   (merge f471494 km/send-email-getopt-long-workarounds later to maint).
+
+ * "git apply" was not very careful about reading from, remo
