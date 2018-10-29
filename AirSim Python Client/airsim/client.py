@@ -272,8 +272,8 @@ class CarClient(VehicleClient, object):
         state_raw = self.client.call('getOne', vehicle_name)
         return state_raw
 
-    def getSimState(self, vehicle_name = ''):
-        return self.client.call('getSimState', vehicle_name)
+    def getAdasPacket(self, vehicle_name = ''):
+        return self.client.call('getAdasPacket', vehicle_name)
 
     def getDistance(self, vehicle_name = ''):
         dist = self.client.call('getDistance', vehicle_name)
