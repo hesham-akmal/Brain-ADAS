@@ -1,1 +1,5 @@
+# jupyter checkpoints
 .ipynb_checkpoints/
+
+# python cache files
+*.pyc
