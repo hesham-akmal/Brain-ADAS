@@ -1,1 +1,0 @@
-c:\python27\python.exe CyKITv2.py %*
