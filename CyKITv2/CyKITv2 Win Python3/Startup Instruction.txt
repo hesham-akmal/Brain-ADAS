@@ -1,0 +1,4 @@
+-Run Anaconda prompt (kind of tested with python 3.6.6)
+-cd to path "\Python"
+-run command: python.exe CyKITv2.py 127.0.0.1 55555 6
+-open the html and press connect
