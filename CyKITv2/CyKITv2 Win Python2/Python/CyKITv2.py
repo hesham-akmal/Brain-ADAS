@@ -13,6 +13,7 @@ import eeg
 import CyWebSocket
 import threading
 import time
+import webbrowser
 
 arg_count = len(sys.argv)
 
@@ -79,9 +80,9 @@ def main(CyINIT):
         CyINIT = 2
    
     CyINIT += 1
-    HOST = str(sys.argv[1])
-    PORT = int(sys.argv[2])
-    MODEL = int(sys.argv[3])
+    HOST = '127.0.0.1'
+    PORT = 55555
+    MODEL = 6
     
     # Initialize CyKIT 
     if CyINIT == 2:
@@ -90,26 +91,28 @@ def main(CyINIT):
         print "> Trying Key Model #: " + str(MODEL)
         
         myi = eeg.MyIO()
-        
-        if "noheader" in parameters:
-            myi.setHeader(True)
-        if "openvibe" in parameters:
-            myi.setOpenvibe(True)
-        if "generic" in parameters:
-            ioTHREAD = CyWebSocket.socketIO(PORT, 0, myi)
-        else:
-            ioTHREAD = CyWebSocket.socketIO(PORT, 1, myi)
+
+        webbrowser.open('CyKITv2.html')   
+        ioTHREAD = CyWebSocket.socketIO(PORT, 1, myi)
         myi.setServer(ioTHREAD)
         check_connection = ioTHREAD.Connect()
         cyIO = ioTHREAD.start()
         
         cyHeadset = eeg.EEG(MODEL, myi, parameters).start()
+        
+        #Start recording data in a new file "NewfileName"
+        #cyHeadset.onData(0,'CyKITv2:::RecordStart:::EEG_recording_')
+        #time.sleep(3)
+        #cyHeadset.onData(0,'CyKITv2:::RecordStart:::EEG_recording_')
+
         for t in threading.enumerate():
             print str(t.getName())
         CyINIT += 1
         if myi.getOpenvibe() == True:
             time.sleep(3)
-        
+
+
+
     while CyINIT > 2:
         CyINIT += 1
         
@@ -125,16 +128,6 @@ def main(CyINIT):
             for t in threading.enumerate():
                 if t.getName() == "ioThread" or t.getName() == "eegThread":
                     check_threads += 1
-            
-            if myi.getOpenvibe() == True:
-                if check_threads == 0:
-                    ioTHREAD.onClose()
-                    print "*** Reseting . . ."
-                    CyINIT = 1
-                    main(1)
-                continue
-                
-            
             if check_threads == 1:
                 ioTHREAD.onClose()
                 print "*** Reseting . . ."

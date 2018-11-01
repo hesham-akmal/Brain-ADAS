@@ -22,12 +22,19 @@ import math
 from Queue import Queue
 import threading
 
+# Add airsim path, Importing airsim, Getting CarClient
+from pathlib import Path
+sys.path.append(str(Path().resolve().parent.parent.parent).replace('\\','/') + '/AirSimClient')
+import airsim
+airsimClient = airsim.CarClient()
+
 # Import local package: (pywinusb 0.2.9)
 sys.path.insert(0, './cyUSB')
 import cyUSB as hid
 #import pywinusb.hid as hid
 
 # Import local package: (pycrypto 2.6.1)
+# pip install Cryptodome 
 from Crypto.Cipher import AES
 from Crypto import Random
 
@@ -91,7 +98,9 @@ class MyIO():
                     
                     print "[Record Stopped] -- Press 'Record' to Record a new file."
                     return
-                    
+
+                
+                airsimClient = airsim.CarClient()
                 print "[Start] Recording to File: " + ioCommand[2]
                 self.recordFile = str(ioCommand[2])
                 
@@ -109,6 +118,8 @@ class MyIO():
                     self.f = open('./EEG-Logs/' + self.recordFile + '.csv', 'a')
                     
                     csvHeader = ""
+                    csvHeader += "EventNumber " + ", "
+                    csvHeader += "Distance" + ", "
                     csvHeader += "title: " + self.recordFile + ", "
                     csvHeader += "recorded: " + str(time.strftime("%d.%m.%y %H.%M.%S, "))
                     csvHeader += "timestamp started:2017-11-21T16:17:43.558438-08:00            , "
@@ -142,13 +153,10 @@ class MyIO():
                 try:
                     self.f.flush()
                     os.fsync(self.f.fileno())
-                    
                     self.f.seek(0, os.SEEK_END)
                     f_size = self.f.tell()
-                    #print "xxx:" + str(self.f.read(2))
                     self.f.truncate((f_size -2))
-                    
-                    
+                    self.f.close()
                 except Exception, msg:
                     print "Error: " + str(msg)
                     pass
@@ -618,7 +626,6 @@ class EEG(object):
         
         iv = Random.new().read(AES.block_size)
         cipher = AES.new(key, AES.MODE_ECB, iv)
-        
         self.lock.acquire()
         thread_name = ""
         print "\r\nActive Threads = {"
@@ -702,53 +709,6 @@ class EEG(object):
                     counter_data = ""
                     packet_data = ""
                     
-                    if self.KeyModel == 0:
-                        counter_data = str(ord(data[0])) + self.Delimiter
-                        for i in range(1,len(data)):
-                            packet_data = packet_data + str(ord(data[i])) + self.Delimiter
-                            
-                    if self.KeyModel == 2:
-                        counter_data = str(ord(data[0])) + " "
-
-                        # No Format (Default)
-                        if self.format < 1:
-                            for i in range(0,14):
-                                packet_data = packet_data + str(self.convertEPOC(data, self.mask[i])) + self.Delimiter
-                            if self.myIOinstance.isRecording() == True:
-                                self.myIOinstance.startRecord(counter_data + packet_data)
-                            if self.outputData == True:
-                                print str(counter_data + packet_data)
-                        
-                        # Format 1
-                        if self.format == 1:
-                            for i in range(1, len(data)):
-                                packet_data = packet_data + str(ord(data[i])) + self.Delimiter
-                            packet_data = packet_data[:-len(self.Delimiter)]
-                            if self.myIOinstance.isRecording() == True:
-                                self.myIOinstance.startRecord(counter_data + packet_data)
-                            if self.outputData == True:
-                                    print str(counter_data + packet_data)
-                                        
-                    if self.KeyModel == 4:
-                        counter_data = str(ord(data[0])) + " "
-                        if self.format < 1:
-                            for i in range(0,14):
-                                packet_data = packet_data + str(self.convertEPOC(data, self.mask[i])) + self.Delimiter
-                            packet_data = packet_data[:-len(self.Delimiter)]
-                            if self.myIOinstance.isRecording() == True:
-                                self.myIOinstance.startRecord(counter_data + packet_data)
-                            if self.outputData == True:
-                                print str(counter_data + packet_data)
-                        
-                        if self.format == 1:
-                            for i in range(1,len(data)):
-                                packet_data = packet_data + str(ord(data[i])) + self.Delimiter
-                            packet_data = packet_data[:-len(self.Delimiter)]
-                            if self.myIOinstance.isRecording() == True:
-                                self.myIOinstance.startRecord(counter_data + packet_data)
-                            if self.outputData == True:
-                                print str(counter_data + packet_data)
-                    
                     if self.KeyModel == 6 or self.KeyModel == 5:
                         
                         if self.no_counter == True:
@@ -793,7 +753,17 @@ class EEG(object):
                                     
                                     emptyCSV = emptyCSV[:-2]
                                     record_data = packet_data + self.Delimiter + emptyCSV
-                                self.myIOinstance.startRecord(counter_data + record_data)
+
+                                try:
+                                    airsim_data = airsimClient.getAdasPacket()
+                                    airsim_data = str(airsim_data[0]) + self.Delimiter + str(airsim_data[1])
+                                except Exception as e:
+                                    print(e)
+                                    print('airsim v2 not connected')
+                                    airsim_data = 'airsim v2 not connected'
+
+                                self.myIOinstance.startRecord( airsim_data + counter_data + record_data)    
+                                #self.myIOinstance.startRecord(counter_data + record_data)
                             
                             if self.outputData == True:
                                 print str(counter_data + packet_data)

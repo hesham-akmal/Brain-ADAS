@@ -1,18 +1,218 @@
-/*
-  CyKITv2 
-  CyCSS.css 2017.12.23
-  ======================
-  Written by Warren
-  
-  CSS for CyKITv2.html & CyInterface.js
+/*                          */ 
+/*  CyKITv2                 */
+/*  CyCSS.css 2018.Feb.06   */
+/* ======================== */
+/*  Written by Warren       */ 
+/*                          */ 
+/*  CSS for CyKITv2.html    */ 
+/*                          */ 
 
-*/
+#connectBar {
+    position:absolute;
+    background-color:#777777;
+    width:100%;
+    height:100px;
+    background-image:url('./images/blue-bg.png');
+    background-size:100% 100%;
+    background-repeat: no-repeat;
+}
+
+#innerBar {
+    margin-left:21%;
+    margin-top:1%;
+    color:white;
+    background: rgba(0,0,0,0.3);
+    min-width:300px;
+     max-width:400px;
+    border-radius: 10px;
+    width:30%;
+    height: 100%
+}
+#hostPort {
+    position:relative;
+    left:15px;
+    top:8px;
+}
+
+#graphImage {
+    position:absolute;
+    visibility:hidden;
+    background-size: 25px 50px;
+}
+
+#CyKIT-picture {
+    position:absolute;
+    left:2%;
+    top:2%;
+    width:20%;
+    height:100%;
+    background-image:url('./images/CyKITv2-bg-off.png');
+    background-size:200px 70px;
+    background-repeat: no-repeat;
+}
+
+#leftPanel {
+    position:absolute;
+    background-color:black;
+    top:109px;
+    width:20%;
+    height:100%;
+    color:white;
+    font-family: segoe ui;
+}
+
+#innerLeftPanel {
+    color: #ffffff;
+    position:relative;
+    left: 3%;
+    height:25%;
+    opacity:.7;
+    width: 70%;
+    max-height:150px;
+}
+
+#glossy {
+    position:absolute;
+    width:100%;
+    height:100%;
+    background-image:url('./images/gloss.png');
+    background-size:100% 100%;
+    background-repeat: no-repeat;
+}
+
+#cyInfo {
+    position:absolute;
+    left:1%;
+    width:110%;
+    height:125%;
+    opacity:.9;
+    background-color:#555555;
+    border-radius: 10px;
+    color:#ababab;
+    font-size:12;
+}
+
+#cyInfoText {
+    color: #ffffff;
+    margin-left:10px; 
+    margin-top:10px;
+}
+
+#cyCanvas { 
+    position:relative; 
+    height:100%;"
+}
+#manualSelection {
+    visibility:visible; 
+    overflow:hidden;
+}
+
+#selectInsightSensor {
+    position:relative; 
+    left:0%; 
+    top:-67px; 
+    width:80%; 
+    height: 20%; 
+    color:white; 
+    visibility: hidden;
+}
+
+#selectEpocSensor {
+    position:relative; 
+    left:0%; 
+    top:10px; 
+    width:80%; 
+    height:20%; 
+    color:white; 
+    visibility:hidden;
+}
+
+#gyroPane {
+    position:relative;
+    background-color:#ffffff;
+    left:20%;
+    top:150px;
+    height:60%;
+     width:78%;
+    border-radius:5px;
+    border: 2px solid #aaa;
+}
+
+#gamePane {
+    position:relative;
+    background-color:#ffffff;
+    left:20%;
+    top:150px;
+    height:60%;
+    width:78%;
+    border-radius:5px;
+    border: 2px solid #aaa;
+}
+
+#gyroCanvas {
+    position:relative;
+    height:100%;
+}
+
+#recordingForm {
+    position:relative;
+    background-color:#232323;
+    left:20%;
+    top:150px;
+    height:60%;
+    width:78%;
+    border-radius:5px;
+    border: 2px solid #aaa;
+   
+}
+
+#settingsFormText {
+    position:relative;
+    top:20px;
+    margin-left:52px;
+}
+
+#settingsForm {
+    position:relative;
+    background-color:#232323;
+    left:20%;
+    top:150px;
+    height:60%;
+    width:78%;
+    border-radius:5px;
+    border: 2px solid #aaa;
+}
+
+#maskView {
+    position:absolute;
+    left:50%;
+    top:10px;
+    z-index:1;
+    visibility:hidden;
+}
+
+#canvasPane {
+    position:relative;
+    background-image: url('./images/graph.png');
+    background-size: 25px 50px;
+    left:20%;
+    top:150px;
+    height:60%;
+    width:78%;
+    border-radius:5px;
+    border: 2px solid #aaa;    
+}
+
+label {
+    color: #aaaaaa
+}
 
 .tooltip {
     position: relative;
     display: inline-block;
     border-bottom: 1px dotted black;
 }
+
 
 .tooltip .tooltiptext {
     visibility: hidden;
@@ -48,40 +248,38 @@
 }
 
 .slidecontainer {
-    width: 100%; /* Width of the outside container */
+    width: 100%; 
 }
 
-/* The slider itself */
 .slider {
-    -webkit-appearance: none;  /* Override default CSS styles */
+    -webkit-appearance: none;  
     appearance: none;
-    width: 100%; /* Full-width */
-    height: 25px; /* Specified height */
-    background: #000000; /* Grey background */
-    outline: none; /* Remove outline */
-    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
-    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+    width: 100%; 
+    height: 2px; 
+    #background: #000000; 
+    outline: none; 
+    opacity: 0.7; 
+    -webkit-transition: .2s; 
     transition: opacity .2s;
 }
 
-/* Mouse-over effects */
 .slider:hover {
-    opacity: 1; /* Fully shown on mouse-over */
+    opacity: 1;
 }
 
-/* The slider handle (use webkit (Chrome, Opera, Safari, Edge) and moz (Firefox) to override default look) */ 
 .slider::-webkit-slider-thumb {
-    -webkit-appearance: none; /* Override default look */
+    -webkit-appearance: none; 
     appearance: none;
-    width: 25px; /* Set a specific slider handle width */
-    height: 25px; /* Slider handle height */
+    width: 25px; 
+    height: 25px; 
     background: #43AFF4; 
-    cursor: pointer; /* Cursor on hover */
+    cursor: pointer;
+    border-radius: 8px 8px 8px;
 }
 
 .slider::-moz-range-thumb {
-    width: 25px; /* Set a specific slider handle width */
-    height: 25px; /* Slider handle height */
+    width: 25px; 
+    height: 25px; 
     background: #43AFF4; 
-    cursor: pointer; /* Cursor on hover */
+    cursor: pointer; 
 }
