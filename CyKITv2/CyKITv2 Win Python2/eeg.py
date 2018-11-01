@@ -24,7 +24,7 @@ import threading
 
 # Add airsim path, Importing airsim, Getting CarClient
 from pathlib import Path
-sys.path.append(str(Path().resolve().parent.parent.parent).replace('\\','/') + '/AirSimClient')
+sys.path.append(str(Path().resolve().parent.parent).replace('\\','/') + '/AirSimClient')
 import airsim
 airsimClient = airsim.CarClient()
 
