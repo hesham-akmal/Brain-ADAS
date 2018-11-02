@@ -47,6 +47,8 @@ def headset_data_recorder(file_name , session_timeout):
         time.sleep(session_timeout)
         driver.find_element_by_xpath('//*[@id="cyStopRecord"]').click()
         
+        print("Please close down command prompt! It won't record again otherwise.")
+
         #Exit
         driver.close()
         os._exit(1)
