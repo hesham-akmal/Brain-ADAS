@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
 
-from utils import *
+from .utils import *
 from types import *
 
 import msgpackrpc  # install as admin: pip install msgpack-rpc-python
