@@ -118,15 +118,27 @@ class MyIO():
                     self.f = open('./EEG-Logs/' + self.recordFile + '.csv', 'a')
                     
                     csvHeader = ""
-                    csvHeader += "EventNumber, Distance, "
-                    csvHeader += "COUNTER, INTERPOLATED, "
+                    csvHeader += "EventNumber " + ", "
+                    csvHeader += "Distance" + ", "
+                    csvHeader += "title: " + self.recordFile + ", "
+                    csvHeader += "recorded: " + str(time.strftime("%d.%m.%y %H.%M.%S, "))
+                    csvHeader += "timestamp started:2017-11-21T16:17:43.558438-08:00            , "
+                    csvHeader += "sampling:" + str(self.samplingRate) + ", "
+                    csvHeader += "subject:, "
+                    csvHeader += "labels:COUNTER INTERPOLATED "
                     if self.KeyModel == 3 or self.KeyModel == 4:
                         # Insight
                         csvHeader += "AF3 T7 Pz T8 AF4 RAW_CQ GYROX GYROY MARKER SYNC TIME_STAMP_s TIME_STAMP_ms CQ_AF3 CQ_T7 CQ_Pz CQ_T8 CQ_AF4, "
                     else:
                         # Epoc/Epoc+
                         #csvHeader += "AF3 F7 F3 FC5 T7 P7 O1 O2 P8 T8 FC6 F4 F8 AF4 "
-                        csvHeader += "F3, FC5, AF3, F7, T7, P7, O1, O2, P8, T8, F8, AF4, FC6, F4, GYROX, GYROY"
+                        csvHeader += "F3 FC5 AF3 F7 T7 P7 O1 O2 P8 T8 F8 AF4 FC6 F4 "
+                        csvHeader += "RAW_CQ GYROX GYROY MARKER MARKER_HARDWARE SYNC TIME_STAMP_s TIME_STAMP_ms "
+                        csvHeader += "CQ_AF3 CQ_F7 CQ_F3 CQ_FC5 CQ_T7 CQ_P7 CQ_O1 CQ_O2 CQ_P8 CQ_T8 CQ_FC6 CQ_F4 CQ_F8 CQ_AF4 CQ_CMS CQ_DRL, "
+                    csvHeader += ", "
+                    csvHeader += "chan:" + str(self.channels) + ", "
+                    csvHeader += "samples:5000, "
+                    csvHeader += "units:emotiv"
                     print >>self.f, csvHeader
                     os.fsync(self.f.fileno())
                     self.recording = True
@@ -744,7 +756,7 @@ class EEG(object):
 
                                 try:
                                     airsim_data = airsimClient.getAdasPacket()
-                                    airsim_data = str(airsim_data[0]) + self.Delimiter + str(airsim_data[1]) + self.Delimiter
+                                    airsim_data = str(airsim_data[0]) + self.Delimiter + str(airsim_data[1])
                                 except Exception as e:
                                     print(e)
                                     print('airsim v2 not connected')
