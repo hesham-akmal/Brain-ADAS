@@ -1,0 +1,70 @@
+---Creating Logistic Regressor---
+Training ..
+Testing ....
+Parameters trained:
+
+[ 0.00077882 -0.00034856 -0.00187599 ...  0.00233263  0.00061275
+  0.00019363]
+
+Results:-
+accuracy =0.9752415458937198
+Precision=[0.71641791 0.98615481]
+recall   =[0.68571429 0.98802018]
+Fscore   =[0.70072993 0.98708661]
+support  =[  70 1586]
+---Finished Logistic Regression---
+---Creating Linear Discriminant Analyzer---
+Training ..
+Testing ....
+Parameters trained:
+
+[ 0.21944387 -0.04014809 -0.06713413 ...  0.01489246  0.09820496
+  0.11609818]
+
+Results:-
+accuracy =0.9855072463768116
+Precision=[0.88333333 0.98934837]
+recall   =[0.75714286 0.99558638]
+Fscore   =[0.81538462 0.99245757]
+support  =[  70 1586]
+---Finished LDA---
+
+----------
+AFTER PCA
+----------
+---Creating Logistic Regressor---
+Training ..
+Testing ....
+Parameters trained:
+
+[-1.85920785e-03  5.41183120e-03  3.53198305e-05  3.34219052e-03
+ -5.61802076e-03 -1.07403086e-03 -6.95785115e-04  4.05455376e-02
+  1.06101414e-02  2.40978595e-03  5.38620232e-03  3.01559694e-04
+  3.59119340e-02  5.82550107e-03  1.28491551e-02 -2.77332135e-02
+  5.37687450e-03 -4.54739808e-02  3.16582138e-02]
+
+Results:-
+accuracy =0.9577294685990339
+Precision=[0.         0.95772947]
+recall   =[0. 1.]
+Fscore   =[0.         0.97840839]
+support  =[  70 1586]
+---Finished Logistic Regression---
+---Creating Linear Discriminant Analyzer---
+Training ..
+Testing ....
+Parameters trained:
+
+[-0.00220851  0.00656558  0.00088496  0.00340194 -0.00679945 -0.00192769
+ -0.00041295  0.03823292  0.01082468 -0.00084415  0.01041299  0.00293254
+  0.03481405  0.01013663  0.01713572 -0.03286286  0.00017036 -0.05326137
+  0.0337537 ]
+
+Results:-
+accuracy =0.9571256038647343
+Precision=[0.         0.95770393]
+recall   =[0.         0.99936948]
+Fscore   =[0.         0.97809318]
+support  =[  70 1586]
+---Finished LDA---
+
