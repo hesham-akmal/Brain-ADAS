@@ -13,9 +13,13 @@ function CySocketClient(ip,port,query) {
     this.uid = 0;
     this.sign = '';
     this.connect = function(myIP, myPORT) {
+        if (this.socket != '' && this.socket.readyState != 3) { 
+            return; 
+        }
         this.socket = new WebSocket('ws://'+myIP+':'+myPORT+'/'+query);
         this.socket.onopen = function() {
             _this.onOpen();
+        
         }
         this.socket.onmessage = function(event) {
             data = event.data;
@@ -37,6 +41,7 @@ function CySocketClient(ip,port,query) {
             }
         }        
         this.socket.onclose = function(event) { 
+            if (this.socket == '') { return; }
             _this.onClose();
         }; 
     }
@@ -56,11 +61,15 @@ function CySocketClient(ip,port,query) {
     }
     
     this.sendData = function (text) {
+        if (this.socket == '') { return; }
+        if (this.socket.readyState != 1) { return; }
         var data = this.uid+'<split>'+this.sign+'<split>'+text;
+        
         this.socket.send(data);
     }
     
     this.close = function() {
+        if (this.socket == '') { return; }
         this.socket.close();
     }
 }
