@@ -34,7 +34,7 @@ class dbg():
 
 class mirror():
     def text(custom_string):
-        return
+        
         try:
             print(str(custom_string))
             return
@@ -354,7 +354,7 @@ class socketIO():
             if "outputdata" not in self.io.getInfo("config"):
                 mirror.text(str(text))
             return "noweb"
-
+        
         if self.uid == 0:
             try:
                 text += "\r\n"

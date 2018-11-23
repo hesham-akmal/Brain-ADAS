@@ -17,20 +17,11 @@ import threading
 import time
 import traceback
 import inspect
-#############################################################################################
-from pynput import keyboard
 
-def on_press(key):
-    if(str(key) == 'Key.caps_lock'):
-        cy_IO.onData(0,'CyKITv2:::RecordStart:::Subject')
 
-def keyboardListener():
-    # Collect events until released
-    with keyboard.Listener(on_press=on_press) as listener:
-        listener.join()
-
-#########################################################################################
-
+from pathlib import Path
+import webbrowser
+    
 arg_count = len(sys.argv)
 
 def mirror(custom_string):
@@ -100,8 +91,7 @@ if arg_count == 1 or arg_count > 5 or sys.argv[1] == "help" or sys.argv[1] == "-
     mirror(" " + "═" * 100 + "\r\n")
     sys.argv = [sys.argv[0], "127.0.0.1", "54123", "1", ""]
     
-
-
+    
 if arg_count < 5:
     
     if arg_count == 2:
@@ -124,23 +114,19 @@ if int(sys.argv[3]) < 1 or int(sys.argv[3]) > 9:
     os._exit(0)
 
 
-cy_IO = eeg.ControllerIO()
-
 def main(CyINIT):
 
-    HOST = '127.0.0.1'
-    PORT = 54123
-    MODEL = 6
+    HOST = str(sys.argv[1])
+    PORT = int(sys.argv[2])
+    MODEL = int(sys.argv[3])
     check_connection = None
-
-    #parameters = str(sys.argv[4]).lower()
-    parameters = 'noweb'
+    parameters = str(sys.argv[4]).lower()
 
     #  Stage 1.
     # ¯¯¯¯¯¯¯¯¯¯¯
     #  Acquire I/O Object.
     # ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    
+    cy_IO = eeg.ControllerIO()
     
     cy_IO.setInfo("ioObject", cy_IO)
     cy_IO.setInfo("config", parameters)
@@ -180,6 +166,8 @@ def main(CyINIT):
     mirror("> Trying Key Model #: " + str(MODEL))
 
     
+    webbrowser.open('file://' + os.path.realpath(str(Path().resolve().parent).replace('\\','/') + '/Web/CyKIT.html'))
+
     if "generic" in parameters:
         ioTHREAD = CyWebSocket.socketIO(PORT, 0, cy_IO)
     else:
@@ -196,15 +184,11 @@ def main(CyINIT):
     
     headset.start()
     
+    if eval(cy_IO.getInfo("openvibe")) == True:
+        time.sleep(3)
+    
     CyINIT = 3
-
-    ####################################################################################
-    print("CONNECTED TO EPOC MODEL 6")
-    print("Caps Lock Toggles Recording EEG DATA")
-    t = threading.Thread(target=keyboardListener)
-    t.start() 
-    ####################################################################################   
-
+        
     while CyINIT > 2:
         
         CyINIT += 1
@@ -212,6 +196,7 @@ def main(CyINIT):
         
         if (CyINIT % 10) == 0:
             
+
             check_threads = 0
             
             t_array = str(list(map(lambda x: x.getName(), threading.enumerate())))
@@ -224,9 +209,17 @@ def main(CyINIT):
                 
             if 'eegThread' in t_array:
                 check_threads += 1
+
+            if eval(cy_IO.getInfo("openvibe")) == True:
+                if check_threads == 0:
+                    ioTHREAD.onClose("CyKIT.main() 2")
+                    mirror("\r\n*** Reseting . . .")
+                    CyINIT = 1
+                    main(1)
+                continue
             
             #(1 if noweb == True else 2)
-
+            
             if check_threads < (1 if noweb == True else 2):
                 
                 threadMax = 2
@@ -235,7 +228,6 @@ def main(CyINIT):
                     totalTries += 1
                     time.sleep(0)
                     threadMax = 0
-
                     for t in threading.enumerate():
                         if "eegThread" in t.getName():
                             cy_IO.setInfo("status","False")
