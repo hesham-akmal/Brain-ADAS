@@ -17,6 +17,10 @@ import threading
 import time
 import traceback
 import inspect
+
+
+from pathlib import Path
+import webbrowser
     
 arg_count = len(sys.argv)
 
@@ -160,6 +164,9 @@ def main(CyINIT):
             mirror("> Listening on " + HOST + " : " + str(PORT))
 
     mirror("> Trying Key Model #: " + str(MODEL))
+
+    
+    webbrowser.open('file://' + os.path.realpath(str(Path().resolve().parent).replace('\\','/') + '/Web/CyKIT.html'))
 
     if "generic" in parameters:
         ioTHREAD = CyWebSocket.socketIO(PORT, 0, cy_IO)

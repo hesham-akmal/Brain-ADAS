@@ -671,10 +671,6 @@ class CarClient(VehicleClient, object):
         state_raw = self.client.call('getCarState', vehicle_name)
         return CarState.from_msgpack(state_raw)
 
-    def getOne(self, vehicle_name=''):
-        state_raw = self.client.call('getOne', vehicle_name)
-        return state_raw
-
     def getDistance(self, vehicle_name=''):
         dist = self.client.call('getDistance', vehicle_name)
         return dist
@@ -684,7 +680,9 @@ class CarClient(VehicleClient, object):
         return eventnum
 
     def getAdasPacket(self, vehicle_name=''):
-        x = self.client.call('getAdasPacket', vehicle_name)
-        eventnum = x['EventNumber']
-        dist = x['DistanceBetweenCars']
-        return (eventnum, dist)
+        d = self.client.call('getAdasPacket', vehicle_name)
+        return (d['EventNumber1'] , d['EventNumber2'], d['DistanceBetweenCars'])
+
+    def getCarControls(self, vehicle_name=''):
+        return self.client.call('getCarControls', vehicle_name)
+        

@@ -296,7 +296,6 @@ class ControllerIO():
                         mirror.text(str(msg))
                         return
                         
-                airsimClient = airsim.CarClient()
                 print("[Start] Recording to File: " + ioCommand[2])
                 self.recordFile = str(ioCommand[2])
 				
@@ -330,10 +329,7 @@ class ControllerIO():
                     self.cyFile = open(cyPath + "\\EEG-Logs\\" + self.recordFile + ".csv", "w+" ,newline='')
                     #mirror.text(str(dir(self.f)))
                     csvHeader = ""
-                    csvHeader += "EventNumber, Distance, "
-
-                    csvHeader += "Brake Pedal,"
-
+                    csvHeader += "Car EvNum,Ped EvNum,Car Distance,Brake Pedal,"
 
                     csvHeader += "COUNTER, INTERPOLATED, "
                     if int(self.getInfo("keymodel")) == 3 or int(self.getInfo("keymodel")) == 4:
@@ -1760,22 +1756,22 @@ class EEG(object):
                             if cyIO.isRecording() == True:
                                 record_data = packet_data
                                 if self.blankcsv == True:
-
                                     emptyCSV = ("0" + self.delimiter) * int(self.channels - (16 + abs((self.nobattery & 1) *-2)))
-
                                     emptyCSV = emptyCSV[:-2]
                                     record_data = packet_data + self.delimiter + emptyCSV
+
                                 try:
-                                    airsim_data = airsimClient.getAdasPacket()
-                                    airsim_data = str(airsim_data[0]) + self.delimiter + str(airsim_data[1]) + self.delimiter
+                                    AdasPacket = airsimClient.getAdasPacket()
+                                    CarControls = airsimClient.getCarControls()
+
+                                    airsim_data = str(AdasPacket[0]) + self.delimiter +  str(AdasPacket[1]) + self.delimiter + str(AdasPacket[2]) + self.delimiter + str(CarControls['brake']) + self.delimiter
+
                                 except Exception as e:
                                     print(e)
                                     print('Exception with airsim data')
                                     airsim_data = str(e)
-
-                                BrakePedalBool = "XD" + self.delimiter
-
-                                cyIO.startRecord( airsim_data + BrakePedalBool + counter_data + record_data)
+                               
+                                cyIO.startRecord( airsim_data + counter_data + record_data)
                             if self.outputdata == True:
                                 mirror.text(str(counter_data + packet_data))
 
