@@ -203,7 +203,7 @@ class ControllerIO():
         self.ovsamples = 4
         self.openvibe = False
         self.generic = False
-        self.format = 0;
+        self.format = 0
         self.newMask = None
         self.status = False
         self.setMask = []
@@ -225,7 +225,7 @@ class ControllerIO():
     #  Data Input.
     # ¯¯¯¯¯¯¯¯¯¯¯¯¯¯
     def onData(self, uid, text):
-        
+        global airsimClient
         ioCommand = text.split(":::")
         if ioCommand[0] == "CyKITv2":
             if ioCommand[1] == "setModel":
@@ -287,7 +287,7 @@ class ControllerIO():
                     mirror.text("[Record Stopped] -- Press 'Record' to Record a new file.")
                     return
                 
-                
+                airsimClient = airsim.CarClient()
                 
                 cyPath = os.path.realpath("")
                 if os.path.exists(cyPath + "/EEG-Logs") == False:
