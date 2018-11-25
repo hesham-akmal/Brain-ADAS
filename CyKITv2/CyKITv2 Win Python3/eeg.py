@@ -221,7 +221,9 @@ class ControllerIO():
         self.device = None
         self.packet_count = 0
         self.setInfo("recording","False")
-        
+        self.CurrentPacket = 'x'
+        self.mode = ''
+
     #  Data Input.
     # ¯¯¯¯¯¯¯¯¯¯¯¯¯¯
     def onData(self, uid, text):
@@ -287,8 +289,6 @@ class ControllerIO():
                     mirror.text("[Record Stopped] -- Press 'Record' to Record a new file.")
                     return
                 
-                airsimClient = airsim.CarClient()
-                
                 cyPath = os.path.realpath("")
                 if os.path.exists(cyPath + "/EEG-Logs") == False:
                     try:
@@ -298,7 +298,7 @@ class ControllerIO():
                         mirror.text(str(msg))
                         return
                         
-                print("[Start] Recording to File: " + ioCommand[2])
+                #print("[Start] Recording to File: " + ioCommand[2])
                 self.recordFile = str(ioCommand[2])
 				
                 pathFinder = cyPath + "/EEG-Logs/" + self.recordFile + '.csv'
@@ -312,7 +312,7 @@ class ControllerIO():
                     if self.recordFile.split("_")[1].isdigit() == False:
                         self.recordFile = self.recordFile.split("_")[0] + "_0"
                     
-                    mirror.text(self.recordFile)
+                    #mirror.text(self.recordFile)
                     fileIndex = int(self.recordFile.split("_")[1])
                     self.recordInc = fileIndex
                 try:
@@ -322,7 +322,7 @@ class ControllerIO():
                         pathFinder = cyPath + "/EEG-Logs/" + self.recordFile + ".csv"
                         if eval(self.getInfo("verbose")) == True:
                             mirror.text("[Record: File exists. Changing to: " + self.recordFile + ".csv ]")
-                except Exceptiona as msg:
+                except Exception as msg:
                     mirror.text("File Selection Error: " + str(msg))
                     return
                 
@@ -1368,6 +1368,7 @@ class EEG(object):
         except Exception as exception:
             mirror.text( " eegThread.run() : E1. Failed to Create AES Cipher ::: " + (str(exception)))
         
+        global mode
         while self.running:
             time.sleep(0)
             
@@ -1551,42 +1552,22 @@ class EEG(object):
                     # ¯¯¯¯¯¯¯¯
                     if self.KeyModel == 2:
                         counter_data = str(data[0]) + self.delimiter
-
                         # ~Format-0: (Default) 
                         # ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
                         if self.format < 1:
                             for i in range(0,14):
                                 packet_data = packet_data + str(self.convertEPOC(data, self.mask[i])) + self.delimiter
-                            if cyIO.isRecording() == True:
-                                
-                                try:
+                            try:
                                     AdasPacket = airsimClient.getAdasPacket()
                                     CarControls = airsimClient.getCarControls()
                                     airsim_data = str(AdasPacket[0]) + self.delimiter +  str(AdasPacket[1]) + self.delimiter + str(AdasPacket[2]) + self.delimiter + str(CarControls['brake']) + self.delimiter
-
-                                except Exception as e:
-                                    print(e)
-                                    print('Exception with airsim data')
+                            except Exception as e:
                                     airsim_data = 'X,X,X,X,'
 
-                                cyIO.startRecord( airsim_data + counter_data + packet_data)
-                                #cyIO.startRecord(counter_data + packet_data)
+                            cyIO.CurrentPacket = (airsim_data + counter_data + packet_data)
 
-                            if self.outputdata == True:
-                                mirror.text(str(counter_data + packet_data))
-                        
-                        
-                        # ~Format-1: Raw Data (Data Not Decoded)
-                        # ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-                        if self.format == 1:
-                            for i in range(1, len(data)):
-                                packet_data = packet_data + str(data[i]) + self.delimiter
-                            packet_data = packet_data[:-len(self.delimiter)]
                             if cyIO.isRecording() == True:
-                                cyIO.startRecord(counter_data + packet_data)
-                            if self.outputdata == True:
-                                mirror.text(str(counter_data + packet_data))
-                    
+                                cyIO.startRecord( cyIO.CurrentPacket )
                     #eval('0xaf0faf') >> (14*1+1) & 0b1111111
                     #  Insight.
                     # ¯¯¯¯¯¯¯¯¯¯¯
