@@ -89,8 +89,8 @@ def LDAclassification(traningFeatures, trainingLabels, testFeatures, actualResul
     print("Testing ....")
     predictedResults = LDAClassifier.predict(testFeatures)
     # making calcuations and evaluations
-    print("Parameters trained:\n")
-    print(str(LDAClassifier.coef_[0]))
+   # print("Parameters trained:\n")
+   # print(str(LDAClassifier.coef_[0]))
     printResultsSklearn(actualResults=actualResults, predictedResults=predictedResults)
     print("---Finished LDA---\n")
 
@@ -105,8 +105,8 @@ def LRClassification(traningFeatures, trainingLabels, testFeatures, actualResult
     print("Testing ....")
     predictedResults = LogisticRegressionClassifier.predict(testFeatures)
     # making calcuations and evaluations
-    print("Parameters trained:\n")
-    print(str(LogisticRegressionClassifier.coef_[0]))
+   # print("Parameters trained:\n")
+   # print(str(LogisticRegressionClassifier.coef_[0]))
     printResultsSklearn(actualResults=actualResults, predictedResults=predictedResults)
     print("---Finished Logistic Regression---")
 
@@ -116,25 +116,23 @@ def executeSKLearnModels(trainingFeatures, trainingLabels, testFeatures, actualR
     LDAclassification(trainingFeatures, trainingLabels, testFeatures, actualResults)
 
 
+
+
 def executeSKLearnModelsPCA(traningFeatures, trainingLabels, testFeatures, actualResults):
-    print("----------")
-    print("AFTER PCA")
-    print("----------")
-    
     scaler = StandardScaler()
     # Fit on training set only.
     scaler.fit(traningFeatures)
     # Apply transform to both the training set and the test set.
     train_img = scaler.transform(traningFeatures)
     test_img = scaler.transform(testFeatures)
-
-    pca = PCA(.95)
-    pca.fit(train_img)
-    PCA_training_features = pca.transform(train_img)
-    PCA_testing_features = pca.transform(test_img)
-
-    LRClassification(PCA_training_features, trainingLabels, PCA_testing_features, actualResults)
-    LDAclassification(PCA_training_features, trainingLabels, PCA_testing_features, actualResults)
+    for i in range(100,3000,100):
+        print("Taking "+str(i)+" components")
+        pca = PCA(n_components=i)
+        pca.fit(train_img)
+        PCA_training_features = pca.transform(train_img)
+        PCA_testing_features = pca.transform(test_img)
+        LRClassification(PCA_training_features, trainingLabels, PCA_testing_features, actualResults)
+        LDAclassification(PCA_training_features, trainingLabels, PCA_testing_features, actualResults)
 
 
 # def executeTensorFlowModel(traningFeatures, trainingLabels, testFeatures, actualResults, featuresCol):
@@ -145,6 +143,9 @@ def executeSKLearnModelsPCA(traningFeatures, trainingLabels, testFeatures, actua
 # runs the main Machine Learning code with preparations using scikit-learn Framework
 trainingFeatures, trainingLabels, testFeatures, actualResults = prepareDataSKLearn("dataset/VPae.csv")
 executeSKLearnModels(trainingFeatures, trainingLabels, testFeatures, actualResults)
+print("---------------------------------------")
+print("AFTER PCA DONE")
+print("---------------------------------------")
 executeSKLearnModelsPCA(trainingFeatures, trainingLabels, testFeatures, actualResults)
 
 # runs the main Machine Learning code with preparations using TensorFlow Framework
@@ -156,6 +157,5 @@ executeSKLearnModelsPCA(trainingFeatures, trainingLabels, testFeatures, actualRe
 
 # meeting notes
 # -------------
-# PCA before applying a classifier (X)
 # data normalization X
 # get rid of useless electrodes
