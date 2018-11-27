@@ -11,6 +11,7 @@ from skimage import data , io , filters #Data for images , io for imshow , filte
 import matplotlib.pyplot as plt
 import colorsys
 get_ipython().run_line_magic('matplotlib', 'inline')
+#from CarDetection_SVM.py import p
 
 
 # In[2]:
@@ -90,7 +91,7 @@ def Block_Normalization(h_array):
             big_hist_mag = math.sqrt(big_hist_sum)
             
             #Normalizing the historgram
-            big_hist_norm = [m / big_hist_mag for m in big_hist]
+            big_hist_norm = [0.0 if big_hist_mag == 0 else m / big_hist_mag for m in big_hist]
             
             #Concatinating all the histograms
             giant_hist += big_hist_norm
@@ -101,6 +102,7 @@ def Block_Normalization(h_array):
 # In[6]:
 
 
+'''
 img = io.imread('image0974.png')
 display(img, True)
 print(img.shape)
@@ -108,4 +110,5 @@ hist_grid = get_hist_grid(img, 8)
 #print("element ", 11, ", ", 16, " in histogram grid: ", hist_grid[11, 16, :])
 giant_hist = Block_Normalization(hist_grid)
 print("length of giant histogram: ", len(giant_hist))
+'''
 
