@@ -18,7 +18,7 @@ class VehicleClient:
         self,
         ip='',
         port=41451,
-        timeout_value=3600,
+        timeout_value=1000,
         ):
         if ip == '':
             ip = '127.0.0.1'
@@ -660,7 +660,7 @@ class CarClient(VehicleClient, object):
         self,
         ip='',
         port=41451,
-        timeout_value=3600,
+        timeout_value=1000,
         ):
         super(CarClient, self).__init__(ip, port, timeout_value)
 
@@ -681,7 +681,7 @@ class CarClient(VehicleClient, object):
 
     def getAdasPacket(self, vehicle_name=''):
         d = self.client.call('getAdasPacket', vehicle_name)
-        return (d['EventNumber1'] , d['EventNumber2'], d['DistanceBetweenCars'])
+        return (d['EventNumber1'] , d['DistanceBetweenCars'], d['EventNumber2'], d['Distance_Pedestrian'])
 
     def getCarControls(self, vehicle_name=''):
         return self.client.call('getCarControls', vehicle_name)

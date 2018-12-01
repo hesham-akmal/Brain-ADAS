@@ -200,7 +200,9 @@ def main(CyINIT):
     CyINIT = 3
 
     ####################################################################################
-    print("CONNECTED TO EPOC MODEL " + str(MODEL))
+    print("CONNECTED TO USB DONGLE")
+
+    print("EPOC MODEL " + str(MODEL) + " needs to be ON")
 
     print("Caps Lock Toggles Recording EEG DATA")
     t = threading.Thread(target=keyboardListener)
