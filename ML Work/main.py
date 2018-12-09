@@ -7,30 +7,27 @@ from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split  # to obtain train and test datasets for the same file
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis  # LDA model
+import numpy as np
+
+np.set_printoptions(threshold=np.inf, linewidth=300)
 
 # all electrodes , emotive electrodes () lsa
 # different windows to be made (decrease Num of columns/electrode) lsa
 # made on all subjects (for all subjects) done
 
 clazzifiersNames = ["Linear Discriminant Analyzer", "Logistic Regressor"]
-# subjectsNames = ["VPae", "VPbad", "VPbax", "VPbba", "VPdx", "VPgaa", "VPgab", "VPgac", "VPgae", "VPgag", "VPgah", "VPgal", "VPgam", "VPih", "VPii", "VPja", "VPsaj", "VPsal"]
-subjectsNames = ["VPae"]
-
-aucBest = {clazzifiersNames[0]: 0, clazzifiersNames[1]: 0}
-aucTotal = {clazzifiersNames[0]: 0, clazzifiersNames[1]: 0}
-accuracyBest = {clazzifiersNames[0]: 0, clazzifiersNames[1]: 0}
-accuracyTotal = {clazzifiersNames[0]: 0, clazzifiersNames[1]: 0}
-precisionBest = {clazzifiersNames[0]: [0, 0], clazzifiersNames[1]: [0, 0]}
-precisionTotal = {clazzifiersNames[0]: [0, 0], clazzifiersNames[1]: [0, 0]}
-recallBest = {clazzifiersNames[0]: [0, 0], clazzifiersNames[1]: [0, 0]}
-recallTotal = {clazzifiersNames[0]: [0, 0], clazzifiersNames[1]: [0, 0]}
-FscoreBest = {clazzifiersNames[0]: [0, 0], clazzifiersNames[1]: [0, 0]}
-FscoreTotal = {clazzifiersNames[0]: [0, 0], clazzifiersNames[1]: [0, 0]}
-numberOfComponentssBest = {clazzifiersNames[0]: -1, clazzifiersNames[1]: -1}
-numberOfComponentssTotal = {clazzifiersNames[0]: 0, clazzifiersNames[1]: 0}
+subjectsNames = ["VPae", "VPbad", "VPbax", "VPbba", "VPdx", "VPgaa", "VPgab", "VPgac", "VPgae", "VPgag", "VPgah", "VPgal", "VPgam", "VPih", "VPii", "VPja", "VPsaj", "VPsal"]
+# subjectsNames = ["VPae"]
 
 numberOfSubjects = subjectsNames.__len__()
 numberOfLoopsPerSubject = 30
+fileIndex = 0
+
+LRResults = np.zeros(shape=(numberOfSubjects, 11), dtype=float)
+LRwithPCAResults = np.zeros(shape=(numberOfSubjects, (numberOfLoopsPerSubject - 1), 11), dtype=float)
+
+LDAResults = np.zeros(shape=(numberOfSubjects, 11), dtype=float)
+LDAwithPCAResults = np.zeros(shape=(numberOfSubjects, (numberOfLoopsPerSubject - 1), 11), dtype=float)
 
 
 def prepareFileContent(fileNameOrPath):
@@ -50,49 +47,68 @@ def prepareFileContent(fileNameOrPath):
     return trainingFeatures, trainingLabels, testFeatures, actualResults
 
 
-def showResults(actualResults, predictedResults, isPCA=False, n_components=-1, classifierName=""):
-    global numberOfComponentssTotal, numberOfComponentssBest, aucBest, aucTotal, accuracyBest, accuracyTotal
-    global precisionBest, precisionTotal, recallBest, recallTotal, FscoreBest, FscoreTotal
+def showResults(actualResults, predictedResults, isPCA=False, n_components=-1, classifierName="", loopNum=-1):
+    global LDAwithPCAResults, LDAResults, LRwithPCAResults, LRResults, clazzifiersNames, fileIndex
     print("\nResults:-")
     precision, recall, Fscore, support = precision_recall_fscore_support(y_true=actualResults, y_pred=predictedResults)
     accuracy = accuracy_score(y_true=actualResults, y_pred=predictedResults)
-    # AUC calculation
     fpr, tpr, thresholds = roc_curve(actualResults, predictedResults, pos_label=1)
     AUCvalue = auc(fpr, tpr)
 
-    # to check for best PCA
-    b1 = precision[0] >= precisionBest[classifierName][0] and precision[1] >= precisionBest[classifierName][1]
-    b2 = recall[0] >= recallBest[classifierName][0] and recall[1] >= recallBest[classifierName][1]
-    if b1 or b2:
-        aucBest[classifierName] = AUCvalue
-        accuracyBest[classifierName] = accuracy
-        precisionBest[classifierName][0] = precision[0]
-        precisionBest[classifierName][1] = precision[1]
-        recallBest[classifierName][0] = recall[0]
-        recallBest[classifierName][1] = recall[1]
-        FscoreBest[classifierName][0] = Fscore[0]
-        FscoreBest[classifierName][1] = Fscore[1]
-        if (isPCA):
-            numberOfComponentssBest[classifierName] = n_components
-        else:
-            numberOfComponentssBest[classifierName] = -1
-    aucTotal[classifierName] += AUCvalue
-    accuracyTotal[classifierName] += accuracy
-    recallTotal[classifierName][0] += recall[0]
-    recallTotal[classifierName][1] += recall[1]
-    FscoreTotal[classifierName][0] += Fscore[0]
-    FscoreTotal[classifierName][1] += Fscore[1]
-    precisionTotal[classifierName][0] += precision[0]
-    precisionTotal[classifierName][1] += precision[1]
-    if isPCA:
-        numberOfComponentssTotal[classifierName] += n_components
+    print("accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1")
+    print(str(accuracy) + "|" + str(AUCvalue) + "|" + str(precision) + "|" + str(recall) + "|" + str(Fscore) + "|" + str(support))
 
-    print("accuracy =" + str(accuracy))
-    print("AUCvalue =" + str(AUCvalue))
-    print("Precision=" + str(precision))
-    print("recall   =" + str(recall))
-    print("Fscore   =" + str(Fscore))
-    print("support  =" + str(support))
+    if classifierName == clazzifiersNames[0]:
+        if isPCA:
+            LDAwithPCAResults[fileIndex, loopNum, 0] = n_components
+            LDAwithPCAResults[fileIndex, loopNum, 1] = accuracy
+            LDAwithPCAResults[fileIndex, loopNum, 2] = AUCvalue
+            LDAwithPCAResults[fileIndex, loopNum, 3] = precision[0]
+            LDAwithPCAResults[fileIndex, loopNum, 4] = precision[1]
+            LDAwithPCAResults[fileIndex, loopNum, 5] = recall[0]
+            LDAwithPCAResults[fileIndex, loopNum, 6] = recall[1]
+            LDAwithPCAResults[fileIndex, loopNum, 7] = Fscore[0]
+            LDAwithPCAResults[fileIndex, loopNum, 8] = Fscore[1]
+            LDAwithPCAResults[fileIndex, loopNum, 9] = support[0]
+            LDAwithPCAResults[fileIndex, loopNum, 10] = support[1]
+        else:
+            LDAResults[fileIndex, 0] = -1
+            LDAResults[fileIndex, 1] = accuracy
+            LDAResults[fileIndex, 2] = AUCvalue
+            LDAResults[fileIndex, 3] = precision[0]
+            LDAResults[fileIndex, 4] = precision[1]
+            LDAResults[fileIndex, 5] = recall[0]
+            LDAResults[fileIndex, 6] = recall[1]
+            LDAResults[fileIndex, 7] = Fscore[0]
+            LDAResults[fileIndex, 8] = Fscore[1]
+            LDAResults[fileIndex, 9] = support[0]
+            LDAResults[fileIndex, 10] = support[1]
+
+    elif classifierName == clazzifiersNames[1]:
+        if isPCA:
+            LRwithPCAResults[fileIndex, loopNum, 0] = n_components
+            LRwithPCAResults[fileIndex, loopNum, 1] = accuracy
+            LRwithPCAResults[fileIndex, loopNum, 2] = AUCvalue
+            LRwithPCAResults[fileIndex, loopNum, 3] = precision[0]
+            LRwithPCAResults[fileIndex, loopNum, 4] = precision[1]
+            LRwithPCAResults[fileIndex, loopNum, 5] = recall[0]
+            LRwithPCAResults[fileIndex, loopNum, 6] = recall[1]
+            LRwithPCAResults[fileIndex, loopNum, 7] = Fscore[0]
+            LRwithPCAResults[fileIndex, loopNum, 8] = Fscore[1]
+            LRwithPCAResults[fileIndex, loopNum, 9] = support[0]
+            LRwithPCAResults[fileIndex, loopNum, 10] = support[1]
+        else:
+            LRResults[fileIndex, 0] = -1
+            LRResults[fileIndex, 1] = accuracy
+            LRResults[fileIndex, 2] = AUCvalue
+            LRResults[fileIndex, 3] = precision[0]
+            LRResults[fileIndex, 4] = precision[1]
+            LRResults[fileIndex, 5] = recall[0]
+            LRResults[fileIndex, 6] = recall[1]
+            LRResults[fileIndex, 7] = Fscore[0]
+            LRResults[fileIndex, 8] = Fscore[1]
+            LRResults[fileIndex, 9] = support[0]
+            LRResults[fileIndex, 10] = support[1]
 
 
 # separate function for adding more ML models
@@ -106,7 +122,7 @@ def getClassifier(classifierName):
         raise Exception()
 
 
-def startML(trainingFeatures, trainingLabels, testFeatures, actualResults, isPCA=False, n_components=-1, classifierName=""):
+def startML(trainingFeatures, trainingLabels, testFeatures, actualResults, isPCA=False, n_components=-1, classifierName="", loopNum=-1):
     classifierToUse = getClassifier(classifierName)
     print("Training ..")
     classifierToUse.fit(trainingFeatures, trainingLabels)
@@ -115,18 +131,20 @@ def startML(trainingFeatures, trainingLabels, testFeatures, actualResults, isPCA
     # making calculations and evaluations
     # print("Parameters trained:\n")
     # print(str(LogisticRegressionClassifier.coef_[0]))
-    showResults(actualResults, predictedResults, isPCA, n_components, classifierName)
+    showResults(actualResults, predictedResults, isPCA, n_components, classifierName, loopNum)
 
 
 def startMLwithPCA(trainingFeatures, trainingLabels, testFeatures, actualResults):
-    global clazzifiersNames
+    global clazzifiersNames, numberOfLoopsPerSubject
     scaler = StandardScaler()
     # Fit on training set only.
     scaler.fit(trainingFeatures)
     # Apply transform to both the training set and the test set.
     train_img = scaler.transform(trainingFeatures)
     test_img = scaler.transform(testFeatures)
-    for i in range(100, 3000, 100):
+    # to take the number of loops as a multiple of the numberOfLoops/Subject
+    theLoopsToTake = numberOfLoopsPerSubject * 100
+    for i in range(100, theLoopsToTake, 100):
         print("Taking " + str(i) + " components")
         pca = PCA(n_components=i)
         pca.fit(train_img)
@@ -134,59 +152,81 @@ def startMLwithPCA(trainingFeatures, trainingLabels, testFeatures, actualResults
         PCA_testing_features = pca.transform(test_img)
         for cls in clazzifiersNames:
             print("Learning " + cls + " with PCA")
-            startML(PCA_training_features, trainingLabels, PCA_testing_features, actualResults, True, i, cls)
+            startML(PCA_training_features, trainingLabels, PCA_testing_features, actualResults, True, i, cls, int((i / 100) - 1))
 
 
 trainingAllStartTime = datetime.datetime.now().replace(microsecond=0)
-for subName in subjectsNames:
-    print("Started Working on File->" + subName + ".csv")
+for fileIndex in range(fileIndex, numberOfSubjects):
+    print("Started Working on File->" + subjectsNames[fileIndex] + ".csv")
     a = datetime.datetime.now().replace(microsecond=0)
     print("getting file content")
-    trainingFeatures, trainingLabels, testFeatures, actualResults = prepareFileContent("dataset/" + subName + ".csv")
+    trainingFeatures, trainingLabels, testFeatures, actualResults = prepareFileContent("dataset/" + subjectsNames[fileIndex] + ".csv")
     for cls in clazzifiersNames:
         print("Learning Normal " + cls)
         startML(trainingFeatures, trainingLabels, testFeatures, actualResults, False, -1, cls)
-    print("-----------")
+    print("------------------------------------------------------------------------------------------------------------------------------")
     print("Started PCA")
     startMLwithPCA(trainingFeatures, trainingLabels, testFeatures, actualResults)
     print("Finished PCA")
     b = datetime.datetime.now().replace(microsecond=0)
-    print("Finished Working on File->" + subName + ".csv in" + str(b - a))
+    print("Finished Working on File->" + subjectsNames[fileIndex] + ".csv in " + str(b - a))
     print("-----------------------------------------------------------------------------------------------------------")
 trainingAllEndTime = datetime.datetime.now().replace(microsecond=0)
-print("The Whole Training took" + str(trainingAllEndTime - trainingAllStartTime))
 
-print("--------------")
+print("\n==============")
 print("|FINAL REPORT|")
-print("--------------")
+print("==============")
 
-for cls in clazzifiersNames:
-    print("----------------------")
-    print(cls + " OF ALL SUBJECTS")
-    print("-------")
-    print("AVERAGE")
-    print("-------")
-    print("Accuracy  =" + str(accuracyTotal[cls] / (numberOfLoopsPerSubject * numberOfSubjects)))
-    print("AUCvalue  =" + str(aucTotal[cls] / (numberOfLoopsPerSubject * numberOfSubjects)))
-    print("Precision0=" + str(precisionTotal[cls][0] / (numberOfLoopsPerSubject * numberOfSubjects)))
-    print("Precision1=" + str(precisionTotal[cls][1] / (numberOfLoopsPerSubject * numberOfSubjects)))
-    print("recall0   =" + str(recallTotal[cls][0] / (numberOfLoopsPerSubject * numberOfSubjects)))
-    print("recall1   =" + str(recallTotal[cls][1] / (numberOfLoopsPerSubject * numberOfSubjects)))
-    print("Fscore0   =" + str(FscoreTotal[cls][0] / (numberOfLoopsPerSubject * numberOfSubjects)))
-    print("Fscore1   =" + str(FscoreTotal[cls][1] / (numberOfLoopsPerSubject * numberOfSubjects)))
-    print("N_components =" + str(numberOfComponentssTotal[cls] / (numberOfSubjects * (numberOfLoopsPerSubject - 1))))
-    print("\n----")
-    print("BEST")
-    print("------")
-    print("Accuracy  =" + str(accuracyBest[cls]))
-    print("AUCvalue  =" + str(aucBest[cls]))
-    print("Precision0=" + str(precisionBest[cls][0]))
-    print("Precision1=" + str(precisionBest[cls][1]))
-    print("recall0   =" + str(recallBest[cls][0]))
-    print("recall1   =" + str(recallBest[cls][1]))
-    print("Fscore0   =" + str(FscoreBest[cls][0]))
-    print("Fscore1   =" + str(FscoreBest[cls][1]))
-    print("N_components =" + str(numberOfComponentssBest[cls]))
+print("\n-------------------------")
+print("|Logistic Regression PCA|")
+print("-------------------------")
+
+print("=========================================================")
+print("Logistic Regression with PCA Average")
+LRwithPCAAverageVals = LRwithPCAResults.T
+LRwithPCAAverageVals = LRwithPCAAverageVals.mean(axis=2, keepdims=True)
+LRwithPCAAverageVals = LRwithPCAAverageVals.T
+print(LRwithPCAAverageVals)
+print("=========================================================")
+
+print("Logistic Regression with PCA Best Values")
+LRwithPCAResultsBestVals = np.max(LRwithPCAResults, axis=1)
+print(LRwithPCAResultsBestVals)
+
+print("Logistic Regression with PCA Number of component used for each Best")
+LRwithPCAResultsBestComponentsUsed = (np.argmax(LRwithPCAResults, axis=1) + 1) * 100
+print(LRwithPCAResultsBestComponentsUsed)
+print("=========================================================")
+
+print("Logistic Regression Normal Average")
+print(LRResults.mean(axis=0, keepdims=True))
+print("=========================================================")
+
+print("\n----------------------------------")
+print("|Linear Discriminant Analyzer PCA|")
+print("----------------------------------")
+
+print("\nLinear Discriminant Analyzer with PCA Average")
+LDAwithPCAAverageVals = LDAwithPCAResults.T
+LDAwithPCAAverageVals = LDAwithPCAAverageVals.mean(axis=2, keepdims=True)
+LDAwithPCAAverageVals = LDAwithPCAAverageVals.T
+print(LDAwithPCAAverageVals)
+print("=========================================================")
+
+print("Linear Discriminant Analyzer with PCA Best Values")
+LDAwithPCAResultsBestVals = np.max(LDAwithPCAResults, axis=1)
+print(LDAwithPCAResultsBestVals)
+
+print("\nLinear Discriminant Analyzer with PCA Number of component used for each Best")
+LDAwithPCAResultsBestComponentsUsed = (np.argmax(LDAwithPCAResults, axis=1) + 1) * 100
+print(LDAwithPCAResultsBestComponentsUsed)
+print("=========================================================")
+
+print("Linear Discriminant Analyzer Normal Average")
+print(LDAResults.mean(axis=0, keepdims=True))
+print("=========================================================")
+
+print("The Whole Training took |" + str(trainingAllEndTime - trainingAllStartTime) + "|")
 
 # df.drop(df.columns[0:1800], axis=1, inplace=True)
 # df.drop(df.columns[300:1200], axis=1, inplace=True)
@@ -196,4 +236,3 @@ for cls in clazzifiersNames:
 # df.drop(df.columns[1500:5700], axis=1, inplace=True)
 # df.drop(df.columns[1800:2700], axis=1, inplace=True)
 # df.drop(df.columns[2100:len(df.columns) - 1], axis=1, inplace=True)
-
