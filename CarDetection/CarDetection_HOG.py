@@ -14,7 +14,7 @@ import colorsys
 import cv2
 get_ipython().run_line_magic('matplotlib', 'inline')
 cell_size = 8
-n_block = 2
+n_block = 1
 win_size = 64
 hists_per_dim =(win_size-cell_size*n_block)//cell_size+1
 n_angles = 18
@@ -64,37 +64,28 @@ def get_mags_and_dirs(img):
 # In[4]:
 
 def preprocess_grad_grids(img):
-    grad_mag_3d, grad_dir_3d = get_mags_and_dirs(img)
     r, c = img.shape[0], img.shape[1]
     global grad_mag_grid, grad_dir_grid
-    grad_mag_grid, grad_dir_grid = np.zeros((r, c), dtype=float), np.zeros((r, c), dtype=float)
-    for i in range(r):
-        for j in range(c):
-            max_mag, its_dir = 0.0, 0.0
-            for k in range(3):
-                if(grad_mag_3d[i,j,k] > max_mag):
-                    max_mag, its_dir = grad_mag_3d[i,j,k], grad_dir_3d[i,j,k]
-            if(its_dir < 0):
-                its_dir = max_angle + its_dir
-            grad_mag_grid[i,j], grad_dir_grid[i,j] = max_mag, its_dir
+    grad_mag_grid, grad_dir_grid = get_mags_and_dirs(img)
 
 def get_hist_grid(sub_img):
     ri, ci = sub_img.shape[0], sub_img.shape[1] 
     #r, c = (ri-1)//cell_size+1, (ci-1)//cell_size+1
     r, c = ri//cell_size, ci//cell_size
     global hist_grid
-    hist_grid = np.zeros((r, c, n_angles), dtype=float)
+    hist_grid = np.zeros((r, c, 3, n_angles), dtype=float)
     preprocess_grad_grids(sub_img)
     for i in range(0, ri-cell_size+1, cell_size):
         for j in range(0, ci-cell_size+1, cell_size):
             for k in range(cell_size):
                 for l in range(cell_size):
-                    max_mag, its_dir = grad_mag_grid[i+k,j+l], grad_dir_grid[i+k,j+l]
-                    flr = int(np.floor(its_dir/angle_step))
-                    lo, up = flr*angle_step, (flr+1)*angle_step
-                    dl, du = its_dir-lo, up-its_dir
-                    hist_grid[i//cell_size, j//cell_size, (lo//angle_step)%n_angles] += (1-dl/float(angle_step))*max_mag
-                    hist_grid[i//cell_size, j//cell_size, (up//angle_step)%n_angles] += (1-du/float(angle_step))*max_mag
+                    for m in range(3):
+                        max_mag, its_dir = grad_mag_grid[i+k,j+l, m], grad_dir_grid[i+k,j+l, m]
+                        flr = int(np.floor(its_dir/angle_step))
+                        lo, up = flr*angle_step, (flr+1)*angle_step
+                        dl, du = its_dir-lo, up-its_dir
+                        hist_grid[i//cell_size, j//cell_size, m, (lo//angle_step)%n_angles] += (1-dl/float(angle_step))*max_mag
+                        hist_grid[i//cell_size, j//cell_size, m, (up//angle_step)%n_angles] += (1-du/float(angle_step))*max_mag
 
 
 # In[5]:
@@ -103,26 +94,27 @@ def Block_Normalization_Preprocess():
     hist_grid_r, hist_grid_c = hist_grid.shape[0], hist_grid.shape[1]
     R, C = hist_grid_r-n_block+1, hist_grid_c-n_block+1
     global block_grid
-    block_grid = np.zeros((R, C, n_angles*n_block*n_block), dtype=float)
+    block_grid = np.zeros((R, C, 3, n_angles*n_block*n_block), dtype=float)
     for i in range(0, R, 1):
         for j in range(0, C, 1):
-            #Row-major concatenation
-            #big_hist = list(hist_grid[i:i+n_block,j:j+n_block].reshape((n_block_vals)))
-            big_hist = hist_grid[i:i+n_block,j:j+n_block].reshape((n_block_vals))
-            
-            #Squaring the values
-            big_hist_sq = [h ** 2 for h in big_hist]
-            
-            #Adding the values
-            big_hist_sum = sum(big_hist_sq)
-            
-            #Getting the histogram magnitude
-            big_hist_mag = math.sqrt(big_hist_sum)
-            
-            #Normalizing the historgram
-            big_hist_norm = [0.0 if big_hist_mag == 0 else m / big_hist_mag for m in big_hist]
-            
-            block_grid[i,j] = big_hist_norm
+            for k in range(3):
+                #Row-major concatenation
+                #big_hist = list(hist_grid[i:i+n_block,j:j+n_block].reshape((n_block_vals)))
+                big_hist = hist_grid[i:i+n_block,j:j+n_block,k].reshape((n_block_vals))
+
+                #Squaring the values
+                big_hist_sq = [h ** 2 for h in big_hist]
+
+                #Adding the values
+                big_hist_sum = sum(big_hist_sq)
+
+                #Getting the histogram magnitude
+                big_hist_mag = math.sqrt(big_hist_sum)
+
+                #Normalizing the historgram
+                big_hist_norm = [0.0 if big_hist_mag == 0 else m / big_hist_mag for m in big_hist]
+
+                block_grid[i,j,k] = big_hist_norm
 
 def Block_Normalization(si,sj):
     R,C = win_size, win_size
@@ -133,7 +125,7 @@ def Block_Normalization(si,sj):
     
     #Concatinating all the histograms
     #giant_hist = list(block_grid[si:si+hists_per_dim,sj:sj+hists_per_dim].reshape(n_win_vals))
-    giant_hist = block_grid[si:si+hists_per_dim,sj:sj+hists_per_dim].reshape(n_win_vals)
+    giant_hist = block_grid[si:si+hists_per_dim,sj:sj+hists_per_dim,:].reshape(n_win_vals*3)
             
             
             
