@@ -1,18 +1,22 @@
 import datetime
-import pandas as pd
-from sklearn.utils import shuffle
-from sklearn.metrics import accuracy_score, precision_recall_fscore_support, roc_curve, auc
-from sklearn.linear_model import LogisticRegression  # Logistic Regression model
-from sklearn.decomposition import PCA
-from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import train_test_split  # to obtain train and test datasets for the same file
-from sklearn.discriminant_analysis import LinearDiscriminantAnalysis  # LDA model
+
 import numpy as np
+import pandas as pd
+from sklearn.decomposition import PCA
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis  # LDA model
+from sklearn.linear_model import LogisticRegression  # Logistic Regression model
+from sklearn.metrics import accuracy_score, precision_recall_fscore_support, roc_curve, auc
+from sklearn.model_selection import train_test_split  # to obtain train and test datasets for the same file
+from sklearn.preprocessing import StandardScaler
+from sklearn.utils import shuffle
 
 np.set_printoptions(threshold=np.inf, linewidth=300)
 
+
+# 1500ms TIME WINDOW , used to decide the best CLASSIFIER of (PCA-LDA, normal LDA, PCA-LR, normal LR) , from all Subjects and different PCAs
+
 # all electrodes , emotive electrodes () lsa
-# different windows to be made (decrease Num of columns/electrode) lsa
+# different windows to be made (decrease Num of columns/electrode) done
 # made on all subjects (for all subjects) done
 
 clazzifiersNames = ["Linear Discriminant Analyzer", "Logistic Regressor"]

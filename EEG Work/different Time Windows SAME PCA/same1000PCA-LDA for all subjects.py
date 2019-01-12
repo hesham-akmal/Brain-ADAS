@@ -11,12 +11,16 @@ from sklearn.utils import shuffle
 
 np.set_printoptions(threshold=np.inf, linewidth=3000)
 
+
+#SAME PCA-LDA with 1000 PCA_comp PROCESS FOR ALL TIME WINDOWS for all Subjects
+
+
 # all electrodes , emotive electrodes () lsa
 # different windows to be made (decrease Num of columns/electrode) lsa
 # made on all subjects (for all subjects) done
 
 subjectsNames = ["VPae", "VPbad", "VPbax", "VPbba", "VPdx", "VPgaa", "VPgab", "VPgac", "VPgae", "VPgag", "VPgah", "VPgal", "VPgam", "VPih", "VPii", "VPja", "VPsaj", "VPsal"]
-#subjectsNames = ["VPae"]
+# subjectsNames = ["VPae"]
 numberOfSubjects = subjectsNames.__len__()
 numberOfElectrodes = 60
 
@@ -43,7 +47,7 @@ def prepareFileContent(fileNameOrPath):
 
 
 def showResults(actualResults, predictedResults, n_components=-1, loopNum=-1):
-    global LDAwith1000PCAResults, fileIndex
+    global LDAwithPCAResults, fileIndex
     print("\nResults:-")
     precision, recall, Fscore, support = precision_recall_fscore_support(y_true=actualResults, y_pred=predictedResults)
     accuracy = accuracy_score(y_true=actualResults, y_pred=predictedResults)
@@ -104,7 +108,7 @@ for fileIndex in range(fileIndex, numberOfSubjects):
         print("====================================")
         print("====================================")
         print("at nColtoKeep=" + str(nColToKeep))
-        print("index in axis 1=" + str(nColToKeep / 20-1))
+        print("index in axis 1=" + str(nColToKeep / 20 - 1))
         print("Training Shape=" + str(trainingFeatures.shape))
         print("Testing Shape=" + str(testFeatures.shape))
         print("Started ML with PCA")
@@ -116,7 +120,6 @@ for fileIndex in range(fileIndex, numberOfSubjects):
 
 trainingAllEndTime = datetime.datetime.now().replace(microsecond=0)
 
-
 print("\n==============")
 print("|FINAL REPORT|")
 print("==============")
@@ -124,17 +127,17 @@ print("\n----------------------------------")
 print("|Linear Discriminant Analyzer PCA|")
 print("----------------------------------")
 print("\nLinear Discriminant Analyzer with PCA Average")
-LDAwithPCAAverageVals = LDAwith1000PCAResults.T
+LDAwithPCAAverageVals = LDAwithPCAResults.T
 LDAwithPCAAverageVals = LDAwithPCAAverageVals.mean(axis=2, keepdims=True)
 LDAwithPCAAverageVals = LDAwithPCAAverageVals.T
 print(LDAwithPCAAverageVals)
 print("=========================================================")
 print("Linear Discriminant Analyzer with PCA Best Values")
-LDAwithPCAResultsBestVals = np.max(LDAwith1000PCAResults, axis=1)
+LDAwithPCAResultsBestVals = np.max(LDAwithPCAResults, axis=2)
 print(LDAwithPCAResultsBestVals)
 print("The Whole Training took |" + str(trainingAllEndTime - trainingAllStartTime) + "|")
 
-#EMOTIV ELECTRODES
+# EMOTIV ELECTRODES
 # df.drop(df.columns[0:1800], axis=1, inplace=True)
 # df.drop(df.columns[300:1200], axis=1, inplace=True)
 # df.drop(df.columns[600:4500], axis=1, inplace=True)

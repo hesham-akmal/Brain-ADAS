@@ -4,8 +4,9 @@ import re
 import sys
 from sklearn.utils import shuffle
 
-
 # concatenate +ve and -ve events files in one subject file
+
+
 def concatFiles(file1Path, file2Path, desFilePath, shuffleIterations=1000):
     file1Content = pd.read_csv(file1Path)
     print("file1 shape :" + str(file1Content.shape))

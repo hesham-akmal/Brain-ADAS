@@ -1,0 +1,4149 @@
+Started Working on File->VPae.csv
+getting file content
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=280
+index in axis 1=13.0
+Training Shape=(3361, 16520)
+Testing Shape=(1656, 16520)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9945652173913043|0.9390794739851344|[0.99499061 0.98305085]|[0.99937107 0.87878788]|[0.99717603 0.928     ]|[1590   66]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=260
+index in axis 1=12.0
+Training Shape=(3361, 15340)
+Testing Shape=(1656, 15340)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9915458937198067|0.9012006861063465|[0.99188514 0.98148148]|[0.99937107 0.8030303 ]|[0.99561404 0.88333333]|[1590   66]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=240
+index in axis 1=11.0
+Training Shape=(3361, 14160)
+Testing Shape=(1656, 14160)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9879227053140096|0.8847913093196113|[0.990625   0.91071429]|[0.99685535 0.77272727]|[0.99373041 0.83606557]|[1590   66]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=220
+index in axis 1=10.0
+Training Shape=(3361, 12980)
+Testing Shape=(1656, 12980)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9885265700483091|0.8851057747284162|[0.99063086 0.92727273]|[0.99748428 0.77272727]|[0.99404575 0.84297521]|[1590   66]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=200
+index in axis 1=9.0
+Training Shape=(3361, 11800)
+Testing Shape=(1656, 11800)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9885265700483091|0.8851057747284162|[0.99063086 0.92727273]|[0.99748428 0.77272727]|[0.99404575 0.84297521]|[1590   66]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=180
+index in axis 1=8.0
+Training Shape=(3361, 10620)
+Testing Shape=(1656, 10620)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9891304347826086|0.8854202401372212|[0.9906367  0.94444444]|[0.99811321 0.77272727]|[0.9943609 0.85     ]|[1590   66]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=160
+index in axis 1=7.0
+Training Shape=(3361, 9440)
+Testing Shape=(1656, 9440)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9891304347826086|0.8926815323041738|[0.99125    0.92857143]|[0.99748428 0.78787879]|[0.99435737 0.85245902]|[1590   66]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=140
+index in axis 1=6.0
+Training Shape=(3361, 8260)
+Testing Shape=(1656, 8260)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9885265700483091|0.8996283590623213|[0.99185974 0.89830508]|[0.99622642 0.8030303 ]|[0.99403828 0.848     ]|[1590   66]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=120
+index in axis 1=5.0
+Training Shape=(3361, 7080)
+Testing Shape=(1656, 7080)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9855072463768116|0.8617495711835335|[0.98876404 0.88888889]|[0.99622642 0.72727273]|[0.9924812 0.8      ]|[1590   66]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=100
+index in axis 1=4.0
+Training Shape=(3361, 5900)
+Testing Shape=(1656, 5900)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9867149758454107|0.8623785020011435|[0.98877805 0.92307692]|[0.99748428 0.72727273]|[0.99311209 0.81355932]|[1590   66]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=80
+index in axis 1=3.0
+Training Shape=(3361, 4720)
+Testing Shape=(1656, 4720)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9788647342995169|0.8147226986849628|[0.98502807 0.79245283]|[0.99308176 0.63636364]|[0.98903852 0.70588235]|[1590   66]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=60
+index in axis 1=2.0
+Training Shape=(3361, 3540)
+Testing Shape=(1656, 3540)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9577294685990339|0.7020583190394512|[0.97619048 0.46666667]|[0.97987421 0.42424242]|[0.97802888 0.44444444]|[1590   66]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=40
+index in axis 1=1.0
+Training Shape=(3361, 2360)
+Testing Shape=(1656, 2360)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9293478260869565|0.4984848484848485|[0.96002498 0.03636364]|[0.96666667 0.03030303]|[0.96333438 0.03305785]|[1590   66]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=20
+index in axis 1=0.0
+Training Shape=(3361, 1180)
+Testing Shape=(1656, 1180)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9245169082125604|0.5250142938822184|[0.96214511 0.08450704]|[0.9591195  0.09090909]|[0.96062992 0.08759124]|[1590   66]
+Finished ML with PCA
+Finished Working on File->VPae.csv in 0:06:50
+-----------------------------------------------------------------------------------------------------------
+Started Working on File->VPbad.csv
+getting file content
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=280
+index in axis 1=13.0
+Training Shape=(3380, 16520)
+Testing Shape=(1666, 16520)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9945978391356542|0.955582478015845|[0.99625    0.95454545]|[0.99812148 0.91304348]|[0.99718486 0.93333333]|[1597   69]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=260
+index in axis 1=12.0
+Training Shape=(3380, 15340)
+Testing Shape=(1666, 15340)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9939975990396158|0.9552693909776484|[0.99624765 0.94029851]|[0.9974953  0.91304348]|[0.99687109 0.92647059]|[1597   69]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=240
+index in axis 1=11.0
+Training Shape=(3380, 14160)
+Testing Shape=(1666, 14160)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9939975990396158|0.9483361012042507|[0.99562773 0.95384615]|[0.99812148 0.89855072]|[0.99687305 0.92537313]|[1597   69]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=220
+index in axis 1=10.0
+Training Shape=(3380, 12980)
+Testing Shape=(1666, 12980)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9945978391356542|0.9486491882424474|[0.99563046 0.96875   ]|[0.99874765 0.89855072]|[0.99718662 0.93233083]|[1597   69]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=200
+index in axis 1=9.0
+Training Shape=(3380, 11800)
+Testing Shape=(1666, 11800)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9939975990396158|0.9483361012042507|[0.99562773 0.95384615]|[0.99812148 0.89855072]|[0.99687305 0.92537313]|[1597   69]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=180
+index in axis 1=8.0
+Training Shape=(3380, 10620)
+Testing Shape=(1666, 10620)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9939975990396158|0.9414028114308531|[0.99500936 0.96825397]|[0.99874765 0.88405797]|[0.996875   0.92424242]|[1597   69]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=160
+index in axis 1=7.0
+Training Shape=(3380, 9440)
+Testing Shape=(1666, 9440)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9921968787515006|0.9196636809960705|[0.99315068 0.96666667]|[0.99874765 0.84057971]|[0.99594131 0.89922481]|[1597   69]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=140
+index in axis 1=6.0
+Training Shape=(3380, 8260)
+Testing Shape=(1666, 8260)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9909963985594238|0.9121042171462798|[0.99252802 0.95      ]|[0.99812148 0.82608696]|[0.99531689 0.88372093]|[1597   69]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=120
+index in axis 1=5.0
+Training Shape=(3380, 7080)
+Testing Shape=(1666, 7080)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9873949579831933|0.8755592460501121|[0.98944099 0.92857143]|[0.9974953  0.75362319]|[0.99345182 0.832     ]|[1597   69]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=100
+index in axis 1=4.0
+Training Shape=(3380, 5900)
+Testing Shape=(1666, 5900)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9831932773109243|0.8456344776891453|[0.98696462 0.87272727]|[0.99561678 0.69565217]|[0.99127182 0.77419355]|[1597   69]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=80
+index in axis 1=3.0
+Training Shape=(3380, 4720)
+Testing Shape=(1666, 4720)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9705882352941176|0.7558601726062455|[0.9795539  0.69230769]|[0.98998121 0.52173913]|[0.98473996 0.59504132]|[1597   69]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=60
+index in axis 1=2.0
+Training Shape=(3380, 3540)
+Testing Shape=(1666, 3540)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9501800720288115|0.634282576933199|[0.96960298 0.37037037]|[0.97871008 0.28985507]|[0.97413524 0.32520325]|[1597   69]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=40
+index in axis 1=1.0
+Training Shape=(3380, 2360)
+Testing Shape=(1666, 2360)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9243697478991597|0.509887197916383|[0.95940037 0.06153846]|[0.96180338 0.05797101]|[0.96060038 0.05970149]|[1597   69]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=20
+index in axis 1=0.0
+Training Shape=(3380, 1180)
+Testing Shape=(1666, 1180)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9255702280912365|0.5174466617661739|[0.96002498 0.07692308]|[0.96242956 0.07246377]|[0.96122577 0.07462687]|[1597   69]
+Finished ML with PCA
+Finished Working on File->VPbad.csv in 0:06:50
+-----------------------------------------------------------------------------------------------------------
+Started Working on File->VPbax.csv
+getting file content
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=280
+index in axis 1=13.0
+Training Shape=(3369, 16520)
+Testing Shape=(1660, 16520)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9963855421686747|0.967741935483871|[0.99618563 1.        ]|[1.         0.93548387]|[0.99808917 0.96666667]|[1567   93]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=260
+index in axis 1=12.0
+Training Shape=(3369, 15340)
+Testing Shape=(1660, 15340)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9963855421686747|0.9727991985233067|[0.99681731 0.98876404]|[0.99936184 0.94623656]|[0.99808795 0.96703297]|[1567   93]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=240
+index in axis 1=11.0
+Training Shape=(3369, 14160)
+Testing Shape=(1660, 14160)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9951807228915662|0.9620465103512637|[0.9955499  0.98850575]|[0.99936184 0.92473118]|[0.99745223 0.95555556]|[1567   93]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=220
+index in axis 1=10.0
+Training Shape=(3369, 12980)
+Testing Shape=(1660, 12980)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9957831325301205|0.9674228544372852|[0.99618321 0.98863636]|[0.99936184 0.93548387]|[0.99776999 0.96132597]|[1567   93]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=200
+index in axis 1=9.0
+Training Shape=(3369, 11800)
+Testing Shape=(1660, 11800)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9957831325301205|0.9674228544372852|[0.99618321 0.98863636]|[0.99936184 0.93548387]|[0.99776999 0.96132597]|[1567   93]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=180
+index in axis 1=8.0
+Training Shape=(3369, 10620)
+Testing Shape=(1660, 10620)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9957831325301205|0.9724801174767208|[0.99681529 0.97777778]|[0.99872368 0.94623656]|[0.99776857 0.96174863]|[1567   93]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=160
+index in axis 1=7.0
+Training Shape=(3369, 9440)
+Testing Shape=(1660, 9440)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9921686746987952|0.9655083681577702|[0.99616858 0.92553191]|[0.99553287 0.93548387]|[0.99585062 0.93048128]|[1567   93]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=140
+index in axis 1=6.0
+Training Shape=(3369, 8260)
+Testing Shape=(1660, 8260)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9921686746987952|0.9705656311972058|[0.99680307 0.91666667]|[0.9948947  0.94623656]|[0.99584797 0.93121693]|[1567   93]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=120
+index in axis 1=5.0
+Training Shape=(3369, 7080)
+Testing Shape=(1660, 7080)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9915662650602409|0.955074761032313|[0.99490121 0.93406593]|[0.99617103 0.91397849]|[0.99553571 0.92391304]|[1567   93]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=100
+index in axis 1=4.0
+Training Shape=(3369, 5900)
+Testing Shape=(1660, 5900)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9903614457831326|0.9493793358997057|[0.99426386 0.92307692]|[0.99553287 0.90322581]|[0.99489796 0.91304348]|[1567   93]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=80
+index in axis 1=3.0
+Training Shape=(3369, 4720)
+Testing Shape=(1660, 4720)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9849397590361446|0.9060495021649478|[0.9892132 0.9047619]|[0.9948947 0.8172043]|[0.99204582 0.85875706]|[1567   93]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=60
+index in axis 1=2.0
+Training Shape=(3369, 3540)
+Testing Shape=(1660, 3540)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9698795180722891|0.8272707934482024|[0.98036732 0.7654321 ]|[0.98787492 0.66666667]|[0.9841068  0.71264368]|[1567   93]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=40
+index in axis 1=1.0
+Training Shape=(3369, 2360)
+Testing Shape=(1660, 2360)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9150602409638554|0.5301994771188011|[0.94730238 0.13636364]|[0.96362476 0.09677419]|[0.95539386 0.11320755]|[1567   93]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=20
+index in axis 1=0.0
+Training Shape=(3369, 1180)
+Testing Shape=(1660, 1180)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9036144578313253|0.49379335899705623|[0.94328922 0.04109589]|[0.95532865 0.03225806]|[0.94927077 0.03614458]|[1567   93]
+Finished ML with PCA
+Finished Working on File->VPbax.csv in 0:06:56
+-----------------------------------------------------------------------------------------------------------
+Started Working on File->VPbba.csv
+getting file content
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=280
+index in axis 1=13.0
+Training Shape=(3426, 16520)
+Testing Shape=(1688, 16520)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9834123222748815|0.8440066658731104|[0.98838631 0.82692308]|[0.99446494 0.69354839]|[0.99141631 0.75438596]|[1626   62]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=260
+index in axis 1=12.0
+Training Shape=(3426, 15340)
+Testing Shape=(1688, 15340)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9840047393364929|0.8365571558941395|[0.98779744 0.85714286]|[0.99569496 0.67741935]|[0.99173047 0.75675676]|[1626   62]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=240
+index in axis 1=11.0
+Training Shape=(3426, 14160)
+Testing Shape=(1688, 14160)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9851895734597157|0.8449291750982026|[0.98840757 0.87755102]|[0.99630996 0.69354839]|[0.99234303 0.77477477]|[1626   62]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=220
+index in axis 1=10.0
+Training Shape=(3426, 12980)
+Testing Shape=(1688, 12980)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9863744075829384|0.8610582073562671|[0.98961515 0.88235294]|[0.99630996 0.72580645]|[0.99295127 0.79646018]|[1626   62]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=200
+index in axis 1=9.0
+Training Shape=(3426, 11800)
+Testing Shape=(1688, 11800)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.985781990521327|0.8452366781732334|[0.98841463 0.89583333]|[0.99692497 0.69354839]|[0.99265156 0.78181818]|[1626   62]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=180
+index in axis 1=8.0
+Training Shape=(3426, 10620)
+Testing Shape=(1688, 10620)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9869668246445498|0.8613657104312978|[0.98962149 0.9       ]|[0.99692497 0.72580645]|[0.9932598  0.80357143]|[1626   62]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=160
+index in axis 1=7.0
+Training Shape=(3426, 9440)
+Testing Shape=(1688, 9440)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.985781990521327|0.8452366781732334|[0.98841463 0.89583333]|[0.99692497 0.69354839]|[0.99265156 0.78181818]|[1626   62]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=140
+index in axis 1=6.0
+Training Shape=(3426, 8260)
+Testing Shape=(1688, 8260)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9851895734597157|0.8526861881522041|[0.98900428 0.8627451 ]|[0.99569496 0.70967742]|[0.99233834 0.77876106]|[1626   62]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=120
+index in axis 1=5.0
+Training Shape=(3426, 7080)
+Testing Shape=(1688, 7080)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9798578199052133|0.7878625560449153|[0.98418491 0.81818182]|[0.99507995 0.58064516]|[0.98960245 0.67924528]|[1626   62]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=100
+index in axis 1=4.0
+Training Shape=(3426, 5900)
+Testing Shape=(1688, 5900)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9691943127962085|0.7435424354243542|[0.98105134 0.59615385]|[0.98708487 0.5       ]|[0.98405886 0.54385965]|[1626   62]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=80
+index in axis 1=3.0
+Training Shape=(3426, 4720)
+Testing Shape=(1688, 4720)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9508293838862559|0.6098976312343768|[0.97128894 0.29411765]|[0.97785978 0.24193548]|[0.97456329 0.26548673]|[1626   62]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=60
+index in axis 1=2.0
+Training Shape=(3426, 3540)
+Testing Shape=(1688, 3540)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9354265402843602|0.5010613815815578|[0.96334759 0.03921569]|[0.9698647  0.03225806]|[0.96659516 0.03539823]|[1626   62]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=40
+index in axis 1=1.0
+Training Shape=(3426, 2360)
+Testing Shape=(1688, 2360)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9330568720379147|0.49207435622743323|[0.96269113 0.01886792]|[0.96801968 0.01612903]|[0.96534805 0.0173913 ]|[1626   62]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=20
+index in axis 1=0.0
+Training Shape=(3426, 1180)
+Testing Shape=(1688, 1180)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9377962085308057|0.5022913938816808|[0.96343693 0.04255319]|[0.97232472 0.03225806]|[0.96786042 0.03669725]|[1626   62]
+Finished ML with PCA
+Finished Working on File->VPbba.csv in 0:07:05
+-----------------------------------------------------------------------------------------------------------
+Started Working on File->VPdx.csv
+getting file content
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=280
+index in axis 1=13.0
+Training Shape=(3404, 16520)
+Testing Shape=(1677, 16520)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9779367918902803|0.8714454626071534|[0.98685034 0.8       ]|[0.98994975 0.75294118]|[0.98839762 0.77575758]|[1592   85]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=260
+index in axis 1=12.0
+Training Shape=(3404, 15340)
+Testing Shape=(1677, 15340)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9779367918902803|0.8658771800177357|[0.9862414  0.80769231]|[0.99057789 0.74117647]|[0.98840489 0.77300613]|[1592   85]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=240
+index in axis 1=11.0
+Training Shape=(3404, 14160)
+Testing Shape=(1677, 14160)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.979129397734049|0.8832101684895063|[0.98808777 0.80487805]|[0.98994975 0.77647059]|[0.98901789 0.79041916]|[1592   85]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=220
+index in axis 1=10.0
+Training Shape=(3404, 12980)
+Testing Shape=(1677, 12980)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9797257006559332|0.8890925214306827|[0.98870765 0.80722892]|[0.98994975 0.78823529]|[0.98932831 0.79761905]|[1592   85]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=200
+index in axis 1=9.0
+Training Shape=(3404, 11800)
+Testing Shape=(1677, 11800)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9833035181872392|0.8965452261306533|[0.9893617  0.86075949]|[0.99309045 0.8       ]|[0.99122257 0.82926829]|[1592   85]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=180
+index in axis 1=8.0
+Training Shape=(3404, 10620)
+Testing Shape=(1677, 10620)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9821109123434705|0.8959170854271358|[0.98934837 0.83950617]|[0.99183417 0.8       ]|[0.99058971 0.81927711]|[1592   85]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=160
+index in axis 1=7.0
+Training Shape=(3404, 9440)
+Testing Shape=(1677, 9440)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9815146094215862|0.8900347324859592|[0.98872887 0.8375    ]|[0.99183417 0.78823529]|[0.99027908 0.81212121]|[1592   85]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=140
+index in axis 1=6.0
+Training Shape=(3404, 8260)
+Testing Shape=(1677, 8260)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.977340488968396|0.8321534141294709|[0.9826087  0.85074627]|[0.99371859 0.67058824]|[0.98813242 0.75      ]|[1592   85]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=120
+index in axis 1=5.0
+Training Shape=(3404, 7080)
+Testing Shape=(1677, 7080)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9731663685152058|0.8188183564883239|[0.98133167 0.78571429]|[0.99057789 0.64705882]|[0.9859331  0.70967742]|[1592   85]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=100
+index in axis 1=4.0
+Training Shape=(3404, 5900)
+Testing Shape=(1677, 5900)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9695885509838998|0.8113656517883535|[0.98066126 0.72972973]|[0.98743719 0.63529412]|[0.98403756 0.67924528]|[1592   85]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=80
+index in axis 1=3.0
+Training Shape=(3404, 4720)
+Testing Shape=(1677, 4720)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9588550983899821|0.7500295595625185|[0.97445483 0.61111111]|[0.98241206 0.51764706]|[0.97841727 0.56050955]|[1592   85]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=60
+index in axis 1=2.0
+Training Shape=(3404, 3540)
+Testing Shape=(1677, 3540)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.937984496124031|0.6276714454626071|[0.9621118  0.35820896]|[0.97298995 0.28235294]|[0.9675203  0.31578947]|[1592   85]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=40
+index in axis 1=1.0
+Training Shape=(3404, 2360)
+Testing Shape=(1677, 2360)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9159212880143113|0.4991169080697606|[0.94922601 0.0483871 ]|[0.9629397  0.03529412]|[0.95603368 0.04081633]|[1592   85]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=20
+index in axis 1=0.0
+Training Shape=(3404, 1180)
+Testing Shape=(1677, 1180)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9117471675611211|0.480213567839196|[0.94733581 0.        ]|[0.96042714 0.        ]|[0.95383656 0.        ]|[1592   85]
+Finished ML with PCA
+Finished Working on File->VPdx.csv in 0:07:04
+-----------------------------------------------------------------------------------------------------------
+Started Working on File->VPgaa.csv
+getting file content
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=280
+index in axis 1=13.0
+Training Shape=(3370, 16520)
+Testing Shape=(1661, 16520)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9951836243226971|0.9643337878470037|[0.99685732 0.95714286]|[0.99811202 0.93055556]|[0.99748428 0.94366197]|[1589   72]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=260
+index in axis 1=12.0
+Training Shape=(3370, 15340)
+Testing Shape=(1661, 15340)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9951836243226971|0.9643337878470037|[0.99685732 0.95714286]|[0.99811202 0.93055556]|[0.99748428 0.94366197]|[1589   72]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=240
+index in axis 1=11.0
+Training Shape=(3370, 14160)
+Testing Shape=(1661, 14160)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9957856712823601|0.9712782322914482|[0.99748428 0.95774648]|[0.99811202 0.94444444]|[0.99779805 0.95104895]|[1589   72]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=220
+index in axis 1=10.0
+Training Shape=(3370, 12980)
+Testing Shape=(1661, 12980)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9945815773630343|0.9573893434025593|[0.99623116 0.95652174]|[0.99811202 0.91666667]|[0.9971707  0.93617021]|[1589   72]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=200
+index in axis 1=9.0
+Training Shape=(3370, 11800)
+Testing Shape=(1661, 11800)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9951836243226971|0.9643337878470037|[0.99685732 0.95714286]|[0.99811202 0.93055556]|[0.99748428 0.94366197]|[1589   72]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=180
+index in axis 1=8.0
+Training Shape=(3370, 10620)
+Testing Shape=(1661, 10620)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9951836243226971|0.9643337878470037|[0.99685732 0.95714286]|[0.99811202 0.93055556]|[0.99748428 0.94366197]|[1589   72]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=160
+index in axis 1=7.0
+Training Shape=(3370, 9440)
+Testing Shape=(1661, 9440)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9951836243226971|0.9643337878470037|[0.99685732 0.95714286]|[0.99811202 0.93055556]|[0.99748428 0.94366197]|[1589   72]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=140
+index in axis 1=6.0
+Training Shape=(3370, 8260)
+Testing Shape=(1661, 8260)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9945815773630343|0.9640191245367458|[0.99685535 0.94366197]|[0.99748269 0.93055556]|[0.99716892 0.93706294]|[1589   72]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=120
+index in axis 1=5.0
+Training Shape=(3370, 7080)
+Testing Shape=(1661, 7080)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9957856712823601|0.9646484511572617|[0.9968593  0.97101449]|[0.99874135 0.93055556]|[0.99779943 0.95035461]|[1589   72]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=100
+index in axis 1=4.0
+Training Shape=(3370, 5900)
+Testing Shape=(1661, 5900)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.99157134256472|0.9292969023145234|[0.99373041 0.93939394]|[0.99748269 0.86111111]|[0.99560302 0.89855072]|[1589   72]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=80
+index in axis 1=3.0
+Training Shape=(3370, 4720)
+Testing Shape=(1661, 4720)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9885611077664058|0.907834242360674|[0.99185464 0.90769231]|[0.99622404 0.81944444]|[0.99403454 0.86131387]|[1589   72]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=60
+index in axis 1=2.0
+Training Shape=(3370, 3540)
+Testing Shape=(1661, 3540)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9831426851294401|0.8585938046290469|[0.98750781 0.86666667]|[0.99496539 0.72222222]|[0.99122257 0.78787879]|[1589   72]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=40
+index in axis 1=1.0
+Training Shape=(3370, 2360)
+Testing Shape=(1661, 2360)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9241420830824805|0.5559357737221173|[0.9615142  0.14473684]|[0.95909377 0.15277778]|[0.96030246 0.14864865]|[1589   72]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=20
+index in axis 1=0.0
+Training Shape=(3370, 1180)
+Testing Shape=(1661, 1180)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9114990969295605|0.4830300328648346|[0.95517677 0.01298701]|[0.95217118 0.01388889]|[0.9536716  0.01342282]|[1589   72]
+Finished ML with PCA
+Finished Working on File->VPgaa.csv in 0:06:51
+-----------------------------------------------------------------------------------------------------------
+Started Working on File->VPgab.csv
+getting file content
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=280
+index in axis 1=13.0
+Training Shape=(3360, 16520)
+Testing Shape=(1656, 16520)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9951690821256038|0.9503887679388635|[0.99560025 0.98461538]|[0.99936909 0.90140845]|[0.99748111 0.94117647]|[1585   71]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=260
+index in axis 1=12.0
+Training Shape=(3360, 15340)
+Testing Shape=(1656, 15340)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9945652173913043|0.9500733105256144|[0.99559748 0.96969697]|[0.99873817 0.90140845]|[0.99716535 0.93430657]|[1585   71]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=240
+index in axis 1=11.0
+Training Shape=(3360, 14160)
+Testing Shape=(1656, 14160)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9945652173913043|0.9500733105256144|[0.99559748 0.96969697]|[0.99873817 0.90140845]|[0.99716535 0.93430657]|[1585   71]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=220
+index in axis 1=10.0
+Training Shape=(3360, 12980)
+Testing Shape=(1656, 12980)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9939613526570048|0.9430310570044875|[0.99497172 0.96923077]|[0.99873817 0.88732394]|[0.99685139 0.92647059]|[1585   71]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=200
+index in axis 1=9.0
+Training Shape=(3360, 11800)
+Testing Shape=(1656, 11800)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9933574879227053|0.9427155995912383|[0.99496855 0.95454545]|[0.99810726 0.88732394]|[0.99653543 0.91970803]|[1585   71]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=180
+index in axis 1=8.0
+Training Shape=(3360, 10620)
+Testing Shape=(1656, 10620)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9933574879227053|0.9427155995912383|[0.99496855 0.95454545]|[0.99810726 0.88732394]|[0.99653543 0.91970803]|[1585   71]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=160
+index in axis 1=7.0
+Training Shape=(3360, 9440)
+Testing Shape=(1656, 9440)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9927536231884058|0.9424001421779892|[0.99496539 0.94029851]|[0.99747634 0.88732394]|[0.99621928 0.91304348]|[1585   71]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=140
+index in axis 1=6.0
+Training Shape=(3360, 8260)
+Testing Shape=(1656, 8260)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9921497584541062|0.9353578886568623|[0.99433962 0.93939394]|[0.99747634 0.87323944]|[0.99590551 0.90510949]|[1585   71]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=120
+index in axis 1=5.0
+Training Shape=(3360, 7080)
+Testing Shape=(1656, 7080)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9939613526570048|0.9497578531123652|[0.99559471 0.95522388]|[0.99810726 0.90140845]|[0.9968494  0.92753623]|[1585   71]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=100
+index in axis 1=4.0
+Training Shape=(3360, 5900)
+Testing Shape=(1656, 5900)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9939613526570048|0.9564846492202426|[0.99621928 0.94202899]|[0.99747634 0.91549296]|[0.99684741 0.92857143]|[1585   71]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=80
+index in axis 1=3.0
+Training Shape=(3360, 4720)
+Testing Shape=(1656, 4720)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9939613526570048|0.9497578531123652|[0.99559471 0.95522388]|[0.99810726 0.90140845]|[0.9968494  0.92753623]|[1585   71]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=60
+index in axis 1=2.0
+Training Shape=(3360, 3540)
+Testing Shape=(1656, 3540)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9861111111111112|0.8649353534455946|[0.988125   0.92857143]|[0.99747634 0.73239437]|[0.99277865 0.81889764]|[1585   71]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=40
+index in axis 1=1.0
+Training Shape=(3360, 2360)
+Testing Shape=(1656, 2360)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9589371980676329|0.7498378282312168|[0.9785489  0.52112676]|[0.9785489  0.52112676]|[0.9785489  0.52112676]|[1585   71]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=20
+index in axis 1=0.0
+Training Shape=(3360, 1180)
+Testing Shape=(1656, 1180)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9154589371980676|0.498413826809437|[0.95698925 0.04      ]|[0.95457413 0.04225352]|[0.95578016 0.04109589]|[1585   71]
+Finished ML with PCA
+Finished Working on File->VPgab.csv in 0:06:57
+-----------------------------------------------------------------------------------------------------------
+Started Working on File->VPgac.csv
+getting file content
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=280
+index in axis 1=13.0
+Training Shape=(3371, 16520)
+Testing Shape=(1661, 16520)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9927754364840458|0.9385706202701747|[0.99304238 0.9875    ]|[0.99936346 0.87777778]|[0.99619289 0.92941176]|[1571   90]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=260
+index in axis 1=12.0
+Training Shape=(3371, 15340)
+Testing Shape=(1661, 15340)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9945815773630343|0.9552372869368413|[0.99493029 0.98795181]|[0.99936346 0.91111111]|[0.99714195 0.94797688]|[1571   90]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=240
+index in axis 1=11.0
+Training Shape=(3371, 14160)
+Testing Shape=(1661, 14160)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9927754364840458|0.9385706202701747|[0.99304238 0.9875    ]|[0.99936346 0.87777778]|[0.99619289 0.92941176]|[1571   90]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=220
+index in axis 1=10.0
+Training Shape=(3371, 12980)
+Testing Shape=(1661, 12980)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9933774834437086|0.9388888888888889|[0.99304678 1.        ]|[1.         0.87777778]|[0.99651126 0.93491124]|[1571   90]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=200
+index in axis 1=9.0
+Training Shape=(3371, 11800)
+Testing Shape=(1661, 11800)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9927754364840458|0.9333333333333333|[0.99241946 1.        ]|[1.         0.86666667]|[0.99619531 0.92857143]|[1571   90]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=180
+index in axis 1=8.0
+Training Shape=(3371, 10620)
+Testing Shape=(1661, 10620)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9903672486453944|0.9111111111111111|[0.98991808 1.        ]|[1.         0.82222222]|[0.9949335  0.90243902]|[1571   90]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=160
+index in axis 1=7.0
+Training Shape=(3371, 9440)
+Testing Shape=(1661, 9440)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9909692956050572|0.9166666666666667|[0.99054224 1.        ]|[1.         0.83333333]|[0.99524865 0.90909091]|[1571   90]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=140
+index in axis 1=6.0
+Training Shape=(3371, 8260)
+Testing Shape=(1661, 8260)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9885611077664058|0.8944444444444444|[0.98805031 1.        ]|[1.         0.78888889]|[0.99398924 0.88198758]|[1571   90]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=120
+index in axis 1=5.0
+Training Shape=(3371, 7080)
+Testing Shape=(1661, 7080)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9861529199277543|0.8722222222222222|[0.98557089 1.        ]|[1.         0.74444444]|[0.99273302 0.85350318]|[1571   90]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=100
+index in axis 1=4.0
+Training Shape=(3371, 5900)
+Testing Shape=(1661, 5900)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.983744732089103|0.8604745738736828|[0.98431619 0.97014925]|[0.99872693 0.72222222]|[0.99146919 0.82802548]|[1571   90]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=80
+index in axis 1=3.0
+Training Shape=(3371, 4720)
+Testing Shape=(1661, 4720)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9825406381697772|0.8493634627625716|[0.98308271 0.96923077]|[0.99872693 0.7       ]|[0.99084307 0.81290323]|[1571   90]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=60
+index in axis 1=2.0
+Training Shape=(3371, 3540)
+Testing Shape=(1661, 3540)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9596628537025887|0.7587099511988118|[0.97355164 0.65753425]|[0.98408657 0.53333333]|[0.97879076 0.58895706]|[1571   90]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=40
+index in axis 1=1.0
+Training Shape=(3371, 2360)
+Testing Shape=(1661, 2360)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9078868151715834|0.5061355117052125|[0.94647355 0.06849315]|[0.95671547 0.05555556]|[0.95156695 0.06134969]|[1571   90]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=20
+index in axis 1=0.0
+Training Shape=(3371, 1180)
+Testing Shape=(1661, 1180)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9084888621312462|0.4802673456397199|[0.94371482 0.        ]|[0.96053469 0.        ]|[0.95205047 0.        ]|[1571   90]
+Finished ML with PCA
+Finished Working on File->VPgac.csv in 0:06:54
+-----------------------------------------------------------------------------------------------------------
+Started Working on File->VPgae.csv
+getting file content
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=280
+index in axis 1=13.0
+Training Shape=(3374, 16520)
+Testing Shape=(1663, 16520)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9783523752254961|0.8507559641934241|[0.9836478 0.8630137]|[0.99364676 0.70786517]|[0.988622   0.77777778]|[1574   89]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=260
+index in axis 1=12.0
+Training Shape=(3374, 15340)
+Testing Shape=(1663, 15340)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9801563439567047|0.8623095812572278|[0.98489616 0.87837838]|[0.99428208 0.73033708]|[0.98956687 0.79754601]|[1574   89]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=240
+index in axis 1=11.0
+Training Shape=(3374, 14160)
+Testing Shape=(1663, 14160)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9801563439567047|0.8676098967776937|[0.98550725 0.86842105]|[0.99364676 0.74157303]|[0.98956027 0.8       ]|[1574   89]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=220
+index in axis 1=10.0
+Training Shape=(3374, 12980)
+Testing Shape=(1663, 12980)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9783523752254961|0.861356595234356|[0.98486759 0.84415584]|[0.99237611 0.73033708]|[0.98860759 0.78313253]|[1574   89]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=200
+index in axis 1=9.0
+Training Shape=(3374, 11800)
+Testing Shape=(1663, 11800)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9783523752254961|0.861356595234356|[0.98486759 0.84415584]|[0.99237611 0.73033708]|[0.98860759 0.78313253]|[1574   89]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=180
+index in axis 1=8.0
+Training Shape=(3374, 10620)
+Testing Shape=(1663, 10620)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9813589897775106|0.8735455363134075|[0.98613737 0.88157895]|[0.99428208 0.75280899]|[0.99019298 0.81212121]|[1574   89]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=160
+index in axis 1=7.0
+Training Shape=(3374, 9440)
+Testing Shape=(1663, 9440)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9789536981358989|0.8563739417215139|[0.98426683 0.86486486]|[0.99364676 0.71910112]|[0.98893456 0.78527607]|[1574   89]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=140
+index in axis 1=6.0
+Training Shape=(3374, 8260)
+Testing Shape=(1663, 8260)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9777510523150932|0.8292370401039362|[0.98121478 0.89393939]|[0.99555273 0.66292135]|[0.98833176 0.76129032]|[1574   89]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=120
+index in axis 1=5.0
+Training Shape=(3374, 7080)
+Testing Shape=(1663, 7080)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9765484064942874|0.8127007695272904|[0.97938788 0.90322581]|[0.99618806 0.62921348]|[0.98771654 0.74172185]|[1574   89]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=100
+index in axis 1=4.0
+Training Shape=(3374, 5900)
+Testing Shape=(1663, 5900)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9723391461214672|0.8051768199534571|[0.97869674 0.82089552]|[0.99237611 0.61797753]|[0.98548896 0.70512821]|[1574   89]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=80
+index in axis 1=3.0
+Training Shape=(3374, 4720)
+Testing Shape=(1663, 4720)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.968129885748647|0.781751923818226|[0.97620539 0.77272727]|[0.99047014 0.57303371]|[0.98328603 0.65806452]|[1574   89]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=60
+index in axis 1=2.0
+Training Shape=(3374, 3540)
+Testing Shape=(1663, 3540)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.957907396271798|0.7551504076067558|[0.97355164 0.62666667]|[0.98221093 0.52808989]|[0.97786211 0.57317073]|[1574   89]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=40
+index in axis 1=1.0
+Training Shape=(3374, 2360)
+Testing Shape=(1663, 2360)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9067949488875526|0.5002355695786874|[0.94650724 0.05405405]|[0.95552732 0.04494382]|[0.95099589 0.04907975]|[1574   89]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=20
+index in axis 1=0.0
+Training Shape=(3374, 1180)
+Testing Shape=(1663, 1180)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9134095009019844|0.4931292206216182|[0.9457606  0.03389831]|[0.96378653 0.02247191]|[0.95468848 0.02702703]|[1574   89]
+Finished ML with PCA
+Finished Working on File->VPgae.csv in 0:07:15
+-----------------------------------------------------------------------------------------------------------
+Started Working on File->VPgag.csv
+getting file content
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=280
+index in axis 1=13.0
+Training Shape=(3354, 16520)
+Testing Shape=(1653, 16520)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9927404718693285|0.9469521246984598|[0.99558916 0.92424242]|[0.99684543 0.89705882]|[0.9962169  0.91044776]|[1585   68]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=260
+index in axis 1=12.0
+Training Shape=(3354, 15340)
+Testing Shape=(1653, 15340)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9927404718693285|0.9469521246984598|[0.99558916 0.92424242]|[0.99684543 0.89705882]|[0.9962169  0.91044776]|[1585   68]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=240
+index in axis 1=11.0
+Training Shape=(3354, 14160)
+Testing Shape=(1653, 14160)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9921355111917726|0.9395991835219892|[0.99496222 0.92307692]|[0.99684543 0.88235294]|[0.99590293 0.90225564]|[1585   68]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=220
+index in axis 1=10.0
+Training Shape=(3354, 12980)
+Testing Shape=(1653, 12980)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9939503932244405|0.9475830395249581|[0.99559471 0.953125  ]|[0.99810726 0.89705882]|[0.9968494  0.92424242]|[1585   68]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=200
+index in axis 1=9.0
+Training Shape=(3354, 11800)
+Testing Shape=(1653, 11800)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9933454325468845|0.9402300983484876|[0.99496855 0.95238095]|[0.99810726 0.88235294]|[0.99653543 0.91603053]|[1585   68]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=180
+index in axis 1=8.0
+Training Shape=(3354, 10620)
+Testing Shape=(1653, 10620)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9933454325468845|0.9402300983484876|[0.99496855 0.95238095]|[0.99810726 0.88235294]|[0.99653543 0.91603053]|[1585   68]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=160
+index in axis 1=7.0
+Training Shape=(3354, 9440)
+Testing Shape=(1653, 9440)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9927404718693285|0.932877157172017|[0.99434318 0.9516129 ]|[0.99810726 0.86764706]|[0.99622166 0.90769231]|[1585   68]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=140
+index in axis 1=6.0
+Training Shape=(3354, 8260)
+Testing Shape=(1653, 8260)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9927404718693285|0.9258396734087958|[0.99372254 0.96666667]|[0.99873817 0.85294118]|[0.99622404 0.90625   ]|[1585   68]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=120
+index in axis 1=5.0
+Training Shape=(3354, 7080)
+Testing Shape=(1653, 7080)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9909255898366606|0.8897058823529411|[0.990625 1.      ]|[1.         0.77941176]|[0.99529042 0.87603306]|[1585   68]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=100
+index in axis 1=4.0
+Training Shape=(3354, 5900)
+Testing Shape=(1653, 5900)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9860859044162129|0.859032287994062|[0.988125  0.9245283]|[0.99747634 0.72058824]|[0.99277865 0.80991736]|[1585   68]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=80
+index in axis 1=3.0
+Training Shape=(3354, 4720)
+Testing Shape=(1653, 4720)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9806412583182094|0.8491556875115978|[0.98744507 0.8       ]|[0.99242902 0.70588235]|[0.98993077 0.75      ]|[1585   68]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=60
+index in axis 1=2.0
+Training Shape=(3354, 3540)
+Testing Shape=(1653, 3540)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9649122807017544|0.7705789571349044|[0.98109641 0.57575758]|[0.98233438 0.55882353]|[0.98171501 0.56716418]|[1585   68]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=40
+index in axis 1=1.0
+Training Shape=(3354, 2360)
+Testing Shape=(1653, 2360)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9243799153055051|0.5594312488402302|[0.96378653 0.13924051]|[0.95709779 0.16176471]|[0.96043052 0.14965986]|[1585   68]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=20
+index in axis 1=0.0
+Training Shape=(3354, 1180)
+Testing Shape=(1653, 1180)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9249848759830611|0.48233438485804414|[0.95742016 0.        ]|[0.96466877 0.        ]|[0.9610308 0.       ]|[1585   68]
+Finished ML with PCA
+Finished Working on File->VPgag.csv in 0:06:37
+-----------------------------------------------------------------------------------------------------------
+Started Working on File->VPgah.csv
+getting file content
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=280
+index in axis 1=13.0
+Training Shape=(3402, 16520)
+Testing Shape=(1676, 16520)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9922434367541766|0.9452065927635643|[0.99629172 0.87931034]|[0.99567634 0.89473684]|[0.99598394 0.88695652]|[1619   57]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=260
+index in axis 1=12.0
+Training Shape=(3402, 15340)
+Testing Shape=(1676, 15340)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9910501193317423|0.9445889275381165|[0.99628713 0.85      ]|[0.99444101 0.89473684]|[0.99536321 0.87179487]|[1619   57]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=240
+index in axis 1=11.0
+Training Shape=(3402, 14160)
+Testing Shape=(1676, 14160)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9898568019093079|0.9439712623126687|[0.99628253 0.82258065]|[0.99320568 0.89473684]|[0.99474173 0.85714286]|[1619   57]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=220
+index in axis 1=10.0
+Training Shape=(3402, 12980)
+Testing Shape=(1676, 12980)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9904534606205251|0.9442800949253927|[0.99628483 0.83606557]|[0.99382335 0.89473684]|[0.99505257 0.86440678]|[1619   57]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=200
+index in axis 1=9.0
+Training Shape=(3402, 11800)
+Testing Shape=(1676, 11800)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9892601431980907|0.9351993324881073|[0.99566563 0.81967213]|[0.99320568 0.87719298]|[0.99443414 0.84745763]|[1619   57]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=180
+index in axis 1=8.0
+Training Shape=(3402, 10620)
+Testing Shape=(1676, 10620)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9898568019093079|0.9355081651008311|[0.99566832 0.83333333]|[0.99382335 0.87719298]|[0.99474498 0.85470085]|[1619   57]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=160
+index in axis 1=7.0
+Training Shape=(3402, 9440)
+Testing Shape=(1676, 9440)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9874701670644391|0.925809737438098|[0.99504337 0.79032258]|[0.99197035 0.85964912]|[0.99350448 0.82352941]|[1619   57]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=140
+index in axis 1=6.0
+Training Shape=(3402, 8260)
+Testing Shape=(1676, 8260)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9856801909307876|0.9248832395999264|[0.99503414 0.75384615]|[0.99011736 0.85964912]|[0.99256966 0.80327869]|[1619   57]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=120
+index in axis 1=5.0
+Training Shape=(3402, 7080)
+Testing Shape=(1676, 7080)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9850835322195705|0.9076482125635273|[0.99380421 0.75806452]|[0.99073502 0.8245614 ]|[0.99226724 0.78991597]|[1619   57]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=100
+index in axis 1=4.0
+Training Shape=(3402, 5900)
+Testing Shape=(1676, 5900)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9797136038186157|0.8794794274134998|[0.99193048 0.67692308]|[0.98702903 0.77192982]|[0.98947368 0.72131148]|[1619   57]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=80
+index in axis 1=3.0
+Training Shape=(3402, 4720)
+Testing Shape=(1676, 4720)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9767303102625299|0.8610090699262053|[0.99068323 0.63636364]|[0.98517603 0.73684211]|[0.98792196 0.68292683]|[1619   57]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=60
+index in axis 1=2.0
+Training Shape=(3402, 3540)
+Testing Shape=(1676, 3540)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9528639618138425|0.7217093072396866|[0.98125    0.35526316]|[0.9697344  0.47368421]|[0.97545822 0.40601504]|[1619   57]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=40
+index in axis 1=1.0
+Training Shape=(3402, 2360)
+Testing Shape=(1676, 2360)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9266109785202864|0.5303956308312473|[0.96808511 0.07692308]|[0.9555281  0.10526316]|[0.96176562 0.08888889]|[1619   57]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=20
+index in axis 1=0.0
+Training Shape=(3402, 1180)
+Testing Shape=(1676, 1180)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9230310262529833|0.5031533435193914|[0.96620776 0.03846154]|[0.95367511 0.05263158]|[0.95990053 0.04444444]|[1619   57]
+Finished ML with PCA
+Finished Working on File->VPgah.csv in 0:07:12
+-----------------------------------------------------------------------------------------------------------
+Started Working on File->VPgal.csv
+getting file content
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=280
+index in axis 1=13.0
+Training Shape=(3382, 16520)
+Testing Shape=(1666, 16520)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.992797118847539|0.9481068491621003|[0.99497172 0.94666667]|[0.99747952 0.89873418]|[0.99622404 0.92207792]|[1587   79]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=260
+index in axis 1=12.0
+Training Shape=(3382, 15340)
+Testing Shape=(1666, 15340)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9933973589435774|0.9604500171488279|[0.99622166 0.93589744]|[0.9968494  0.92405063]|[0.99653543 0.92993631]|[1587   79]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=240
+index in axis 1=11.0
+Training Shape=(3382, 14160)
+Testing Shape=(1666, 14160)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9909963985594238|0.9531757236406563|[0.99558638 0.9       ]|[0.99495904 0.91139241]|[0.99527261 0.90566038]|[1587   79]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=220
+index in axis 1=10.0
+Training Shape=(3382, 12980)
+Testing Shape=(1666, 12980)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9903961584633854|0.9408325556539285|[0.99433606 0.90909091]|[0.99558916 0.88607595]|[0.99496222 0.8974359 ]|[1587   79]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=200
+index in axis 1=9.0
+Training Shape=(3382, 11800)
+Testing Shape=(1666, 11800)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9897959183673469|0.940517495792555|[0.99433249 0.8974359 ]|[0.99495904 0.88607595]|[0.99464567 0.89171975]|[1587   79]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=180
+index in axis 1=8.0
+Training Shape=(3382, 10620)
+Testing Shape=(1666, 10620)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9891956782713085|0.9341883818685044|[0.99370673 0.8961039 ]|[0.99495904 0.87341772]|[0.99433249 0.88461538]|[1587   79]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=160
+index in axis 1=7.0
+Training Shape=(3382, 9440)
+Testing Shape=(1666, 9440)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9873949579831933|0.9152010400963525|[0.99183417 0.89189189]|[0.99495904 0.83544304]|[0.99339415 0.8627451 ]|[1587   79]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=140
+index in axis 1=6.0
+Training Shape=(3382, 8260)
+Testing Shape=(1666, 8260)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.985594237695078|0.9022277523868775|[0.9905838  0.87671233]|[0.99432892 0.81012658]|[0.99245283 0.84210526]|[1587   79]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=120
+index in axis 1=5.0
+Training Shape=(3382, 7080)
+Testing Shape=(1666, 7080)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9831932773109243|0.864883188565321|[0.9868832  0.89230769]|[0.99558916 0.73417722]|[0.99121706 0.80555556]|[1587   79]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=100
+index in axis 1=4.0
+Training Shape=(3382, 5900)
+Testing Shape=(1666, 5900)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9765906362545018|0.8253332057141489|[0.98314607 0.8125    ]|[0.99243856 0.65822785]|[0.98777046 0.72727273]|[1587   79]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=80
+index in axis 1=3.0
+Training Shape=(3382, 4720)
+Testing Shape=(1666, 4720)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9699879951980792|0.7797691688002999|[0.9788162  0.73770492]|[0.98991808 0.56962025]|[0.98433584 0.64285714]|[1587   79]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=60
+index in axis 1=2.0
+Training Shape=(3382, 3540)
+Testing Shape=(1666, 3540)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9585834333733494|0.6775581664313688|[0.96909765 0.60416667]|[0.98802773 0.36708861]|[0.97847114 0.45669291]|[1587   79]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=40
+index in axis 1=1.0
+Training Shape=(3382, 2360)
+Testing Shape=(1666, 2360)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9195678271308524|0.5247700860631874|[0.95491547 0.10144928]|[0.96093258 0.08860759]|[0.95791457 0.09459459]|[1587   79]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=20
+index in axis 1=0.0
+Training Shape=(3382, 1180)
+Testing Shape=(1666, 1180)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9231692677070829|0.4965901749180445|[0.95226286 0.03773585]|[0.96786389 0.02531646]|[0.96       0.03030303]|[1587   79]
+Finished ML with PCA
+Finished Working on File->VPgal.csv in 0:06:52
+-----------------------------------------------------------------------------------------------------------
+Started Working on File->VPgam.csv
+getting file content
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=280
+index in axis 1=13.0
+Training Shape=(3382, 16520)
+Testing Shape=(1667, 16520)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9916016796640672|0.9252954089019663|[0.9924812  0.97183099]|[0.99873897 0.85185185]|[0.99560025 0.90789474]|[1586   81]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=260
+index in axis 1=12.0
+Training Shape=(3382, 15340)
+Testing Shape=(1667, 15340)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9904019196160768|0.9188073108838135|[0.99185464 0.95774648]|[0.99810845 0.83950617]|[0.99497172 0.89473684]|[1586   81]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=240
+index in axis 1=11.0
+Training Shape=(3382, 14160)
+Testing Shape=(1667, 14160)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.991001799640072|0.9191225693957934|[0.99185974 0.97142857]|[0.99873897 0.83950617]|[0.99528746 0.90066225]|[1586   81]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=220
+index in axis 1=10.0
+Training Shape=(3382, 12980)
+Testing Shape=(1667, 12980)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9904019196160768|0.9129497298896205|[0.99123905 0.97101449]|[0.99873897 0.82716049]|[0.99497487 0.89333333]|[1586   81]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=200
+index in axis 1=9.0
+Training Shape=(3382, 11800)
+Testing Shape=(1667, 11800)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9904019196160768|0.9129497298896205|[0.99123905 0.97101449]|[0.99873897 0.82716049]|[0.99497487 0.89333333]|[1586   81]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=180
+index in axis 1=8.0
+Training Shape=(3382, 10620)
+Testing Shape=(1667, 10620)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9904019196160768|0.9188073108838135|[0.99185464 0.95774648]|[0.99810845 0.83950617]|[0.99497172 0.89473684]|[1586   81]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=160
+index in axis 1=7.0
+Training Shape=(3382, 9440)
+Testing Shape=(1667, 9440)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.991001799640072|0.9132649884016005|[0.99124453 0.98529412]|[0.99936948 0.82716049]|[0.99529042 0.89932886]|[1586   81]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=140
+index in axis 1=6.0
+Training Shape=(3382, 8260)
+Testing Shape=(1667, 8260)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9856028794241152|0.8811397568228169|[0.988125   0.92537313]|[0.99684741 0.7654321 ]|[0.99246704 0.83783784]|[1586   81]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=120
+index in axis 1=5.0
+Training Shape=(3382, 7080)
+Testing Shape=(1667, 7080)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9850029994001199|0.8691093363224511|[0.98689956 0.9375    ]|[0.99747793 0.74074074]|[0.99216055 0.82758621]|[1586   81]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=100
+index in axis 1=4.0
+Training Shape=(3382, 5900)
+Testing Shape=(1667, 5900)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9808038392321535|0.8376146217676272|[0.98381071 0.90163934]|[0.9962169  0.67901235]|[0.98997494 0.77464789]|[1586   81]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=80
+index in axis 1=3.0
+Training Shape=(3382, 4720)
+Testing Shape=(1667, 4720)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9778044391121775|0.818465586225149|[0.98195395 0.86666667]|[0.99495586 0.64197531]|[0.98841215 0.73758865]|[1586   81]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=60
+index in axis 1=2.0
+Training Shape=(3382, 3540)
+Testing Shape=(1667, 3540)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9718056388722256|0.8094554201111579|[0.98123827 0.75      ]|[0.98928121 0.62962963]|[0.98524333 0.68456376]|[1586   81]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=40
+index in axis 1=1.0
+Training Shape=(3382, 2360)
+Testing Shape=(1667, 2360)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9262147570485902|0.5746228574097426|[0.95862069 0.20833333]|[0.96406053 0.18518519]|[0.96133291 0.19607843]|[1586   81]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=20
+index in axis 1=0.0
+Training Shape=(3382, 1180)
+Testing Shape=(1667, 1180)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9130173965206959|0.5032537792100633|[0.95172414 0.05555556]|[0.95712484 0.04938272]|[0.95441685 0.05228758]|[1586   81]
+Finished ML with PCA
+Finished Working on File->VPgam.csv in 0:07:06
+-----------------------------------------------------------------------------------------------------------
+Started Working on File->VPih.csv
+getting file content
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=280
+index in axis 1=13.0
+Training Shape=(3378, 16520)
+Testing Shape=(1665, 16520)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9903903903903903|0.9276954070722958|[0.99374218 0.91044776]|[0.99623588 0.85915493]|[0.99498747 0.88405797]|[1594   71]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=260
+index in axis 1=12.0
+Training Shape=(3378, 15340)
+Testing Shape=(1665, 15340)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.990990990990991|0.9347376605934226|[0.99436443 0.91176471]|[0.99623588 0.87323944]|[0.99529928 0.89208633]|[1594   71]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=240
+index in axis 1=11.0
+Training Shape=(3378, 14160)
+Testing Shape=(1665, 14160)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.990990990990991|0.9347376605934226|[0.99436443 0.91176471]|[0.99623588 0.87323944]|[0.99529928 0.89208633]|[1594   71]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=220
+index in axis 1=10.0
+Training Shape=(3378, 12980)
+Testing Shape=(1665, 12980)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9921921921921922|0.935365013165568|[0.99437148 0.93939394]|[0.99749059 0.87323944]|[0.99592859 0.90510949]|[1594   71]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=200
+index in axis 1=9.0
+Training Shape=(3378, 11800)
+Testing Shape=(1665, 11800)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9921921921921922|0.928636435930514|[0.9937539 0.953125 ]|[0.99811794 0.85915493]|[0.99593114 0.9037037 ]|[1594   71]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=180
+index in axis 1=8.0
+Training Shape=(3378, 10620)
+Testing Shape=(1665, 10620)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9927927927927928|0.9289501122165869|[0.9937578  0.96825397]|[0.99874529 0.85915493]|[0.99624531 0.91044776]|[1594   71]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=160
+index in axis 1=7.0
+Training Shape=(3378, 9440)
+Testing Shape=(1665, 9440)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9885885885885886|0.8931114920388075|[0.99065421 0.93333333]|[0.99749059 0.78873239]|[0.99406064 0.85496183]|[1594   71]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=140
+index in axis 1=6.0
+Training Shape=(3378, 8260)
+Testing Shape=(1665, 8260)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.984984984984985|0.8643151253821548|[0.98817673 0.89655172]|[0.99623588 0.73239437]|[0.99218994 0.80620155]|[1594   71]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=120
+index in axis 1=5.0
+Training Shape=(3378, 7080)
+Testing Shape=(1665, 7080)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9819819819819819|0.8291038577765212|[0.98511166 0.88679245]|[0.99623588 0.66197183]|[0.99064255 0.75806452]|[1594   71]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=100
+index in axis 1=4.0
+Training Shape=(3378, 5900)
+Testing Shape=(1665, 5900)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.978978978978979|0.8073497446409953|[0.983261   0.84615385]|[0.99498118 0.61971831]|[0.98908637 0.71544715]|[1594   71]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=80
+index in axis 1=3.0
+Training Shape=(3378, 4720)
+Testing Shape=(1665, 4720)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9741741741741742|0.7577402937070352|[0.97899938 0.80434783]|[0.99435383 0.52112676]|[0.98661687 0.63247863]|[1594   71]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=60
+index in axis 1=2.0
+Training Shape=(3378, 3540)
+Testing Shape=(1665, 3540)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9585585585585585|0.7159418240938732|[0.97567062 0.51612903]|[0.98117942 0.45070423]|[0.97841727 0.48120301]|[1594   71]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=40
+index in axis 1=1.0
+Training Shape=(3378, 2360)
+Testing Shape=(1665, 2360)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9201201201201201|0.527652110908866|[0.9597231  0.09210526]|[0.95671267 0.09859155]|[0.95821552 0.0952381 ]|[1594   71]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=20
+index in axis 1=0.0
+Training Shape=(3378, 1180)
+Testing Shape=(1665, 1180)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9087087087087087|0.49477795253326734|[0.95690748 0.03448276]|[0.94730238 0.04225352]|[0.95208071 0.03797468]|[1594   71]
+Finished ML with PCA
+Finished Working on File->VPih.csv in 0:07:07
+-----------------------------------------------------------------------------------------------------------
+Started Working on File->VPii.csv
+getting file content
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=280
+index in axis 1=13.0
+Training Shape=(3373, 16520)
+Testing Shape=(1662, 16520)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9963898916967509|0.966351606805293|[0.99685732 0.98591549]|[0.99936988 0.93333333]|[0.99811202 0.95890411]|[1587   75]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=260
+index in axis 1=12.0
+Training Shape=(3373, 15340)
+Testing Shape=(1662, 15340)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9963898916967509|0.966351606805293|[0.99685732 0.98591549]|[0.99936988 0.93333333]|[0.99811202 0.95890411]|[1587   75]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=240
+index in axis 1=11.0
+Training Shape=(3373, 14160)
+Testing Shape=(1662, 14160)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9963898916967509|0.966351606805293|[0.99685732 0.98591549]|[0.99936988 0.93333333]|[0.99811202 0.95890411]|[1587   75]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=220
+index in axis 1=10.0
+Training Shape=(3373, 12980)
+Testing Shape=(1662, 12980)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9963898916967509|0.966351606805293|[0.99685732 0.98591549]|[0.99936988 0.93333333]|[0.99811202 0.95890411]|[1587   75]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=200
+index in axis 1=9.0
+Training Shape=(3373, 11800)
+Testing Shape=(1662, 11800)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9963898916967509|0.966351606805293|[0.99685732 0.98591549]|[0.99936988 0.93333333]|[0.99811202 0.95890411]|[1587   75]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=180
+index in axis 1=8.0
+Training Shape=(3373, 10620)
+Testing Shape=(1662, 10620)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9963898916967509|0.966351606805293|[0.99685732 0.98591549]|[0.99936988 0.93333333]|[0.99811202 0.95890411]|[1587   75]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=160
+index in axis 1=7.0
+Training Shape=(3373, 9440)
+Testing Shape=(1662, 9440)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9963898916967509|0.966351606805293|[0.99685732 0.98591549]|[0.99936988 0.93333333]|[0.99811202 0.95890411]|[1587   75]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=140
+index in axis 1=6.0
+Training Shape=(3373, 8260)
+Testing Shape=(1662, 8260)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9963898916967509|0.966351606805293|[0.99685732 0.98591549]|[0.99936988 0.93333333]|[0.99811202 0.95890411]|[1587   75]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=120
+index in axis 1=5.0
+Training Shape=(3373, 7080)
+Testing Shape=(1662, 7080)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9969915764139591|0.9666666666666667|[0.9968593 1.       ]|[1.         0.93333333]|[0.99842718 0.96551724]|[1587   75]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=100
+index in axis 1=4.0
+Training Shape=(3373, 5900)
+Testing Shape=(1662, 5900)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9951865222623345|0.9466666666666667|[0.99498433 1.        ]|[1.         0.89333333]|[0.99748586 0.94366197]|[1587   75]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=80
+index in axis 1=3.0
+Training Shape=(3373, 4720)
+Testing Shape=(1662, 4720)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9909747292418772|0.9063516068052931|[0.99125    0.98387097]|[0.99936988 0.81333333]|[0.99529338 0.89051095]|[1587   75]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=60
+index in axis 1=2.0
+Training Shape=(3373, 3540)
+Testing Shape=(1662, 3540)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9747292418772563|0.777164461247637|[0.97951583 0.82352941]|[0.99432892 0.56      ]|[0.98686679 0.66666667]|[1587   75]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=40
+index in axis 1=1.0
+Training Shape=(3373, 2360)
+Testing Shape=(1662, 2360)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9283995186522263|0.5496534341524889|[0.95932416 0.15625   ]|[0.96597353 0.13333333]|[0.96263736 0.14388489]|[1587   75]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=20
+index in axis 1=0.0
+Training Shape=(3373, 1180)
+Testing Shape=(1662, 1180)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9121540312876053|0.509388783868935|[0.95572423 0.0617284 ]|[0.9521109  0.06666667]|[0.95391414 0.06410256]|[1587   75]
+Finished ML with PCA
+Finished Working on File->VPii.csv in 0:07:20
+-----------------------------------------------------------------------------------------------------------
+Started Working on File->VPja.csv
+getting file content
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=280
+index in axis 1=13.0
+Training Shape=(3383, 16520)
+Testing Shape=(1667, 16520)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9946010797840432|0.9595835125210891|[0.99623588 0.95890411]|[0.99811439 0.92105263]|[0.99717425 0.93959732]|[1591   76]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=260
+index in axis 1=12.0
+Training Shape=(3383, 15340)
+Testing Shape=(1667, 15340)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.997000599880024|0.9671052631578947|[0.99686717 1.        ]|[1.         0.93421053]|[0.99843113 0.96598639]|[1591   76]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=240
+index in axis 1=11.0
+Training Shape=(3383, 14160)
+Testing Shape=(1667, 14160)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9946010797840432|0.9470541532965034|[0.99499374 0.98550725]|[0.99937146 0.89473684]|[0.9971778  0.93793103]|[1591   76]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=220
+index in axis 1=10.0
+Training Shape=(3383, 12980)
+Testing Shape=(1667, 12980)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9934013197360528|0.9526902973965398|[0.99560853 0.94520548]|[0.99748586 0.90789474]|[0.99654631 0.9261745 ]|[1591   76]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=200
+index in axis 1=9.0
+Training Shape=(3383, 11800)
+Testing Shape=(1667, 11800)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9928014397120576|0.9461113500281187|[0.99498433 0.94444444]|[0.99748586 0.89473684]|[0.99623352 0.91891892]|[1591   76]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=180
+index in axis 1=8.0
+Training Shape=(3383, 10620)
+Testing Shape=(1667, 10620)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9934013197360528|0.9464256177842469|[0.99498747 0.95774648]|[0.99811439 0.89473684]|[0.99654848 0.92517007]|[1591   76]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=160
+index in axis 1=7.0
+Training Shape=(3383, 9440)
+Testing Shape=(1667, 9440)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9934013197360528|0.9464256177842469|[0.99498747 0.95774648]|[0.99811439 0.89473684]|[0.99654848 0.92517007]|[1591   76]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=140
+index in axis 1=6.0
+Training Shape=(3383, 8260)
+Testing Shape=(1667, 8260)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.994001199760048|0.9467398855403751|[0.99499061 0.97142857]|[0.99874293 0.89473684]|[0.99686324 0.93150685]|[1591   76]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=120
+index in axis 1=5.0
+Training Shape=(3383, 7080)
+Testing Shape=(1667, 7080)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9916016796640672|0.9329534552912765|[0.99373826 0.94285714]|[0.99748586 0.86842105]|[0.99560853 0.90410959]|[1591   76]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=100
+index in axis 1=4.0
+Training Shape=(3383, 5900)
+Testing Shape=(1667, 5900)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9898020395920816|0.9132166131860134|[0.991875   0.94029851]|[0.99748586 0.82894737]|[0.99467252 0.88111888]|[1591   76]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=80
+index in axis 1=3.0
+Training Shape=(3383, 4720)
+Testing Shape=(1667, 4720)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9850029994001199|0.8668497138509379|[0.9875467  0.91803279]|[0.99685732 0.73684211]|[0.99218017 0.81751825]|[1591   76]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=60
+index in axis 1=2.0
+Training Shape=(3383, 3540)
+Testing Shape=(1667, 3540)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9706058788242351|0.7841311323563466|[0.98007472 0.72131148]|[0.9893149  0.57894737]|[0.98467313 0.64233577]|[1591   76]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=40
+index in axis 1=1.0
+Training Shape=(3383, 2360)
+Testing Shape=(1667, 2360)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9112177564487103|0.5337548380694035|[0.95751427 0.1       ]|[0.94908862 0.11842105]|[0.95328283 0.10843373]|[1591   76]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=20
+index in axis 1=0.0
+Training Shape=(3383, 1180)
+Testing Shape=(1667, 1180)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9220155968806238|0.5018235800059545|[0.95457374 0.05      ]|[0.96417348 0.03947368]|[0.95934959 0.04411765]|[1591   76]
+Finished ML with PCA
+Finished Working on File->VPja.csv in 0:06:52
+-----------------------------------------------------------------------------------------------------------
+Started Working on File->VPsaj.csv
+getting file content
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=280
+index in axis 1=13.0
+Training Shape=(3374, 16520)
+Testing Shape=(1662, 16520)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9921780986762936|0.9196621086820055|[0.99313358 0.96666667]|[0.99874451 0.84057971]|[0.99593114 0.89922481]|[1593   69]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=260
+index in axis 1=12.0
+Training Shape=(3374, 15340)
+Testing Shape=(1662, 15340)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9927797833935018|0.9269084854935997|[0.9937539  0.96721311]|[0.99874451 0.85507246]|[0.99624296 0.90769231]|[1593   69]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=240
+index in axis 1=11.0
+Training Shape=(3374, 14160)
+Testing Shape=(1662, 14160)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.99338146811071|0.9272223586888289|[0.9937578  0.98333333]|[0.99937225 0.85507246]|[0.99655712 0.91472868]|[1593   69]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=220
+index in axis 1=10.0
+Training Shape=(3374, 12980)
+Testing Shape=(1662, 12980)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9915764139590855|0.9124157318704114|[0.99251404 0.96610169]|[0.99874451 0.82608696]|[0.99561952 0.890625  ]|[1593   69]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=200
+index in axis 1=9.0
+Training Shape=(3374, 11800)
+Testing Shape=(1662, 11800)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9921780986762936|0.9127296050656405|[0.9925187  0.98275862]|[0.99937225 0.82608696]|[0.99593369 0.8976378 ]|[1593   69]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=180
+index in axis 1=8.0
+Training Shape=(3374, 10620)
+Testing Shape=(1662, 10620)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9921780986762936|0.9127296050656405|[0.9925187  0.98275862]|[0.99937225 0.82608696]|[0.99593369 0.8976378 ]|[1593   69]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=160
+index in axis 1=7.0
+Training Shape=(3374, 9440)
+Testing Shape=(1662, 9440)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9903730445246691|0.9117879854799531|[0.99250468 0.93442623]|[0.99748901 0.82608696]|[0.99499061 0.87692308]|[1593   69]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=140
+index in axis 1=6.0
+Training Shape=(3374, 8260)
+Testing Shape=(1662, 8260)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9903730445246691|0.904855481863588|[0.99189021 0.94915254]|[0.99811676 0.8115942 ]|[0.99499374 0.875     ]|[1593   69]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=120
+index in axis 1=5.0
+Training Shape=(3374, 7080)
+Testing Shape=(1662, 7080)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9885679903730445|0.9039138622779006|[0.991875   0.90322581]|[0.99623352 0.8115942 ]|[0.99404948 0.85496183]|[1593   69]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=100
+index in axis 1=4.0
+Training Shape=(3374, 5900)
+Testing Shape=(1662, 5900)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9873646209386282|0.882488605038347|[0.99002494 0.9137931 ]|[0.99686127 0.76811594]|[0.99343134 0.83464567]|[1593   69]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=80
+index in axis 1=3.0
+Training Shape=(3374, 4720)
+Testing Shape=(1662, 4720)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9813477737665464|0.8377548513878654|[0.98630137 0.83928571]|[0.99435028 0.68115942]|[0.99030947 0.752     ]|[1593   69]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=60
+index in axis 1=2.0
+Training Shape=(3374, 3540)
+Testing Shape=(1662, 3540)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9717208182912154|0.7980703621823739|[0.983125   0.67741935]|[0.98744507 0.60869565]|[0.9852803  0.64122137]|[1593   69]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=40
+index in axis 1=1.0
+Training Shape=(3374, 2360)
+Testing Shape=(1662, 2360)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9253910950661853|0.5659270176587788|[0.96399242 0.15189873]|[0.95794099 0.17391304]|[0.96095718 0.16216216]|[1593   69]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=20
+index in axis 1=0.0
+Training Shape=(3374, 1180)
+Testing Shape=(1662, 1180)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9103489771359807|0.495687655230765|[0.95812183 0.03488372]|[0.94789705 0.04347826]|[0.95298201 0.03870968]|[1593   69]
+Finished ML with PCA
+Finished Working on File->VPsaj.csv in 0:06:54
+-----------------------------------------------------------------------------------------------------------
+Started Working on File->VPsal.csv
+getting file content
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=280
+index in axis 1=13.0
+Training Shape=(3358, 16520)
+Testing Shape=(1654, 16520)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9909310761789601|0.8961968613131404|[0.99188514 0.96153846]|[0.99874293 0.79365079]|[0.99530222 0.86956522]|[1591   63]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=260
+index in axis 1=12.0
+Training Shape=(3358, 15340)
+Testing Shape=(1654, 15340)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9933494558645707|0.9203206528787926|[0.99375    0.98148148]|[0.99937146 0.84126984]|[0.9965528  0.90598291]|[1591   63]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=240
+index in axis 1=11.0
+Training Shape=(3358, 14160)
+Testing Shape=(1654, 14160)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9921402660217654|0.9120698771861562|[0.993125   0.96296296]|[0.99874293 0.82539683]|[0.99592604 0.88888889]|[1591   63]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=220
+index in axis 1=10.0
+Training Shape=(3358, 12980)
+Testing Shape=(1654, 12980)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9939540507859734|0.9206349206349207|[0.9937539 1.       ]|[1.         0.84126984]|[0.99686717 0.9137931 ]|[1591   63]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=200
+index in axis 1=9.0
+Training Shape=(3358, 11800)
+Testing Shape=(1654, 11800)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9915356711003628|0.8965111290692686|[0.99189021 0.98039216]|[0.99937146 0.79365079]|[0.99561678 0.87719298]|[1591   63]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=180
+index in axis 1=8.0
+Training Shape=(3358, 10620)
+Testing Shape=(1654, 10620)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9909310761789601|0.8885746211327606|[0.99127182 0.98      ]|[0.99937146 0.77777778]|[0.99530516 0.86725664]|[1591   63]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=160
+index in axis 1=7.0
+Training Shape=(3358, 9440)
+Testing Shape=(1654, 9440)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9897218863361548|0.8803238454401245|[0.99064838 0.96      ]|[0.99874293 0.76190476]|[0.99467919 0.84955752]|[1591   63]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=140
+index in axis 1=6.0
+Training Shape=(3358, 8260)
+Testing Shape=(1654, 8260)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9879081015719468|0.8641365618109805|[0.9894081  0.93877551]|[0.99811439 0.73015873]|[0.99374218 0.82142857]|[1591   63]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=120
+index in axis 1=5.0
+Training Shape=(3358, 7080)
+Testing Shape=(1654, 7080)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9848851269649335|0.8549429828499596|[0.98876404 0.86538462]|[0.99560025 0.71428571]|[0.99217037 0.7826087 ]|[1591   63]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=100
+index in axis 1=4.0
+Training Shape=(3358, 5900)
+Testing Shape=(1654, 5900)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9776299879081015|0.8206828090549021|[0.98623279 0.73214286]|[0.99057197 0.65079365]|[0.98839762 0.68907563]|[1591   63]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=80
+index in axis 1=3.0
+Training Shape=(3358, 4720)
+Testing Shape=(1654, 4720)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9740024183796856|0.7501970408947153|[0.98074534 0.72727273]|[0.99245757 0.50793651]|[0.9865667  0.59813084]|[1591   63]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=60
+index in axis 1=2.0
+Training Shape=(3358, 3540)
+Testing Shape=(1654, 3540)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9510278113663845|0.6391657438169066|[0.97246558 0.33928571]|[0.97674419 0.3015873 ]|[0.97460019 0.31932773]|[1591   63]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=40
+index in axis 1=1.0
+Training Shape=(3358, 2360)
+Testing Shape=(1654, 2360)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9214026602176542|0.5170552612413077|[0.96322131 0.06493506]|[0.95474544 0.07936508]|[0.95896465 0.07142857]|[1591   63]
+Finished ML with PCA
+====================================
+====================================
+====================================
+====================================
+at nColtoKeep=20
+index in axis 1=0.0
+Training Shape=(3358, 1180)
+Testing Shape=(1654, 1180)
+Started ML with PCA
+Training ..
+Making Predictions ....
+
+Results:-
+accuracy | AUCvalue | Precision0 | Precision1 | recall0 | recall1 | support0 | support 1
+0.9177750906892382|0.5304141350652979|[0.96426292 0.08045977]|[0.94971716 0.11111111]|[0.95693477 0.09333333]|[1591   63]
+Finished ML with PCA
+Finished Working on File->VPsal.csv in 0:07:04
+-----------------------------------------------------------------------------------------------------------
+
+==============
+|FINAL REPORT|
+==============
+
+----------------------------------
+|Linear Discriminant Analyzer PCA|
+----------------------------------
+
+Linear Discriminant Analyzer with PCA Average
+[[[1.00000000e+03 9.17072574e-01 4.99501305e-01 9.55282145e-01 4.02928948e-02 9.58068316e-01 4.09342946e-02 9.56645753e-01 4.01043684e-02 1.59022222e+03 7.42222222e+01]
+  [1.00000000e+03 9.23267869e-01 5.40287220e-01 9.58937322e-01 1.21170379e-01 9.60834439e-01 1.19740000e-01 9.59868094e-01 1.19708256e-01 1.59022222e+03 7.42222222e+01]
+  [1.00000000e+03 9.61823987e-01 7.34639412e-01 9.76549463e-01 5.80121954e-01 9.83691295e-01 4.85587528e-01 9.80098102e-01 5.25976318e-01 1.59022222e+03 7.42222222e+01]
+  [1.00000000e+03 9.77107572e-01 8.19586670e-01 9.83889869e-01 7.89620592e-01 9.92312543e-01 6.46860798e-01 9.88076955e-01 7.08305897e-01 1.59022222e+03 7.42222222e+01]
+  [1.00000000e+03 9.82934737e-01 8.63088741e-01 9.87670671e-01 8.59178413e-01 9.94571064e-01 7.31606417e-01 9.91103239e-01 7.87848659e-01 1.59022222e+03 7.42222222e+01]
+  [1.00000000e+03 9.86565265e-01 8.84295624e-01 9.89477548e-01 9.09501042e-01 9.96552493e-01 7.72038755e-01 9.92996449e-01 8.32350238e-01 1.59022222e+03 7.42222222e+01]
+  [1.00000000e+03 9.88363345e-01 9.03926966e-01 9.91225128e-01 9.17771142e-01 9.96654424e-01 8.11199509e-01 9.93926890e-01 8.58870118e-01 1.59022222e+03 7.42222222e+01]
+  [1.00000000e+03 9.89763053e-01 9.15447389e-01 9.92358993e-01 9.28164033e-01 9.96965111e-01 8.33929667e-01 9.94653798e-01 8.76999401e-01 1.59022222e+03 7.42222222e+01]
+  [1.00000000e+03 9.90930515e-01 9.23336529e-01 9.93050216e-01 9.40971602e-01 9.97489801e-01 8.49183257e-01 9.95262747e-01 8.91459434e-01 1.59022222e+03 7.42222222e+01]
+  [1.00000000e+03 9.90831247e-01 9.23534596e-01 9.93085625e-01 9.37185079e-01 9.97350375e-01 8.49718818e-01 9.95211267e-01 8.90040750e-01 1.59022222e+03 7.42222222e+01]
+  [1.00000000e+03 9.90999791e-01 9.26949857e-01 9.93358028e-01 9.36114549e-01 9.97246075e-01 8.56653639e-01 9.95296420e-01 8.93634468e-01 1.59022222e+03 7.42222222e+01]
+  [1.00000000e+03 9.90899826e-01 9.27452762e-01 9.93428807e-01 9.31412758e-01 9.97072240e-01 8.57833285e-01 9.95245009e-01 8.91956425e-01 1.59022222e+03 7.42222222e+01]
+  [1.00000000e+03 9.91469884e-01 9.30548868e-01 9.93711979e-01 9.37933908e-01 9.97386823e-01 8.63710913e-01 9.95544019e-01 8.98203280e-01 1.59022222e+03 7.42222222e+01]
+  [1.00000000e+03 9.91236193e-01 9.28719757e-01 9.93499920e-01 9.36795235e-01 9.97352579e-01 8.60086935e-01 9.95420916e-01 8.96049883e-01 1.59022222e+03 7.42222222e+01]]]
+=========================================================
+Linear Discriminant Analyzer with PCA Best Values
+[[1.00000000e+03 9.94565217e-01 9.39079474e-01 9.94990607e-01 9.83050847e-01 9.99371069e-01 8.78787879e-01 9.97176028e-01 9.28000000e-01 1.59000000e+03 6.60000000e+01]
+ [1.00000000e+03 9.94597839e-01 9.55582478e-01 9.96250000e-01 9.68750000e-01 9.98747652e-01 9.13043478e-01 9.97186621e-01 9.33333333e-01 1.59700000e+03 6.90000000e+01]
+ [1.00000000e+03 9.96385542e-01 9.72799199e-01 9.96817314e-01 1.00000000e+00 1.00000000e+00 9.46236559e-01 9.98089172e-01 9.67032967e-01 1.56700000e+03 9.30000000e+01]
+ [1.00000000e+03 9.86966825e-01 8.61365710e-01 9.89621490e-01 9.00000000e-01 9.96924969e-01 7.25806452e-01 9.93259804e-01 8.03571429e-01 1.62600000e+03 6.20000000e+01]
+ [1.00000000e+03 9.83303518e-01 8.96545226e-01 9.89361702e-01 8.60759494e-01 9.93718593e-01 8.00000000e-01 9.91222571e-01 8.29268293e-01 1.59200000e+03 8.50000000e+01]
+ [1.00000000e+03 9.95785671e-01 9.71278232e-01 9.97484277e-01 9.71014493e-01 9.98741347e-01 9.44444444e-01 9.97799434e-01 9.51048951e-01 1.58900000e+03 7.20000000e+01]
+ [1.00000000e+03 9.95169082e-01 9.56484649e-01 9.96219282e-01 9.84615385e-01 9.99369085e-01 9.15492958e-01 9.97481108e-01 9.41176471e-01 1.58500000e+03 7.10000000e+01]
+ [1.00000000e+03 9.94581577e-01 9.55237287e-01 9.94930292e-01 1.00000000e+00 1.00000000e+00 9.11111111e-01 9.97141950e-01 9.47976879e-01 1.57100000e+03 9.00000000e+01]
+ [1.00000000e+03 9.81358990e-01 8.73545536e-01 9.86137366e-01 9.03225806e-01 9.96188056e-01 7.52808989e-01 9.90192977e-01 8.12121212e-01 1.57400000e+03 8.90000000e+01]
+ [1.00000000e+03 9.93950393e-01 9.47583040e-01 9.95594714e-01 1.00000000e+00 1.00000000e+00 8.97058824e-01 9.96849401e-01 9.24242424e-01 1.58500000e+03 6.80000000e+01]
+ [1.00000000e+03 9.92243437e-01 9.45206593e-01 9.96291718e-01 8.79310345e-01 9.95676343e-01 8.94736842e-01 9.95983936e-01 8.86956522e-01 1.61900000e+03 5.70000000e+01]
+ [1.00000000e+03 9.93397359e-01 9.60450017e-01 9.96221662e-01 9.46666667e-01 9.97479521e-01 9.24050633e-01 9.96535433e-01 9.29936306e-01 1.58700000e+03 7.90000000e+01]
+ [1.00000000e+03 9.91601680e-01 9.25295409e-01 9.92481203e-01 9.85294118e-01 9.99369483e-01 8.51851852e-01 9.95600251e-01 9.07894737e-01 1.58600000e+03 8.10000000e+01]
+ [1.00000000e+03 9.92792793e-01 9.35365013e-01 9.94371482e-01 9.68253968e-01 9.98745295e-01 8.73239437e-01 9.96245307e-01 9.10447761e-01 1.59400000e+03 7.10000000e+01]
+ [1.00000000e+03 9.96991576e-01 9.66666667e-01 9.96859296e-01 1.00000000e+00 1.00000000e+00 9.33333333e-01 9.98427178e-01 9.65517241e-01 1.58700000e+03 7.50000000e+01]
+ [1.00000000e+03 9.97000600e-01 9.67105263e-01 9.96867168e-01 1.00000000e+00 1.00000000e+00 9.34210526e-01 9.98431126e-01 9.65986395e-01 1.59100000e+03 7.60000000e+01]
+ [1.00000000e+03 9.93381468e-01 9.27222359e-01 9.93757803e-01 9.83333333e-01 9.99372254e-01 8.55072464e-01 9.96557121e-01 9.14728682e-01 1.59300000e+03 6.90000000e+01]
+ [1.00000000e+03 9.93954051e-01 9.20634921e-01 9.93753904e-01 1.00000000e+00 1.00000000e+00 8.41269841e-01 9.96867168e-01 9.13793103e-01 1.59100000e+03 6.30000000e+01]]
+The Whole Training took |2:05:46|
