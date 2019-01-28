@@ -1,6 +1,29 @@
 import numpy as np
 
-np.set_printoptions(threshold=np.inf, linewidth=300000)
+
+
+x1=np.zeros([1,5])
+print(x1)
+print("-------------------")
+
+x2=np.array([np.arange(1,6,1)])
+
+print(x2)
+
+print("-------------------")
+x3=np.zeros([1,5])
+print(x3)
+
+print("-------------------")
+y = np.append(x1,x2,axis=0)
+print(y)
+
+
+print("-------------------")
+y = np.append(y,x3,axis=0)
+print(y)
+
+
 
 #File to try different pieces of codes and techniques
 
@@ -125,3 +148,4 @@ print(x[:, 2])
 #
 # print("-----------------------")
 # print(x)
+'''
