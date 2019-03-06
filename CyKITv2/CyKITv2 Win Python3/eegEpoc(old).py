@@ -1704,7 +1704,7 @@ class EEG(object):
                         if self.nocounter == True:
                             counter_data = ""
                         else:
-                            counter_data = str(data[0]) + self.delimiter
+                            counter_data = str(data[0]) + self.delimiter + str(data[1]) + self.delimiter
 
                         # ~Format 0: (Default) (Decode to Floating Point)
                         # ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
@@ -1717,33 +1717,6 @@ class EEG(object):
 
                             packet_data = packet_data[:-len(self.delimiter)]
 
-                            AdasPacket = airsimClient.getAdasPacket()
-                            CarControls = airsimClient.getCarControls()
-
-                            #car evnum AdasPacket[0]
-                            #ped evnum AdasPacket[2]
-                            #car distance AdasPacket[1]
-                            #pedestrian distance AdasPacket[3]
-
-                            y = '0'
-                            if AdasPacket[0] == 1 and AdasPacket[2] == 0:
-                                y = '1'
-                            elif AdasPacket[0] == 0 and AdasPacket[2] == 1:
-                                y = '2'
-                            elif AdasPacket[0] == 1 and AdasPacket[2] == 1:
-                                y = '3'
-                            elif AdasPacket[0] == -1 and AdasPacket[2] == -1:
-                                y = '-1'
-                            else:
-                                y = '0'
-                            
-                            airsim_data = str(CarControls['brake']) + self.delimiter
-
-                            cyIO.CurrentPacket = airsim_data + counter_data + packet_data + self.delimiter + y
-
-                            #print(cyIO.CurrentPacket)
-                            if cyIO.isRecording() == True:
-                                cyIO.startRecord(cyIO.CurrentPacket)
                             #  Averages Signal Data and Sends to Client.
                             # ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
 
@@ -1808,7 +1781,7 @@ class EEG(object):
                                     emptyCSV = emptyCSV[:-2]
                                     record_data = packet_data + self.delimiter + emptyCSV
 
-                                #cyIO.startRecord(counter_data + record_data)
+                                cyIO.startRecord(counter_data + record_data)
                             if self.outputdata == True:
                                 mirror.text(str(counter_data + packet_data))
 
