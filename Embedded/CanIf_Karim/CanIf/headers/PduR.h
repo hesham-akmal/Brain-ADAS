@@ -1,0 +1,1 @@
+//for PduR configuration data (e.g. PduR target PDU Ids)
