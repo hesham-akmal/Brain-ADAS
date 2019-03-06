@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "*.ipynb": "jupyter",
+        "canif.h": "c",
+        "pdur_cbk.h": "c",
+        "canif_cbk.h": "c",
+        "pdur_canif.h": "c",
+        "cannm_cfg.h": "c",
+        "cantp_cfg.h": "c",
+        "pdur_cfg.h": "c"
+    }
+}
