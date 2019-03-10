@@ -1,6 +1,9 @@
 #ifndef CAN_GENERAL_TYPES
 #define CAN_GENERAL_TYPES
 
+#include "types.h"
+#include "ComStack_Types.h"
+
 typedef uint32 Can_IdType; /* Assuming extended IDs are used, revert to uint16 for standard IDs, 0x Std ID, 1x Ext ID*/ 
 
 /* Use uint16 if more than 255 H/W handles otherwise, uint8*/
@@ -21,10 +24,6 @@ typedef enum {
 
 
 typedef struct {	
-	/* TODO: Implement */
-} Can_ConfigType ;
-
-typedef struct {	
 	Can_IdType CanId ;/* Standard/Extended CAN ID of CAN LPDU */
 	Can_HwHandleType Hoh ;/* ID of the corresponding HardwareObject Range */
 	uint8 ControllerId ;/* ControllerId provided by CanIf clearly identify the corresponding controller */
@@ -35,7 +34,7 @@ typedef struct {
 	uint8 length; /* Length (8 bytes max) */
 	Can_IdType 	id; /* the CAN ID, 29 or 11-bit */
 	const uint8 *sdu; /* Data pointer */
-} Can_PduType; /* here? */
+} Can_PduType;
 
 typedef enum {
   CANTRCV_TRCVMODE_NORMAL = 0, /* Transceiver mode NORMAL */

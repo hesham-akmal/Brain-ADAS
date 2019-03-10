@@ -1,9 +1,11 @@
-#ifndef STD_TYPES_H
-#define STD_TYPES_H
+// #ifndef STD_TYPES_H
+// #define STD_TYPES_H
 
-#ifndef NULL
-#define NULL 0
-#endif
+// #ifndef NULL
+// #define NULL 0
+// #endif
+
+#include "types.h"
 
 typedef struct
 {
@@ -20,6 +22,8 @@ typedef struct
 	uint8 ar_minor_version; /* Autosar spec. numbers */
 	uint8 ar_patch_version; /* Autosar spec. numbers */
 } Std_VersionInfoType;
+
+
 
 #define STD_GET_VERSION (_major, _minor, _patch)(_major * 10000 + _minor * 100 + _patch)
 
@@ -70,5 +74,5 @@ typedef uint8 Std_ReturnType;
 #define STD_ON 0x01
 #define STD_OFF 0x00
 
-#endif
+
 /** @} */

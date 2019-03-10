@@ -128,6 +128,9 @@ typedef struct CanIfRxPduCanIdRange
     uint32 CanIfRxPduCanIdRangeUpperCanId;
 } CanIfRxPduCanIdRange;
 
+
+
+
 typedef struct CanIfTxPduCfg
 {
     //Configurable reference to a CanIf buffer configuration.
@@ -156,9 +159,10 @@ typedef struct CanIfTxPduCfg
     const CanIfTxPduUserTxConfirmationName canIfTxPduUserTxConfirmationName;
     // confirmation of the successfully transmitted CANTXPDUID has to be routed via the <User_TxConfirmation>
     const CanIfTxPduUserTxConfirmationUL canIfTxPduUserTxConfirmationUL;
-    /** Configurable reference to a CanIf buffer configuration */
-    const CanIfBufferCfg *canIfTxPduBufferRef;
 } CanIfTxPduCfg;
+
+
+
 typedef struct CanIfBufferCfg
 {
     //number of CanIf Tx L-PDUs which can be buffered in one Txbuffer */
@@ -166,6 +170,10 @@ typedef struct CanIfBufferCfg
     // Reference to HTH,that defines the hardware object
     const CanIfHthCfg *canIfBufferHthRef;
 } CanIfBufferCfg;
+
+
+
+
 /*This container contains the configuration (parameters) of each receive CAN L-PDU*/
 typedef struct CanIfRxPduCfg
 {
@@ -209,6 +217,9 @@ typedef struct CanIfRxPduCfg
     const CanIfRxPduCanIdRange *canIfRxPduCanIdRange;
 
 } CanIfRxPduCfg;
+
+
+
 typedef struct CanIfCtrlCfg
 {
     /*  This parameter references to the logical handle of the underlying CAN
@@ -223,6 +234,9 @@ typedef struct CanIfCtrlCfg
         Driver modules is queriable for wake up events.*/
     bool canIfCtrlWakeupSupport;
 } CanIfCtrlCfg;
+
+
+
 typedef struct CanIfHthCfg
 {
     //Reference to controller Id to which the HTH belongs to
@@ -232,6 +246,9 @@ typedef struct CanIfHthCfg
     const CanHardwareObject *canIfHthIdSymRef;
 
 } CanIfHthCfg;
+
+
+
 typedef struct CanIfHrhRangeCfg
 {
     CanIfHrhRangeRxPduRangeCanIdType canIfHrhRangeRxPduRangeCanIdType;
@@ -242,6 +259,8 @@ typedef struct CanIfHrhRangeCfg
     uint32 canIfHrhRangeRxPduLowerCanId;
     uint32 canIfHrhRangeRxPduUpperCanId;
 } CanIfHrhRangeCfg;
+
+
 typedef struct CanIfHrhCfg
 {
     //Reference to controller Id to which the HRH belongs to.
@@ -257,6 +276,8 @@ typedef struct CanIfHrhCfg
     const CanIfHrhRangeCfg *canIfHrhRangeCfg;
 
 } CanIfHrhCfg;
+
+
 typedef struct CanIfInitHohCfg
 {
     //This container contains configuration parameters for each hardware receive object (HRH).
@@ -264,6 +285,8 @@ typedef struct CanIfInitHohCfg
     //This container contains parameters related to each HTH.
     const CanIfHthCfg *canIfHthCfg;
 } CanIfInitHohCfg;
+
+
 
 typedef struct CanIfTrcvCfg
 {
@@ -278,6 +301,8 @@ typedef struct CanIfTrcvCfg
     bool CanIfTrcvWakeupSupport;
 } CanIfTrcvCfg;
 
+
+
 /*This container contains the configuration (parameters) of all addressed
 CAN transceivers by each underlying CAN Transceiver Driver module.
 For each CAN transceiver Driver a seperate instance of this container
@@ -288,6 +313,8 @@ typedef struct CanIfTrcvDrvCfg
     const CanIfTrcvCfg canIfTrcvCfg;
 
 } CanIfTrcvDrvCfg;
+
+
 /*
     Configuration parameters for all the underlying CAN Driver modules are aggregated under this container. For each CAN Driver module a
     separate instance of this container has to be provided.
@@ -302,6 +329,8 @@ typedef struct CanIfCtrlDrvCfg
     Driver module. This container is configurable per CAN controller.*/
     CanIfCtrlCfg canIfCtrlCfg;
 } CanIfCtrlDrvCfg;
+
+
 
 /*
     Callback functions provided by upper layer modules of the CanIf. The callback functions defined in this container are common to all
@@ -338,6 +367,9 @@ typedef struct CanIfDispatchCfg
     /** defines the upper layer (UL) module to which the notifications about positive former requested wake up sources have to be routed */
     CanIfDispatchUserValidateWakeupEventULType canIfDispatchUserValidateWakeupEventUL;
 } CanIfDispatchCfg;
+
+
+
 //This container contains the init parameters of the CAN Interface.
 typedef struct CanIfInitCfg
 {
@@ -360,6 +392,9 @@ typedef struct CanIfInitCfg
     //This container contains the configuration (parameters) of a transmit CAN L-PDU
     const CanIfTxPduCfg *canIfTxPduCfg;
 } CanIfInitCfg;
+
+
+
 //This container contains the private configuration (parameters) of the CAN Interface.
 typedef struct CanIfPrivateCfg
 {
@@ -372,6 +407,10 @@ typedef struct CanIfPrivateCfg
     //Selects the desired software filter mechanism for reception only.
     CanIfPrivateSoftwareFilterType canIfPrivateSoftwareFilterType;
 } CanIfPrivateCfg;
+
+
+
+
 //This container contains the public configuration (parameters) of the CAN Interface.
 typedef struct CanIfPublicCfg
 {
@@ -448,6 +487,12 @@ typedef struct CanIfPublicCfg
     bool canIfWakeupSupport;
 
 } CanIfPublicCfg;
+
+
+
+
+
+
 //THE BIG CONTAINER OF ALL CANIF TYPES
 typedef struct CanIf_ConfigType
 {
