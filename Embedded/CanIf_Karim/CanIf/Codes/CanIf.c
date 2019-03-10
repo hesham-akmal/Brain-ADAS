@@ -148,9 +148,10 @@ Std_ReturnType CanIf_Transmit(PduIdType CanIfTxSduId, const PduInfoType *CanIfTx
     //identify CAN drv
 
     //determine HTH to access CAN Hardware Obj
-    CanIfTxPduCfg canIfTxPduPtr = canIf_ConfigPtr->canIfInitCfg->canIfTxPduCfg[CanIfTxSduId];
 
     CanIf_PduModeType PduMode;
+
+    CanIfTxPduCfg canIfTxPduPtr = canIf_ConfigPtr->canIfInitCfg->canIfTxPduCfg[CanIfTxSduId];
 
     uint8 CtrlId = canIfTxPduPtr->canIfTxPduBufferRef->canIfBufferHthRef->CanIfHthCanCtrlIdRef->canIfCtrlId;
 
@@ -166,11 +167,36 @@ Std_ReturnType CanIf_Transmit(PduIdType CanIfTxSduId, const PduInfoType *CanIfTx
     if (CanIf_GetPduMode(CtrlId, &PduMode) == E_NOT_OK)
         return E_NOT_OK;
 
+
     
+    CanIfTxPduCanIdType CanIdType = canIfTxPduPtr->CanIfTxPduCanIdType;
+    if (CanIfTxInfoPtr->SduLength > 8 && (CanIdType == STANDARD_CAN || CanIdType == EXTENDED_CAN))
+    {
+        ///Report an error CANIF_E_DATA_LENGTH_MISMATCH to the Det_ReportError
+        ///shall transmit as much data as possible and discard the rest.
+        canPdu.length = 8;
+    }
+    else if (CanIfTxInfoPtr->SduLength > 64)
+    {
+        ///Report an error CANIF_E_DATA_LENGTH_MISMATCH to the Det_ReportError
+        ///shall transmit as much data as possible and discard the rest.
+        canPdu.length = 64;
+    }
+    else
+    {
+        canPdu.length = CanIfTxInfoPtr->SduLength;
+    }
 
-    //Call CAN_Write() of CanDrv
+    canPdu.id = CanIfTxInfoPtr->CanIfTxPduCanId & CanIfTxInfoPtr->CanIfTxPduCanIdMask;
+    canPdu.sdu = PduInfoPtr->SduDataPtr;
+    canPdu.swPduHandle = CanIfTxSduId;
+
+    if (Can_Write(canIfTxPduPtr->CanIfTxPduBufferRef->CanIfBufferHthRef->CanIfHthIdSymRef->CanObjectId, &canPdu) == CAN_OK)
+        return E_OK;
+    else
+        return E_NOT_OK;
+
 }
-
 
 /*
 
