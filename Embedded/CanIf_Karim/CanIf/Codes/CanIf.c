@@ -141,7 +141,6 @@ data in the L-SDU structure.
 
 Std_ReturnType CanIf_Transmit(PduIdType CanIfTxSduId, const PduInfoType *CanIfTxInfoPtr)
 {
-
     //check if CANIF is initialized OR currentController is not CANIF_CS_STARTED or
     if (canIf_ConfigPtr == NULL || CanIfTxInfoPtr == NULL)
         return E_NOT_OK;
@@ -167,8 +166,6 @@ Std_ReturnType CanIf_Transmit(PduIdType CanIfTxSduId, const PduInfoType *CanIfTx
     if (CanIf_GetPduMode(CtrlId, &PduMode) == E_NOT_OK)
         return E_NOT_OK;
 
-
-    
     CanIfTxPduCanIdType CanIdType = canIfTxPduPtr->CanIfTxPduCanIdType;
     if (CanIfTxInfoPtr->SduLength > 8 && (CanIdType == STANDARD_CAN || CanIdType == EXTENDED_CAN))
     {
@@ -195,7 +192,43 @@ Std_ReturnType CanIf_Transmit(PduIdType CanIfTxSduId, const PduInfoType *CanIfTx
         return E_OK;
     else
         return E_NOT_OK;
+}
 
+/*
+in : CanTxPduId L-PDU handle of CAN L-PDU successfully transmitted.This ID specifies the corresponding CAN L-PDU ID 
+                and implicitly the CAN Driver instance as well as the corresponding CAN controller device.
+
+
+This service confirms a previously successfully processed transmission of a CAN TxPDU.
+
+*/
+
+void CanIf_TxConfirmation(PduIdType CanTxPduId)
+{
+
+    if (canIf_ConfigPtr == NULL)
+    {
+        printf("CanIf_TxConfirmation : The CanIf is not intialized");
+        return;
+    }
+
+    if (canTxPduId > canIf_ConfigPtr->canIfInitCfg->canIfMaxTxPduCfg)
+    {
+        printf("CanIf_TxConfirmation : Excedded THE MAX Number of IDs");
+        return;
+    }
+
+    const CanIf_TxPduCfgType *TxPduCfgPtr = canIf_ConfigPtr->canIfInitCfg->canIfTxPduCfg[CanTxPduId];
+
+    if (TxPduCfgPtr == NULL)
+    {
+        printf("CanIf_TxConfirmation : TxPduCfgPtr = NULL ");
+        return;
+    }
+
+    // uint8 CtrlId = TxPduCfgPtr->CanIfTxPduBufferRef->CanIfBufferHthRef->CanIfHthCanCtrlIdRef->CanIfCtrlId;
+
+    (TxPduCfgPtr->canIfTxPduUserTxConfirmationName)(CanTxPduId, E_OK);
 }
 
 /*
@@ -208,26 +241,7 @@ This service indicates a successful reception of a received CAN Rx L-PDU to the 
 
 void CanIf_RxIndication(const Can_HwType *Mailbox, const PduInfoType *PduInfoPtr)
 {
+    
 }
 
 //-----------------------------------------------------------------
-
-/*
-
-
-in : CanTxPduId L-PDU handle of CAN L-PDU successfully transmitted.This ID specifies the corresponding CAN L-PDU ID 
-                and implicitly the CAN Driver instance as well as the corresponding CAN controller device.
-
-
-This service confirms a previously successfully processed transmission of a CAN TxPDU.
-
-*/
-
-void CanIf_TxConfirmation(PduIdType CanTxPduId)
-{
-}
-
-//My prototype function
-void CanIf_execute()
-{
-}
