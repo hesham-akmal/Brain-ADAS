@@ -185,7 +185,7 @@ Std_ReturnType CanIf_Transmit(PduIdType CanIfTxSduId, const PduInfoType *CanIfTx
     }
 
     canPdu.id = CanIfTxInfoPtr->CanIfTxPduCanId & CanIfTxInfoPtr->CanIfTxPduCanIdMask;
-    canPdu.sdu = PduInfoPtr->SduDataPtr;
+    canPdu.sdu = CanIfTxInfoPtr->SduDataPtr;
     canPdu.swPduHandle = CanIfTxSduId;
 
     if (Can_Write(canIfTxPduPtr->CanIfTxPduBufferRef->CanIfBufferHthRef->CanIfHthIdSymRef->CanObjectId, &canPdu) == CAN_OK)
@@ -239,9 +239,50 @@ in : Mailbox Identifies the HRH and its corresponding CAN Controller
 This service indicates a successful reception of a received CAN Rx L-PDU to the CanIf after passing all filters and validation checks.
 */
 
-void CanIf_RxIndication(const Can_HwType *Mailbox, const PduInfoType *PduInfoPtr)
+static CanIfRxPduCfg *findRxPduCfg(Can_HwHandleType Hoh)
 {
-    
+    for (uint32 i = 0; i != canIf_ConfigPtr->canIfInitCfg->canIfMaxRxPduCfg; ++i)
+    {
+        if (Hoh == canIf_ConfigPtr->canIfInitCfg->canIfRxPduCfg[i].canIfRxPduHrhIdRef->canIfHrhIdSymRef->CanObjectId)
+        {
+            return (CanIfRxPduCfgType *const)(&canIf_ConfigPtr->canIfInitCfg->canIfRxPduCfg[i]);
+        }
+    }
+    return NULL;
 }
 
-//-----------------------------------------------------------------
+void CanIf_RxIndication(const Can_HwType *Mailbox, const PduInfoType *PduInfoPtr)
+{
+    const CanIfRxPduCfg *RxPduCfgPtr;
+    CanIf_PduModeType PduMode;
+    PduIdType RxPduId;
+
+    if (Mailbox == NULL || PduInfoPtr == NULL)
+    {
+        ///Report an error CANIF_E_PARAM_POINTER to the Det_ReportError
+        return;
+    }
+
+    RxPduCfgPtr = findRxPduCfg(Mailbox->Hoh);
+
+    if (RxPduCfgPtr == NULL)
+    {
+        ///report development error code CANIF_E_PARAM_HOH to the Det
+        return;
+    }
+
+    if (PduInfoPtr->SduLength != RxPduCfgPtr->CanIfRxPduDataLength)
+    {
+        ///report development error code CANIF_E_INVALID_DATA_LENGTH to the Det
+        return;
+    }
+
+    (RxPduCfgPtr->CanIfRxPduUserRxIndicationName)(RxPduId, PduInfoPtr);
+}
+
+
+
+
+}
+
+    //-----------------------------------------------------------------

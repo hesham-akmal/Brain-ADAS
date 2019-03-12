@@ -12,7 +12,7 @@ typedef uint16_t PduIdType;
 
 typedef struct {
 	uint8_t *SduDataPtr;			  // payload
-	uint16_t SduLength;	// length of SDU
+	uint16_t SduLength;	               // length of SDU
 } PduInfoType;
 
 // #ifndef COMSTACK_TYPES_H_
