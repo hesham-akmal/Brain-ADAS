@@ -32,6 +32,7 @@ import traceback
 import array
 import inspect
 import random 
+import winsound
 
 #  Import C functions for Bluetooth.
 # ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
@@ -281,7 +282,9 @@ class ControllerIO():
                 return
                         
             if ioCommand[1] == "RecordStart":
+                winsound.Beep(700, 100)
                 if eval(self.getInfo("recording")) == True:
+                    winsound.Beep(700, 100)
                     self.stopRecord()
                     mirror.text("[Record Stopped] Saved.")
                     return
