@@ -2,7 +2,7 @@
 
 #include "Com.h"
 
-//test transmission PDUR to CAN
+//test transmission PDUR to COM
 void PduR_ComTransmit_Test(void) {
 	/** in case of COM module these lines exist in function that intend to transmit */
 	/** formulating I-PDU */
@@ -23,7 +23,7 @@ void PduR_ComTransmit_Test(void) {
 	}
 }
 
-//Transmit param "Msg" PDUR to CAN
+//Transmit param "Msg" PDUR to COM
 //"Msg"  : Message to be transmitted
 void PduR_ComTransmit_Msg(uint8_t Msg[]) {
 	/** in case of COM module these lines exist in function that intend to transmit */
@@ -44,7 +44,7 @@ void PduR_ComTransmit_Msg(uint8_t Msg[]) {
 	}
 }
 
-//test send "1234Msg" test CAN to PDUR
+//test send "1234Msg" test COM to PDUR
 Std_ReturnType Com_TriggerTransmit(PduIdType TxPduId, PduInfoType* PduInfoPtr) {
 	/**
 	the upper layer module (called module) shall check whether the
@@ -73,7 +73,7 @@ Std_ReturnType Com_TriggerTransmit(PduIdType TxPduId, PduInfoType* PduInfoPtr) {
 	return retVal;
 }
 
-//Transmit param "Msg" CAN to PDUR
+//Transmit param "Msg" COM to PDUR
 //"Msg"  : Message to be transmitted
 Std_ReturnType Com_TriggerTransmit_Msg(PduIdType TxPduId, PduInfoType* PduInfoPtr, uint8_t Msg[]) {
 	/**
