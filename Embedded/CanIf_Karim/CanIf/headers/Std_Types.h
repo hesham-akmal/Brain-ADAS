@@ -7,7 +7,7 @@
 
 #include "types.h"
 
-typedef struct
+typedef struct 
 {
 	/* Recheck */
 	uint16 vendorID;
@@ -27,7 +27,7 @@ typedef struct
 
 #define STD_GET_VERSION (_major, _minor, _patch)(_major * 10000 + _minor * 100 + _patch)
 
-/* Create Std_VersionInfoType */
+
 
 #define STD_GET_VERSION_INFO(_vi, _module)                      \
 	if (_vi != NULL)                                            \

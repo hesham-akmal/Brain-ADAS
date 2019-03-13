@@ -1,3 +1,6 @@
+#ifndef COMSTACK_TYPES_H
+#define COMSTACK_TYPES_H
+
 #include "Std_Types.h"
 
 
@@ -75,3 +78,5 @@ typedef struct {
 // typedef uint8 NetworkHandleType;
 
 // #endif /*COMSTACK_TYPES_H_*/
+#endif	// COMSTACK_TYPES_H
+
