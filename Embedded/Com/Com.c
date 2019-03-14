@@ -2,6 +2,28 @@
 
 #include "Com.h"
 
+void ComTransmit(uint8_t Msg[]) {
+	/** formulating I-PDU */
+	const PduInfoType distanceMsg = {
+		.SduDataPtr = Msg,
+		.SduLength = sizeof(Msg) / sizeof(Msg[0])
+	};
+	/** query PDUR routing paths sources to find global pdu reference .
+		inside COM module &Pdus[1] will be reference to related message .
+	*/
+	PduIdType PduHandleId;
+
+	//TODO: simplify and use only one PDU Handle
+	if (PduR_INF_GetSourcePduHandleId(&Pdus[1], &PduHandleId) == E_OK) {
+		PduR_ComTransmit(PduHandleId, &distanceMsg);
+		//PduR_ComCancelTransmit(PduHandleId);
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 void PduR_ComTransmit_Test(void) {
 	/** in case of COM module these lines exist in function that intend to transmit */
 	/** formulating I-PDU */
@@ -50,28 +72,7 @@ Std_ReturnType Com_TriggerTransmit(PduIdType TxPduId, PduInfoType* PduInfoPtr) {
 	}
 	return retVal;
 }
-//void PduR_ComTransmit_Test2(void) {
-//	/** in case of COM module these lines exist in function that intend to transmit */
-//	/** formulating I-PDU */
-//	uint8_t distMsg[] = "ComMessage1234";
-//	const PduInfoType distanceMsg = {
-//		.SduDataPtr = distMsg,
-//		.SduLength = sizeof(distMsg) / sizeof(distMsg[0])
-//	};
-//
-//	/** query PDUR routing paths sources to find global pdu reference .
-//		inside COM module &Pdus[3] will be reference to related message .
-//	*/
-//	PduIdType PduHandleId;
-//
-//	if (PduR_INF_GetSourcePduHandleId(&Pdus[3], &PduHandleId) == E_OK) {
-//		PduR_ComTransmit(PduHandleId, &distanceMsg);
-//
-//		PduR_ComCancelTransmit(PduHandleId);
-//		PduR_ComChangeParameter(PduHandleId, TP_STMIN, 0);
-//		PduR_ComCancelReceive(PduHandleId);
-//	}
-//}
+
 void Com_RxIndication(PduIdType PduHandleId, const PduInfoType *PduInfoPtr) {
 	printf("now in Com Rx Indication & message received is %s\n", PduInfoPtr->SduDataPtr);
 	printf("Can -> Com reception indication has finished\n");
