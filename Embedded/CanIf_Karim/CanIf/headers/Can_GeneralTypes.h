@@ -27,13 +27,14 @@ typedef enum Can_ProcessingType {
     POLLING
 } Can_ProcessingType;
 
-typedef enum Can_HandleTypeType {
-    BASIC_HANDLE,
-    FULL_HANDLE
-} Can_HandleTypeType;
+typedef enum CanHandleType {
+    BASIC,
+    FULL
+} CanHandleType;
 
 typedef struct {
-    uint16 CanObjectId;
+    uint16 canObjectId;
+    CanHandleType canHandleType;
 } CanHardwareObject;
 
 typedef struct Can_ControllerType {
@@ -57,7 +58,7 @@ typedef struct Can_ControllerType {
 } Can_ControllerType;
 
 typedef struct Can_HardwareObjectType {
-    Can_HandleTypeType CanHandleType;
+    CanHandleType CanHandleType;
 } Can_HardwareObjectType;
 
 typedef struct Can_ConfigSetType {
