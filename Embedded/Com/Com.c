@@ -2,7 +2,6 @@
 
 #include "Com.h"
 
-//test transmission PDUR to COM
 void PduR_ComTransmit_Test(void) {
 	/** in case of COM module these lines exist in function that intend to transmit */
 	/** formulating I-PDU */
@@ -23,28 +22,6 @@ void PduR_ComTransmit_Test(void) {
 	}
 }
 
-//Transmit param "Msg" PDUR to COM
-//"Msg"  : Message to be transmitted
-void PduR_ComTransmit_Msg(uint8_t Msg[]) {
-	/** in case of COM module these lines exist in function that intend to transmit */
-	/** formulating I-PDU */
-	const PduInfoType distanceMsg = {
-		.SduDataPtr = Msg,
-		.SduLength = sizeof(Msg) / sizeof(Msg[0])
-	};
-
-	/** query PDUR routing paths sources to find global pdu reference .
-		inside COM module &Pdus[1] will be reference to related message .
-	*/
-	PduIdType PduHandleId;
-
-	if (PduR_INF_GetSourcePduHandleId(&Pdus[1], &PduHandleId) == E_OK) {
-		PduR_ComTransmit(PduHandleId, &distanceMsg);
-		PduR_ComCancelTransmit(PduHandleId);
-	}
-}
-
-//test send "1234Msg" test COM to PDUR
 Std_ReturnType Com_TriggerTransmit(PduIdType TxPduId, PduInfoType* PduInfoPtr) {
 	/**
 	the upper layer module (called module) shall check whether the
@@ -60,35 +37,6 @@ Std_ReturnType Com_TriggerTransmit(PduIdType TxPduId, PduInfoType* PduInfoPtr) {
 		if (!memcpy((void *)PduInfoPtr->SduDataPtr,
 			(void *)distMsg,
 			sizeof(distMsg) / sizeof(distMsg[0]))
-			) {
-			retVal = E_NOT_OK;
-		}
-		else {
-			PduInfoPtr->SduLength = sizeof(distMsg) / sizeof(distMsg[0]);
-		}
-	}
-	else {
-		retVal = E_NOT_OK;
-	}
-	return retVal;
-}
-
-//Transmit param "Msg" COM to PDUR
-//"Msg"  : Message to be transmitted
-Std_ReturnType Com_TriggerTransmit_Msg(PduIdType TxPduId, PduInfoType* PduInfoPtr, uint8_t Msg[]) {
-	/**
-	the upper layer module (called module) shall check whether the
-	available data fits into the buffer size reported by PduInfoPtr->SduLength.
-	If it fits, it shall copy its data into the buffer provided by PduInfoPtr ->SduDataPtr
-	and update the length of the actual copied data in PduInfoPtr->SduLength.
-	If not, it returns E_NOT_OK without changing PduInfoPtr.
-	*/
-	printf("\nnow in Com Trigger Transmit\n");
-	Std_ReturnType retVal = E_OK;
-	if (sizeof(Msg) / sizeof(distMsg[0]) < PduInfoPtr->SduLength) {
-		if (!memcpy((void *)PduInfoPtr->SduDataPtr,
-			(void *)Msg,
-			sizeof(Msg) / sizeof(Msg[0]))
 			) {
 			retVal = E_NOT_OK;
 		}
