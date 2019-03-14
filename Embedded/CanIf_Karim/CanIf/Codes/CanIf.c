@@ -135,7 +135,7 @@ Std_ReturnType CanIf_Transmit(PduIdType CanIfTxSduId, const PduInfoType *CanIfTx
     canPdu.sdu = CanIfTxInfoPtr->SduDataPtr;
     canPdu.swPduHandle = CanIfTxSduId;
 
-    Can_ReturnType retVal = Can_Write(txEntry->canIfTxPduBufferRef->canIfBufferHthRef->canIfHthIdSymRef->CanObjectId, &canPdu);
+    Can_ReturnType retVal = Can_Write(txEntry->canIfTxPduBufferRef->canIfBufferHthRef->canIfHthIdSymRef->canObjectId, &canPdu);
 
     if (retVal == CAN_NOT_OK || retVal == CAN_BUSY) {
         return E_NOT_OK;
@@ -182,7 +182,7 @@ This service indicates a successful reception of a received CAN Rx L-PDU to the 
 
 static CanIfRxPduCfg *findRxPduCfg(Can_HwHandleType Hoh) {
     for (uint32 i = 0; i != canIf_ConfigPtr->canIfInitCfg->canIfMaxRxPduCfg; ++i) {
-        if (Hoh == (canIf_ConfigPtr)->canIfInitCfg->canIfRxPduCfg[i].canIfRxPduHrhIdRef->canIfHrhIdSymRef->CanObjectId) {
+        if (Hoh == (canIf_ConfigPtr)->canIfInitCfg->canIfRxPduCfg[i].canIfRxPduHrhIdRef->canIfHrhIdSymRef->canObjectId) {
             return (CanIfRxPduCfg * const) (&canIf_ConfigPtr->canIfInitCfg->canIfRxPduCfg[i]);
         }
     }

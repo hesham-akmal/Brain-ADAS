@@ -163,9 +163,3 @@ void PduR_INF_RouteRxIndication(const PduRDestPdu_type *destination, const PduIn
 //    }
 #endif
 }
-
-int
-main(void)
-{
-return(0);
-}

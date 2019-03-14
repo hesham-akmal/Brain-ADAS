@@ -53,8 +53,6 @@ typedef enum {
 
 } CanIfPduCanIdType;
 
-
-
 typedef enum {
     CAN_NM,
     CAN_TP,
@@ -192,7 +190,7 @@ typedef struct CanIfRxPduCfg {
     bool canIfRxPduReadNotifyStatus;
 
     // Reference to the "global" Pdu structure to allow harmonization of handle IDs in the COM-Stack.
-    void *CanIfRxPduRef;
+    void *canIfRxPduRef;
 
     //This parameter defines the name of the <User_RxIndication>
     CanIfRxPduUserRxIndicationNameType canIfRxPduUserRxIndicationName;
@@ -210,9 +208,9 @@ typedef struct CanIfRxPduCfg {
 
 typedef struct CanIfInitHohCfg {
     //This container contains configuration parameters for each hardware receive object (HRH).
-    const CanIfHrhCfg *canIfHrhCfg;
+    CanIfHrhCfg *canIfHrhCfg;
     //This container contains parameters related to each HTH.
-    const CanIfHthCfg *canIfHthCfg;
+    CanIfHthCfg *canIfHthCfg;
 } CanIfInitHohCfg;
 
 typedef struct CanIfTxPduCfg {
@@ -302,15 +300,15 @@ typedef struct CanIfDispatchCfg {
     /** defines the upper layer (UL) module to which the notifications of all ControllerBusOff events from the CAN Driver modules have to be routed */
     CanIfDispatchUserCtrlBusOffULType canIfDispatchUserCtrlBusOffUL;
     /** defines the name of <User_ControllerModeIndication> */
-//    CanIfDispatchUserCtrlModeIndicationName canIfDispatchUserCtrlModeIndicationName;
+    //    CanIfDispatchUserCtrlModeIndicationName canIfDispatchUserCtrlModeIndicationName;
     /** defines the upper layer (UL) module to which the notifications of all ControllerTransition events from the CAN Driver modules have to be routed */
     CanIfDispatchUserCtrlModeIndicationUL canIfDispatchUserCtrlModeIndicationUL;
     /** defines the name of <User_TrcvModeIndication> */
-//    CanIfDispatchUserTrcvModeIndicationName canIfDispatchUserTrcvModeIndicationName;
+    //    CanIfDispatchUserTrcvModeIndicationName canIfDispatchUserTrcvModeIndicationName;
     /** defines the upper layer (UL) module to which the notifications of all TransceiverTransition events from the CAN Transceiver Driver modules have to be routed */
     CanIfDispatchUserTrcvModeIndicationUL canIfDispatchUserTrcvModeIndicationUL;
     /** defines the name of <User_ValidateWakeupEvent> */
-//    CanIfDispatchUserValidateWakeupEventName canIfDispatchUserValidateWakeupEventName;
+    //    CanIfDispatchUserValidateWakeupEventName canIfDispatchUserValidateWakeupEventName;
     /** defines the upper layer (UL) module to which the notifications about positive former requested wake up sources have to be routed */
     CanIfDispatchUserValidateWakeupEventULType canIfDispatchUserValidateWakeupEventUL;
 } CanIfDispatchCfg;
