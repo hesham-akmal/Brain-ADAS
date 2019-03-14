@@ -33,7 +33,8 @@ Std_ReturnType Com_TriggerTransmit(PduIdType TxPduId, PduInfoType* PduInfoPtr) {
 	printf("\nnow in Com Trigger Transmit\n");
 	Std_ReturnType retVal = E_OK;
 	uint8_t distMsg[] = "1234Msg";  //Message to be transmitted
-	if (sizeof(distMsg) / sizeof(distMsg[0]) < PduInfoPtr->SduLength) {
+	if (sizeof(distMsg) / sizeof(distMsg[0]) < PduInfoPtr->SduLength)
+	{
 		if (!memcpy((void *)PduInfoPtr->SduDataPtr,
 			(void *)distMsg,
 			sizeof(distMsg) / sizeof(distMsg[0]))
@@ -49,7 +50,6 @@ Std_ReturnType Com_TriggerTransmit(PduIdType TxPduId, PduInfoType* PduInfoPtr) {
 	}
 	return retVal;
 }
-
 //void PduR_ComTransmit_Test2(void) {
 //	/** in case of COM module these lines exist in function that intend to transmit */
 //	/** formulating I-PDU */
@@ -72,7 +72,6 @@ Std_ReturnType Com_TriggerTransmit(PduIdType TxPduId, PduInfoType* PduInfoPtr) {
 //		PduR_ComCancelReceive(PduHandleId);
 //	}
 //}
-
 void Com_RxIndication(PduIdType PduHandleId, const PduInfoType *PduInfoPtr) {
 	printf("now in Com Rx Indication & message received is %s\n", PduInfoPtr->SduDataPtr);
 	printf("Can -> Com reception indication has finished\n");
@@ -81,16 +80,6 @@ void Com_RxIndication(PduIdType PduHandleId, const PduInfoType *PduInfoPtr) {
 void Com_TxConfirmation(PduIdType PduHandleId, Std_ReturnType result) {
 	printf("\nnow in Com TX confirmation\n");
 	printf("Can -> Com confirmation has finished\n");
-}
-
-void Com_TpRxIndication(PduIdType PduHandleId, Std_ReturnType result) {
-	printf("now in Com Tp Rx Indication\n ");
-	printf("router CANTP reception indication has finished\n");
-}
-
-void Com_TpTxConfirmation(PduIdType PduHandleId, Std_ReturnType result) {
-	printf("now in Com Tp TX confirmation\n");
-	printf("router CANTP confirmation has finished\n");
 }
 
 BufReq_ReturnType Com_StartOfReception(PduIdType id, const PduInfoType* info,
