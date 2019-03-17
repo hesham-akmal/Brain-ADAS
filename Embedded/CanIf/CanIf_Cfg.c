@@ -1,7 +1,7 @@
-#include "../headers/PduR_Cfg.h"
-#include "../headers/Can_Texas_TivaC.h"
-#include "../headers/CanIf.h"
-#include "../headers/Can.h"
+#include "PduR_Cfg.h"
+#include "Can_Texas_TivaC.h"
+#include "CanIf.h"
+#include "Can.h"
 //
 //
 //

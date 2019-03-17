@@ -1,9 +1,0 @@
-{
-    "files.associations": {
-        "*.ipynb": "jupyter",
-        "canif_cbk.h": "c",
-        "pdur_canif.h": "c",
-        "can.h": "c",
-        "canif.h": "c"
-    }
-}
