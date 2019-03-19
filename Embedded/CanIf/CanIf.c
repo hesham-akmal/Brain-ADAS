@@ -1,8 +1,8 @@
-#include "../headers/CanIf.h"
-#include "../headers/CanIf_Cbk.h"
-#include "../headers/PduR_CanIf.h"
-#include "../headers/PduR_Cbk.h"
-#include "../headers/Can.h"
+#include "CanIf.h"
+#include "CanIf_Cbk.h"
+#include "PduR_CanIf.h"
+#include "PduR_Cbk.h"
+#include "Can.h"
 #include "stdio.h"
 
 //---------------------------------------------------------------------------

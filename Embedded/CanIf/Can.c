@@ -1,5 +1,5 @@
 #include "stdio.h"
-#include "../headers/Can.h"
+#include "Can.h"
 //
 //const CanHardwareObjectType CanHardwareObjectConfig_Controller_A[] = {
 //	{

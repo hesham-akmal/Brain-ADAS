@@ -1,9 +1,8 @@
 #include "ComStack_Types.h"
 #include "Can_GeneralTypes.h"
 
-
-#define     CAN_INF_HARDWARE_OBJECT_REF_0 &CanHardwareObjectConfig_Controller_A[0]
-#define     CAN_INF_HARDWARE_OBJECT_REF_1 &CanHardwareObjectConfig_Controller_A[1]
+#define CAN_INF_HARDWARE_OBJECT_REF_0 &CanHardwareObjectConfig_Controller_A[0]
+#define CAN_INF_HARDWARE_OBJECT_REF_1 &CanHardwareObjectConfig_Controller_A[1]
 
 extern const CanHardwareObject CanHardwareObjectConfig_Controller_A[];
 
