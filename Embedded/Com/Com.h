@@ -6,7 +6,7 @@
 #include "Com_Types.h"
 #include "Com_PbCfg.h"
 
-#include "../Pdur/PduR.h"
+#include "../PduR/PduR.h"
 //#include "../Includes/EcuC.h" useless
 
 #include <string.h>
