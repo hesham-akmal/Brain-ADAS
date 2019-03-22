@@ -11,9 +11,9 @@ typedef struct {
 	/** The outgoing local PDU id. For polite PDU id handling. */
 	const PduIdType IPduHandleId;
 
-    /** Reference to the "global" PDU structure to allow harmonization of handle
+	/** Reference to the "global" PDU structure to allow harmonization of handle
 	 *  IDs in the COM-Stack. */
-    void *PduIdRef;
+	void *PduIdRef;
 
 } ComIPdu_type;
 
@@ -23,8 +23,8 @@ typedef struct {
 
 	/** IPDU definitions */
 	const ComIPdu_type *ComIPdu;
-    /** Maximum number of IPDU's */
-    uint16_t ComMaxIPduCnt;
+	/** Maximum number of IPDU's */
+	uint16_t ComMaxIPduCnt;
 
 } Com_ConfigType;
 

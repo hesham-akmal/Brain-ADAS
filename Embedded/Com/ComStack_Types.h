@@ -3,19 +3,17 @@
 #ifndef COMSTACK_TYPES_H_
 #define COMSTACK_TYPES_H_
 
-#include "Std_Types.h"
-#include "types.h"
+#include "../Pdur/Std_Types.h"
+#include "../Includes/types.h"
 
 typedef uint16_t PduIdType;
 typedef uint16_t PduLengthType;
 typedef uint8 IcomConfigIdType;
 
 typedef enum {
-    ICOM_SWITCH_E_OK=0,
-    ICOM_SWITCH_E_FAILED=1
+	ICOM_SWITCH_E_OK = 0,
+	ICOM_SWITCH_E_FAILED = 1
 }IcomSwitch_ErrorType;
-
-
 
 typedef struct {
 	uint8_t *SduDataPtr;			  // payload
@@ -35,16 +33,16 @@ typedef struct {
 } RetryInfoType;
 
 typedef enum {
-	BUFREQ_OK=0,
+	BUFREQ_OK = 0,
 	BUFREQ_NOT_OK,
 	BUFREQ_BUSY,
 	BUFREQ_OVFL
 } BufReq_ReturnType;
 
 typedef enum {
-    TP_STMIN=0,
-    TP_BS,
-    TP_BC
+	TP_STMIN = 0,
+	TP_BS,
+	TP_BC
 }TPParameterType;
 
 
