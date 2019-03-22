@@ -1,0 +1,3 @@
+﻿  PduR.c
+c:\users\hesha\desktop\brain-adas\embedded\vs proj\vs proj\source and headers\pdur.c(82): warning C4101: 'PduHandleId': unreferenced local variable
+  VS Proj.vcxproj -> C:\Users\hesha\Desktop\Brain-ADAS\Embedded\VS Proj\Debug\VS Proj.exe
