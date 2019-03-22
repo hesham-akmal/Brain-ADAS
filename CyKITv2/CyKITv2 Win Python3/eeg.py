@@ -1723,22 +1723,28 @@ class EEG(object):
                             AdasPacket = airsimClient.getAdasPacket()
                             CarControls = airsimClient.getCarControls()
 
-                            #car evnum AdasPacket[0]
-                            #ped evnum AdasPacket[2]
-                            #car distance AdasPacket[1]
-                            #pedestrian distance AdasPacket[3]
+                            #AdasPacket[0]: car event num
+                            #AdasPacket[1]: car distance
+                            #AdasPacket[2]: ped event num
+                            #AdasPacket[3]: pedestrian distance
 
                             y = '0'
-                            if AdasPacket[0] == 1 and AdasPacket[2] == 0:
+                            if AdasPacket[0] == 0 and AdasPacket[2] == 0:
+                                y = '0'
+                            elif AdasPacket[0] == 1 and AdasPacket[2] == 0:
                                 y = '1'
                             elif AdasPacket[0] == 0 and AdasPacket[2] == 1:
                                 y = '2'
-                            elif AdasPacket[0] == 1 and AdasPacket[2] == 1:
+                            elif AdasPacket[0] == 0 and AdasPacket[2] == 2:
                                 y = '3'
+                            elif AdasPacket[0] == 0 and AdasPacket[2] == 3:
+                                y = '4'
+                            elif AdasPacket[0] == 1 and AdasPacket[2] == 1:
+                                y = '5'
                             elif AdasPacket[0] == -1 and AdasPacket[2] == -1:
                                 y = '-1'
                             else:
-                                y = '0'
+                                y = '?'
                             
                             airsim_data = str(CarControls['brake']) + self.delimiter
 
