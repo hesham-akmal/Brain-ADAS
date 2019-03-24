@@ -5,22 +5,41 @@
 // #define NULL 0
 // #endif
 
-#include "types.h"
 
-typedef struct 
-{
-	/* Recheck */
-	uint16 vendorID;
-	uint16 moduleID;
-	uint8 instanceID;
 
-	uint8 sw_major_version; /* Vendor numbers */
-	uint8 sw_minor_version; /* Vendor numbers */
-	uint8 sw_patch_version; /* Vendor numbers */
+#include "stdbool.h"
+typedef unsigned char uint8_t;
+typedef unsigned short uint16_t;
+typedef unsigned long uint32_t;
 
-	uint8 ar_major_version; /* Autosar spec. numbers */
-	uint8 ar_minor_version; /* Autosar spec. numbers */
-	uint8 ar_patch_version; /* Autosar spec. numbers */
+typedef unsigned char uint8;
+typedef unsigned short uint16;
+typedef unsigned long uint32;
+
+typedef char int8_t;
+typedef short int16_t;
+typedef long int32_t;
+
+typedef char int8;
+typedef short int16;
+typedef long int32;
+
+typedef float fp32_t;
+typedef double fp64_t;
+
+typedef struct {
+    /* Recheck */
+    uint16 vendorID;
+    uint16 moduleID;
+    uint8 instanceID;
+
+    uint8 sw_major_version; /* Vendor numbers */
+    uint8 sw_minor_version; /* Vendor numbers */
+    uint8 sw_patch_version; /* Vendor numbers */
+
+    uint8 ar_major_version; /* Autosar spec. numbers */
+    uint8 ar_minor_version; /* Autosar spec. numbers */
+    uint8 ar_patch_version; /* Autosar spec. numbers */
 } Std_VersionInfoType;
 
 
@@ -30,17 +49,17 @@ typedef struct
 
 
 #define STD_GET_VERSION_INFO(_vi, _module)                      \
-	if (_vi != NULL)                                            \
-	{                                                           \
-		((_vi)->vendorID = _module##_VENDOR_ID);                \
-		((_vi)->moduleID = _module##_MODULE_ID);                \
-		((_vi)->sw_major_version = _module##_SW_MAJOR_VERSION); \
-		((_vi)->sw_minor_version = _module##_SW_MINOR_VERSION); \
-		((_vi)->sw_patch_version = _module##_SW_PATCH_VERSION); \
-		((_vi)->ar_major_version = _module##_AR_MAJOR_VERSION); \
-		((_vi)->ar_minor_version = _module##_AR_MINOR_VERSION); \
-		((_vi)->ar_patch_version = _module##_AR_PATCH_VERSION); \
-	}
+        if (_vi != NULL)                                            \
+        {                                                           \
+                ((_vi)->vendorID = _module##_VENDOR_ID);                \
+                ((_vi)->moduleID = _module##_MODULE_ID);                \
+                ((_vi)->sw_major_version = _module##_SW_MAJOR_VERSION); \
+                ((_vi)->sw_minor_version = _module##_SW_MINOR_VERSION); \
+                ((_vi)->sw_patch_version = _module##_SW_PATCH_VERSION); \
+                ((_vi)->ar_major_version = _module##_AR_MAJOR_VERSION); \
+                ((_vi)->ar_minor_version = _module##_AR_MINOR_VERSION); \
+                ((_vi)->ar_patch_version = _module##_AR_PATCH_VERSION); \
+        }
 
 #ifndef MIN
 #define MIN(_x, _y) (((_x) < (_y)) ? (_x) : (_y))

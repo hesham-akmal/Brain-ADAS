@@ -1,7 +1,6 @@
 #ifndef CAN_GENERAL_TYPES_H
 #define CAN_GENERAL_TYPES_H
 
-#include "types.h"
 
 
 typedef uint16 Can_IdType; /* Assuming extended IDs are used, revert to uint16 for standard IDs, 0x Std ID, 1x Ext ID*/

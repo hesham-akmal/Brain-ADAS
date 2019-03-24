@@ -75,7 +75,8 @@ typedef void (*CanIfRxPduUserRxIndicationNameType)(PduIdType, const PduInfoType 
 typedef CanIfRxPduUserRxIndicationULType CanIfTxPduUserTxConfirmationUL;
 
 typedef Std_ReturnType(*CanIfTxPduUserTriggerTransmitName)(PduIdType, PduInfoType *);
-typedef void (*CanIfTxPduUserTxConfirmationName)(PduIdType, Std_ReturnType);
+
+typedef void (*CanIfTxPduUserTxConfirmationName)(PduIdType);
 
 typedef enum {
     CAN_SM, ///CAN State Manager
@@ -168,7 +169,8 @@ typedef struct CanIfRxPduCfg {
     //CAN Identifier of Receive CAN L-PDUs used by the CAN Interface.
     uint32 canIfRxPduCanId;
 
-    //Identifier mask which denotes relevant bits in the CAN Identifier. This parameter defines a CAN Identifier range in an alternative way to CanIfRxPduCanIdRange.
+    //Identifier mask which denotes relevant bits in the CAN Identifier. 
+    //This parameter defines a CAN Identifier range in an alternative way to CanIfRxPduCanIdRange.
     uint32 canIfRxPduCanIdMask;
 
     //CAN Identifier of receive CAN L-PDUs used by the CAN Driver for CANL-PDU reception.
@@ -333,7 +335,7 @@ typedef struct CanIfInitCfg {
     //This container contains the references to the configuration setup of each underlying CAN Driver.
     const CanIfInitHohCfg *canIfInitHohCfg;
     //This container contains the configuration (parameters) of each receive CAN L-PDU.
-    const CanIfRxPduCfg *canIfRxPduCfg;
+    CanIfRxPduCfg *canIfRxPduCfg;
     //This container contains the configuration (parameters) of a transmit CAN L-PDU
     CanIfTxPduCfg *canIfTxPduCfg;
 } CanIfInitCfg;

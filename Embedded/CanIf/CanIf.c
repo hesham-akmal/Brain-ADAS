@@ -1,8 +1,7 @@
 #include "CanIf.h"
 #include "CanIf_Cbk.h"
-#include "PduR_CanIf.h"
-#include "PduR_Cbk.h"
-#include "Can.h"
+//file to be created by PDUR and Used Here
+//#include "../PduR/PduR_CanIf.h"
 #include "stdio.h"
 
 //---------------------------------------------------------------------------
@@ -44,7 +43,7 @@ Std_ReturnType CanIf_GetControllerMode(uint8 ControllerId, CanIf_ControllerModeT
 //-----------------------------------------------------------------------------
 //initiates a transition to the requested CAN controller mode ControllerMode of the CAN controller
 // which is assigned by parameter ControllerId.
-
+/*
 Std_ReturnType CanIf_SetControllerMode(uint8 ControllerId, CanIf_ControllerModeType ControllerMode) {
 
     if (ControllerMode == currentControllerMode) {
@@ -106,7 +105,7 @@ Std_ReturnType CanIf_SetControllerMode(uint8 ControllerId, CanIf_ControllerModeT
 
     return E_OK;
 }
-
+*/
 //-----------------------------------------------------------------------------
 
 /*
@@ -119,7 +118,7 @@ CAN L-SDU buffer including the MetaData of dynamic L-PDUs.
 This service initiates a request for transmission of the CAN L-PDU specified by the CanTxSduId and CAN related 
 data in the L-SDU structure.
  */
-
+/*
 Std_ReturnType CanIf_Transmit(PduIdType CanIfTxSduId, const PduInfoType *CanIfTxInfoPtr) {
     if (canIf_ConfigPtr == 0 || CanIfTxInfoPtr == 0) {
         printf("CanIf_Transmit : CanIF is not initialized or no Data sent");
@@ -143,7 +142,7 @@ Std_ReturnType CanIf_Transmit(PduIdType CanIfTxSduId, const PduInfoType *CanIfTx
     return E_OK;
     
 }
-
+*/
 /*
 in : CanTxPduId L-PDU handle of CAN L-PDU successfully transmitted.This ID specifies the corresponding CAN L-PDU ID 
                 and implicitly the CAN Driver instance as well as the corresponding CAN controller device.
@@ -169,7 +168,7 @@ void CanIf_TxConfirmation(PduIdType CanTxPduId) {
 //        return;
 //    }
     
-    (TxPduCfgPtr->canIfTxPduUserTxConfirmationName)(CanTxPduId, E_OK);
+    (TxPduCfgPtr->canIfTxPduUserTxConfirmationName)(CanTxPduId);
 }
 
 /*

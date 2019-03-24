@@ -2,23 +2,28 @@
 #include "CanIf_Cfg.h"
 
 
-/* -------------------------------------------------------------------------- */
-/*                          Function declarations                             */
-/* -------------------------------------------------------------------------- */
+
+// CANIF interface for PDUR
+
 void CanIf_Init(const CanIf_ConfigType *ConfigPtr);
-//Std_ReturnType CanIf_SetControllerMode(uint8 ControllerId, Can_ControllerStateType ControllerMode); ///tested
-//Std_ReturnType CanIf_GetControllerMode(uint8 ControllerId, Can_ControllerStateType *ControllerModePtr); ///tested
-//Std_ReturnType CanIf_GetControllerErrorState(uint8 ControllerId, Can_ErrorStateType *ErrorStatePtr); ///tested
 Std_ReturnType CanIf_Transmit(PduIdType TxPduId, const PduInfoType* PduInfoPtr); ///tested
-Std_ReturnType CanIf_CancelTransmit(PduIdType TxPduId);
-#if (CANIF_PUBLIC_READRXPDU_DATA_API == STD_ON)
-Std_ReturnType CanIf_ReadRxPduData(PduIdType CanIfRxSduId, PduInfoType* CanIfRxInfoPtr);
-#endif
-Std_ReturnType CanIf_SetPduMode(uint8 ControllerId, CanIf_PduModeType PduModeRequest); ///tested
-Std_ReturnType CanIf_GetPduMode(uint8 ControllerId, CanIf_PduModeType * PduModePtr); ///tested
-#if ( CANIF_INF_RUNTIME_PDU_CONFIGURATION == STD_ON )
-void CanIf_SetDynamicTxId(PduIdType CanIfTxSduId, Can_IdType CanId);
-#endif
+
+void CanIf_TxConfirmation(PduIdType CanTxPduId);
+void CanIf_RxIndication(const Can_HwType *Mailbox, const PduInfoType *PduInfoPtr);
+
+Std_ReturnType CanIf_GetControllerMode(uint8 ControllerId, CanIf_ControllerModeType *ControllerModePtr);
+Std_ReturnType CanIf_SetControllerMode(uint8 ControllerId, CanIf_ControllerModeType ControllerMode);
+
+//Std_ReturnType CanIf_CancelTransmit(PduIdType TxPduId);
+//Std_ReturnType CanIf_GetControllerErrorState(uint8 ControllerId, Can_ErrorStateType *ErrorStatePtr); ///tested
+//#if (CANIF_PUBLIC_READRXPDU_DATA_API == STD_ON)
+//Std_ReturnType CanIf_ReadRxPduData(PduIdType CanIfRxSduId, PduInfoType* CanIfRxInfoPtr);
+//#endif
+//Std_ReturnType CanIf_SetPduMode(uint8 ControllerId, CanIf_PduModeType PduModeRequest); ///tested
+//Std_ReturnType CanIf_GetPduMode(uint8 ControllerId, CanIf_PduModeType * PduModePtr); ///tested
+////#if ( CANIF_INF_RUNTIME_PDU_CONFIGURATION == STD_ON )
+//void CanIf_SetDynamicTxId(PduIdType CanIfTxSduId, Can_IdType CanId);
+////#endif
 
 //Std_ReturnType CanIf_SetTrcvMode(uint8 TransceiverId, CanTrcv_TrcvModeType TransceiverMode); ///tested
 //Std_ReturnType CanIf_GetTrcvMode(uint8 TransceiverId, CanTrcv_TrcvModeType * TransceiverModePtr); ///tested
@@ -44,3 +49,5 @@ void CanIf_SetDynamicTxId(PduIdType CanIfTxSduId, Can_IdType CanId);
 //#if(CANIF_PUBLIC_ICOM_SUPPORT == STD_ON)
 //Std_ReturnType CanIf_SetIcomConfiguration(uint8 ControllerId, IcomConfigIdType ConfigurationId); ///tested
 //#endif
+
+extern const CanIf_ConfigType *canIf_ConfigPtr; 

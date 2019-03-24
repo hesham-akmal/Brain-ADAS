@@ -1,6 +1,0 @@
-{
-    "files.associations": {
-        "*.ipynb": "jupyter",
-        "stdio.h": "c"
-    }
-}

@@ -1,206 +1,113 @@
-#include "PduR_Cfg.h"
-#include "Can_Texas_TivaC.h"
+#include <stddef.h>
+#include "../PduR/PduR_Cfg.h"
 #include "CanIf.h"
 #include "Can.h"
-//
-//
-//
-//CanIfCtrlCfg canIfCtrlCfg[] = {
-//    {
-//        .canIfCtrlId = CANIF_INF_CAN_DRIVER_0_CONTROLER_0,
-//        .canIfCtrlWakeupSupport = false,
-//        //        .canIfCtrlCanCtrlRef = NULL, ///Symbolic name reference to CanController
-//        .canIfCtrlCanCtrlRef = 0, ///Symbolic name reference to CanController
-//    },
-//};
-//
-//CanIfHrhCfg canIfHrhCfg[] = {
-//    {
-//        /* ----------- Configuration Parameters ----------- */
-//        .canIfHrhSoftwareFilter = false,
-//        .canIfHrhCanCtrlIdRef = &canIfCtrlCfg[0],
-//        .canIfHrhIdSymRef = CAN_INF_HARDWARE_OBJECT_REF_0,
-//        //        .CanIfHrhRangeCfg = NULL,
-//        .canIfHrhRangeCfg = 0,
-//
-//    },
-//};
-//
-//CanIfHthCfg canIfHthCfg[] = {
-//    {
-//        /* ----------- Configuration Parameters ----------- */
-//        .canIfHthCanCtrlIdRef = &canIfCtrlCfg[0],
-//        .canIfHthIdSymRef = CAN_INF_HARDWARE_OBJECT_REF_1, ///CanHardwareObject
-//
-//        /* ------------- Included Containers ------------- */
-//    },
-//};
-//
-////const CanIfRxPduCanIdRangeType CanIfRxPduCanIdRange =
-////{
-/////* ----------- Configuration Parameters ----------- */
-////    .CanIfRxPduCanIdRangeLowerCanId = ,
-////    .CanIfRxPduCanIdRangeUpperCanId = ,
-////
-/////* ------------- Included Containers ------------- */
-////};
-//
-//#if (CANIF_INF_CAN_TRCV_SUPPORT == STD_ON)
-//const CanIfTrcvCfg canIfTrcvCfg[] = {
-//    {
-//        .CanIfTrcvId = CANIF_INF_CAN_TRCV_DRIVER_0_TRANSCEIVER_0,
-//        .CanIfTrcvWakeupSupport = false,
-//        //        .CanIfTrcvCanTrcvRef = NULL, ///Symbolic name reference to CanTrcvChannel
-//        .CanIfTrcvCanTrcvRef = 0, ///Symbolic name reference to CanTrcvChannel
-//    },
-//};
-//#endif
-//
-//const CanIfBufferCfg canIfBufferCfg[] = {
-//    {
-//        .canIfBufferSize = 0,
-//        .canIfBufferHthRef = &canIfHthCfg[0],
-//    },
-//};
-//
-//const CanIfInitHohCfg canIfInitHohCfg[] = {
-//    {
-//        .canIfHrhCfg = &canIfHrhCfg[0],
-//        .canIfHrhCfg = &canIfHthCfg[0],
-//    },
-//};
-//
-//const CanIfRxPduCfg canIfRxPduCfg[] = {
-//    {
-//        /* ----------- Configuration Parameters ----------- */
-//        .canIfRxPduCanId = CANIF_INF_RX_PDU_0_CAN_ID,
-//        .canIfRxPduCanIdMask = 0x7FF, ///STANDARD_CAN;
-//        .canIfRxPduCanIdType = STANDARD_CAN,
-//        .canIfRxPduDlc = 7, //0 .. 64
-//        .CanIfRxPduId = CANIF_INF_RX_PDU_0,
-//        .canIfRxPduReadData = false,
-//        .canIfRxPduReadNotifyStatus = false,
-//        .canIfRxPduUserRxIndicationName = PduR_CanIfRxIndication,
-//        .canIfRxPduUserRxIndicationUL = PDUR,
-//        .canIfRxPduHrhIdRef = &canIfHrhCfg[0],
-////        .canIfRxPduRef = &Pdus[0],
-//        .canIfRxPduRef = 0,
-//    },
-//};
-//
-//CanIfTxPduCfg canIfTxPduCfg[] = {
-//    {
-//        /* ----------- Configuration Parameters ----------- */
-//        .canIfTxPduCanId = CANIF_INF_TX_PDU_0_CAN_ID,
-//        .canIfTxPduCanIdMask = 0x7FF, ///STANDARD_CAN
-//        .canIfTxPduCanIdType = STANDARD_CAN,
-//        .canIfTxPduId = CANIF_INF_TX_PDU_0,
-//        .canIfTxPduPnFilterPdu = false,
-//        .canIfTxPduReadNotifyStatus = false,
-//        .canIfTxPduTriggerTransmit = true,
-//        .canIfTxPduType = STATIC,
-////        .canIfTxPduUserTriggerTransmitName = PduR_CanIfTriggerTransmit,
-//        .canIfTxPduUserTxConfirmationName = PduR_CanIfTxConfirmation,
-////        .CanIfTxPduUserTxConfirmationUL = PDUR,
-//        .canIfTxPduBufferRef = &canIfBufferCfg[0],
-////        .canIfTxPduRef = &Pdus[1],
-//        .canIfTxPduRef = 0,
-//    },
-//};
-//
-//#if (CANIF_INF_CAN_TRCV_SUPPORT == STD_ON)
-//const CanIfTrcvDrvCfg canIfTrcvDrvCfg[] = {
-//    {
-//        .canIfTrcvCfg = canIfTrcvCfg,
-//    },
-//};
-//#endif
-//
-//const CanIfPublicCfg canIfPublicCfg = {
-//    /* ----------- Configuration Parameters ----------- */
-//    .canIfMetaDataSupport = false,
-//    .canIfPublicCancelTransmitSupport = false,
-//    .canIfPublicCddHeaderFile = 0,
-//    .canIfPublicHandleTypeEnum = UINT16,
-//    .canIfPublicIcomSupport = CANIF_PUBLIC_ICOM_SUPPORT,
-//    .canIfPublicMultipleDrvSupport = false,
-//    .canIfPublicPnSupport = CANIF_PUBLIC_PN_SUPPORT,
-//    .canIfPublicReadRxPduDataApi = CANIF_PUBLIC_READRXPDU_DATA_API,
-//    .canIfPublicReadRxPduNotifyStatusApi = CANIF_PUBLIC_READRXPDU_NOTIFY_STATUS_API,
-//    .canIfPublicReadTxPduNotifyStatusApi = CANIF_PUBLIC_READTXPDU_NOTIFY_STATUS_API,
-//    .canIfPublicSetDynamicTxIdApi = CANIF_PUBLIC_SETDYNAMICTXID_API,
-//    .canIfPublicTxBuffering = false,
-//    .canIfPublicTxConfirmPollingSupport = CANIF_INF_PUBLIC_TX_CONFIRMATION_POLLING_SUPPORT,
-//    .canIfPublicWakeupCheckValidByNM = false,
-//    .canIfPublicWakeupCheckValidSupport = CANIF_PUBLIC_WAKEUP_CHECK_VALIDATION_SUPPORT,
-//    .canIfSetBaudrateApi = CANIF_SET_BAUDRATE_API,
-//    .canIfTriggerTransmitSupport = false,
-//    .canIfTxOfflineActiveSupport = false,
-//    .canIfWakeupSupport = CANIF_INF_WAKEUP_SUPPORT,
-//};
-//
-//const CanIfPrivateCfg canIfPrivateCfg = {
-//    /* ----------- Configuration Parameters ----------- */
-//    .CanIfFixedBuffer = false,
-//    .CanIfPrivateDlcCheck = CANIF_INF_PRIVATE_DATA_LENGTH_CHECK,
-//    .canIfPrivateSoftwareFilterType = BINARY,
-//};
-////
-////const CanIfDispatchCfgType CanIfDispatchCfg = {
-////    /* ----------- Configuration Parameters ----------- */
-////    .CanIfDispatchUserCheckTrcvWakeFlagIndicationName = CanSM_CheckTransceiverWakeFlagIndication,
-////    .CanIfDispatchUserCheckTrcvWakeFlagIndicationUL = CAN_SM,
-////    .CanIfDispatchUserClearTrcvWufFlagIndicationName = CanSM_ClearTrcvWufFlagIndication,
-////    .CanIfDispatchUserClearTrcvWufFlagIndicationUL = CAN_SM,
-////    .CanIfDispatchUserConfirmPnAvailabilityName = CanSM_ConfirmPnAvailability,
-////    .CanIfDispatchUserConfirmPnAvailabilityUL = CAN_SM,
-////    .CanIfDispatchUserCtrlBusOffName = CanSM_ControllerBusOff,
-////    .CanIfDispatchUserCtrlBusOffUL = CAN_SM,
-////    .CanIfDispatchUserCtrlModeIndicationName = CanSM_ControllerModeIndication,
-////    .CanIfDispatchUserCtrlModeIndicationUL = CAN_SM,
-////    .CanIfDispatchUserTrcvModeIndicationName = CanSM_TransceiverModeIndication,
-////    .CanIfDispatchUserTrcvModeIndicationUL = CAN_SM,
-////    .CanIfDispatchUserValidateWakeupEventName = EcuM_CheckValidation,
-////    .CanIfDispatchUserValidateWakeupEventUL = ECUM,
-////
-////    /* ------------- Included Containers ------------- */
-////};
-//
-//
-//const CanIfCtrlDrvCfg canIfCtrlDrvCfg[] = {
-//    {
-//        /* ----------- Configuration Parameters ----------- */
-//        .canIfCtrlDrvInitHohConfigRef = canIfInitHohCfg[0],
-//        //        .canIfCtrlDrvNameRef = NULL, ///Reference to CanGeneral
-//        .canIfCtrlDrvNameRef = 0, ///Reference to CanGeneral
-//        .canIfCtrlCfg = canIfCtrlCfg,
-//    },
-//};
-//
-//
-//const CanIfInitCfg canIfInitCfg = {
-//    /* ----------- Configuration Parameters ----------- */
-//    //    .canIfInitCfgSet = NULL,
-//    .canIfInitCfgSet = 0,
-//    .canIfMaxBufferSize = 0,
-//    .canIfMaxRxPduCfg = CANIF_INF_RX_CNT,
-//    .canIfMaxTxPduCfg = CANIF_INF_TX_CNT,
-//
-//    /* ------------- Included Containers ------------- */
-//    .canIfBufferCfg = canIfBufferCfg,
-//    .canIfInitHohCfg = canIfInitHohCfg,
-//    .canIfRxPduCfg = canIfRxPduCfg,
-//    .canIfTxPduCfg = canIfTxPduCfg,
-//
-//};
-//
-//const CanIf_ConfigType CanIf_Config = {
-//    .canIfPrivateCfg = &canIfPrivateCfg,
-//    .canIfPublicCfg = &canIfPublicCfg,
-//    .canIfInitCfg = &canIfInitCfg,
-//    //    .canIfDispatchCfg = &canIfDispatchCfg,
-//    .canIfCtrlDrvCfg = canIfCtrlDrvCfg,
-//#if (CANIF_INF_CAN_TRCV_SUPPORT == STD_ON)
-//    .canIfTrcvDrvCfg = canIfTrcvDrvCfg,
-//#endif
-//};
+
+
+const CanIfRxPduCanIdRange canIfRxPduCanIdRange = {
+    .CanIfRxPduCanIdRangeLowerCanId = 12,
+    .CanIfRxPduCanIdRangeUpperCanId = 24,
+};
+const CanIfCtrlCfg canIfHrhCanCtrlIdRef = {
+    .canIfCtrlId = 130,
+    .canIfCtrlWakeupSupport = false,
+};
+CanIfHrhCfg canIfHrhCfg = {
+    //software filter feature
+    .canIfHrhSoftwareFilter = false,
+
+    // HRH HW object (to check with tair)
+    // .canIfHrhIdSymRef = 
+
+    // CanIf Controller Configurations
+    .canIfHrhCanCtrlIdRef = &canIfHrhCanCtrlIdRef,
+    //HRH range for multiple CANID ranges
+    .canIfHrhRangeCfg = NULL,
+};
+CanIfRxPduCfg canIfRxPduCfg[] = {
+    {
+        //CanId that CanIf use
+        .canIfRxPduCanId = 2,
+        // mask range
+        .canIfRxPduCanIdMask = 0x7FF,
+        // CanIfPduCanIdType used by the Can Driver
+        .canIfRxPduCanIdType = STANDARD_CAN,
+        // data length code
+        .canIfRxPduDlc = 1,
+        // buffering feature 
+        .canIfRxPduReadData = false,
+        // notification feature
+        .canIfRxPduReadNotifyStatus = false,
+        
+        // user_RXIndication to be defined by wagih (RX Indication of PduR)
+        .canIfRxPduUserRxIndicationName = PduR_CanIfRxIndication,
+                
+                
+        .canIfRxPduCanIdRange = &canIfRxPduCanIdRange,
+        //HRH configurations
+        .canIfRxPduHrhIdRef = &canIfHrhCfg,
+    }
+};
+const CanIfCtrlCfg canIfHthCanCtrlIdRef = {
+    .canIfCtrlId = 150,
+    .canIfCtrlWakeupSupport = false,
+};
+CanIfHthCfg canIfHthRef = {
+    .canIfHthCanCtrlIdRef = &canIfHthCanCtrlIdRef,
+    //check with tair the CAN hardware objects
+    //    .canIfHthIdSymRef = ,
+
+};
+const CanIfBufferCfg canIfTxPduBufferRef = {
+    .canIfBufferSize = sizeof (fp64_t)*1,
+    .canIfBufferHthRef = &canIfHthRef,
+};
+CanIfTxPduCfg canIfTxPduCfg[] = {
+    {
+        //pdu canID used by can Driver in transmission (check m3 CanDriver Configuration)
+        .canIfTxPduCanId = 500,
+        // wide unique ID
+        .canIfTxPduId = 600,
+        //in case a mask will be used set it to another value
+        .canIfTxPduCanIdMask = 0x7FF,
+        // pduCanIdType
+        .canIfTxPduType = STATIC,
+        //CanIfPduCanIdType
+        .canIfTxPduCanIdType = STANDARD_CAN,
+        // will trigger transmit or not
+        .canIfTxPduTriggerTransmit = false,
+        // support PN filtering
+        .canIfTxPduPnFilterPdu = false,
+        //CanIfTxPduUserTxConfirmationUL
+        .canIfTxPduUserTxConfirmationUL = PDUR,
+        
+        //user TX Confirmation method (el method ele 3nd PduR ele CANIf Hae3mlaha call fl tx confirmation) 
+        .canIfTxPduUserTxConfirmationName = PduR_CanIfTxConfirmation,
+
+        .canIfTxPduBufferRef = &canIfTxPduBufferRef,
+    },
+
+};
+const CanIfInitHohCfg canIfInitHohCfg = {
+    .canIfHrhCfg = &canIfHrhCfg,
+    .canIfHthCfg = &canIfHthRef,
+};
+const CanIfInitCfg canIfInitCfg = {
+
+    .canIfInitCfgSet = 0,
+    //bufferSize (don't know whether we support buffering or not)
+    .canIfMaxBufferSize = sizeof (fp64_t)*4,
+    //one receive PDU
+    .canIfMaxRxPduCfg = 1,
+    //one send PDU
+    .canIfMaxTxPduCfg = 1,
+    //Tx Pdu Cfg
+    .canIfTxPduCfg = &canIfTxPduCfg[0],
+    //RX pdy Cfg
+    .canIfRxPduCfg = &canIfRxPduCfg[0],
+    //HOH cfgs
+    .canIfInitHohCfg = &canIfInitHohCfg
+};
+const CanIf_ConfigType canIf_ConfigPtr = {
+    .canIfInitCfg = &canIfInitCfg,
+};
