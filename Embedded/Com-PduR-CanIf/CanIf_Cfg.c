@@ -108,6 +108,7 @@ const CanIfInitCfg canIfInitCfg = {
     //HOH cfgs
     .canIfInitHohCfg = &canIfInitHohCfg
 };
-const CanIf_ConfigType canIf_ConfigPtr = {
+
+const CanIf_ConfigType canIf_Config = {
     .canIfInitCfg = &canIfInitCfg,
 };

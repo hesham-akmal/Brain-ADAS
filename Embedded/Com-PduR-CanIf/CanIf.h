@@ -4,6 +4,7 @@
 
 
 // CANIF interface for PDUR
+extern const CanIf_ConfigType* canIf_ConfigPtr; 
 
 void CanIf_Init(const CanIf_ConfigType *ConfigPtr);
 Std_ReturnType CanIf_Transmit(PduIdType TxPduId, const PduInfoType* PduInfoPtr); ///tested
@@ -50,4 +51,3 @@ Std_ReturnType CanIf_SetControllerMode(uint8 ControllerId, CanIf_ControllerModeT
 //Std_ReturnType CanIf_SetIcomConfiguration(uint8 ControllerId, IcomConfigIdType ConfigurationId); ///tested
 //#endif
 
-extern const CanIf_ConfigType canIf_ConfigPtr; 

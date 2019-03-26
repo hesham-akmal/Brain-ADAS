@@ -10,7 +10,7 @@ int main() {
 	Initialize all the modules
 	*/
 	PduR_Init(&PBPduRConfig);
-	CanIf_Init(&canIf_ConfigPtr);
+	CanIf_Init(&canIf_Config);
 
 	ComSendMessage("LMFAO");
 

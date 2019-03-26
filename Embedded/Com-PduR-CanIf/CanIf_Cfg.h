@@ -78,6 +78,5 @@ typedef enum {
 /* -------------------------------------------------------------------------- */
 /*                      Global variables  Declarations	                      */
 /* -------------------------------------------------------------------------- */
-const CanIf_ConfigType canIf_Config;
-
+extern const CanIf_ConfigType canIf_Config;
 #endif // CANIF_CFG_H_INCLUDED
