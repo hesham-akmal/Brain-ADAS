@@ -105,7 +105,7 @@ Std_ReturnType CanIf_SetControllerMode(uint8 ControllerId, CanIf_ControllerModeT
 
     return E_OK;
 }
-*/
+ */
 //-----------------------------------------------------------------------------
 
 /*
@@ -142,7 +142,8 @@ Std_ReturnType CanIf_Transmit(PduIdType CanIfTxSduId, const PduInfoType *CanIfTx
     return E_OK;
     
 }
-*/
+ */
+
 /*
 in : CanTxPduId L-PDU handle of CAN L-PDU successfully transmitted.This ID specifies the corresponding CAN L-PDU ID 
                 and implicitly the CAN Driver instance as well as the corresponding CAN controller device.
@@ -152,6 +153,7 @@ This service confirms a previously successfully processed transmission of a CAN 
 
  */
 
+//for now set CanTxPduID to zero
 void CanIf_TxConfirmation(PduIdType CanTxPduId) {
     if (canIf_ConfigPtr == 0) {
         printf("CanIf_TxConfirmation : The CanIf is not initialized");
@@ -162,12 +164,12 @@ void CanIf_TxConfirmation(PduIdType CanTxPduId) {
         return;
     }
     CanIfTxPduCfg *TxPduCfgPtr = (CanIfTxPduCfg *) (&canIf_ConfigPtr->canIfInitCfg->canIfTxPduCfg[CanTxPduId]);
-  
-//    if (TxPduCfgPtr == null) {
-//        printf("CanIf_TxConfirmation : TxPduCfgPtr = NULL ");
-//        return;
-//    }
-    
+
+    //    if (TxPduCfgPtr == null) {
+    //        printf("CanIf_TxConfirmation : TxPduCfgPtr = NULL ");
+    //        return;
+    //    }
+
     (TxPduCfgPtr->canIfTxPduUserTxConfirmationName)(CanTxPduId);
 }
 
@@ -210,5 +212,5 @@ void CanIf_RxIndication(const Can_HwType *Mailbox, const PduInfoType *PduInfoPtr
         return;
     }
 
-    (RxPduCfgPtr->canIfRxPduUserRxIndicationName)(RxPduId, PduInfoPtr);
+    (RxPduCfgPtr->canIfRxPduUserRxIndicationName)(RxPduCfgPtr->CanIfRxPduId, PduInfoPtr);
 }
