@@ -4,12 +4,12 @@
 
 
 Pdu_Type Pdus[] = {
-    {
-        .PduLength = 8
-    },
-    {
-        .PduLength = 8
-    },
+	{
+		.PduLength = 8
+	},
+	{
+		.PduLength = 8
+	},
 };
 
 //PDU transmission from COM module to CANIF module
@@ -58,7 +58,7 @@ PduRRoutingPath_type * RoutingPaths[] = {
 };
 
 PduR_PBConfigType PBPduRConfig = {
-    .PduRConfigurationId = 0,
-    .PduRMaxRoutingPathCnt = 2,
-    .RoutingPaths = RoutingPaths
+	.PduRConfigurationId = 0,
+	.PduRMaxRoutingPathCnt = 2,
+	.RoutingPaths = RoutingPaths
 };

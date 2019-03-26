@@ -18,6 +18,32 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\CanIf.h" />
+    <ClInclude Include="..\..\CanIf_Cbk.h" />
+    <ClInclude Include="..\..\CanIf_Cfg.h" />
+    <ClInclude Include="..\..\CanIf_Types.h" />
+    <ClInclude Include="..\..\Can_GeneralTypes.h" />
+    <ClInclude Include="..\..\Com.h" />
+    <ClInclude Include="..\..\ComStack_Types.h" />
+    <ClInclude Include="..\..\Com_PbCfg.h" />
+    <ClInclude Include="..\..\Com_Types.h" />
+    <ClInclude Include="..\..\PduR.h" />
+    <ClInclude Include="..\..\PduR_CanIf.h" />
+    <ClInclude Include="..\..\PduR_Cfg.h" />
+    <ClInclude Include="..\..\PduR_PbCfg.h" />
+    <ClInclude Include="..\..\PduR_Types.h" />
+    <ClInclude Include="..\..\Std_Types.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\CanIf.c" />
+    <ClCompile Include="..\..\CanIf_Cfg.c" />
+    <ClCompile Include="..\..\CANStack_main.c" />
+    <ClCompile Include="..\..\Com.c" />
+    <ClCompile Include="..\..\Com_PbCfg.c" />
+    <ClCompile Include="..\..\PduR.c" />
+    <ClCompile Include="..\..\PduR_PbCfg.c" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{1E78CB29-FC73-4706-8C71-336097DAC133}</ProjectGuid>
@@ -100,13 +126,14 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -151,24 +178,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="Source and Headers\Com.h" />
-    <ClInclude Include="Source and Headers\ComStack_Types.h" />
-    <ClInclude Include="Source and Headers\Com_PbCfg.h" />
-    <ClInclude Include="Source and Headers\Com_Types.h" />
-    <ClInclude Include="Source and Headers\PduR.h" />
-    <ClInclude Include="Source and Headers\PduR_Cfg.h" />
-    <ClInclude Include="Source and Headers\PduR_PbCfg.h" />
-    <ClInclude Include="Source and Headers\PduR_Types.h" />
-    <ClInclude Include="Source and Headers\Std_Types.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Source and Headers\CANStack_main.c" />
-    <ClCompile Include="Source and Headers\Com.c" />
-    <ClCompile Include="Source and Headers\Com_PbCfg.c" />
-    <ClCompile Include="Source and Headers\PduR.c" />
-    <ClCompile Include="Source and Headers\PduR_PbCfg.c" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

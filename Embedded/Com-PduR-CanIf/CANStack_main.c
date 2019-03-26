@@ -12,7 +12,7 @@ int main() {
 	PduR_Init(&PBPduRConfig);
 	CanIf_Init(&canIf_Config);
 
-	ComSendMessage("LMFAO");
+	ComSendMessage("LMFAO\n");
 
 	return 0;
 }

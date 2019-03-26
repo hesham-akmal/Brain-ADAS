@@ -96,9 +96,13 @@ Std_ReturnType PduR_INF_RouteTransmit(PduIdType TxPduId, const PduInfoType* PduI
 	for (uint8_t i = 0; routes[i] != NULL; i++) {
 		if (routes[i]->PduRSrcPduRef->SourcePduHandleId == TxPduId) {
 #if PDUR_CANIF_SUPPORT == STD_ON
-			if (CanIf_INF_GetPduHandleId(routes[i]->PduRDestPduRef->DestPduRef, &PduHandleId) == E_OK) {
+
+			/*if (CanIf_INF_GetPduHandleId(routes[i]->PduRDestPduRef->DestPduRef, &PduHandleId) == E_OK) {
 				result |= CanIf_Transmit(PduHandleId, PduInfoPtr);
-			}
+			}*/
+
+			printf("CanIf_Transmit1");
+
 #endif
 			return result;
 		}
@@ -182,11 +186,17 @@ void PduR_INF_RouteRxIndication(const PduRDestPdu_type *destination, const PduIn
 	}
 #endif
 #if PDUR_CANIF_SUPPORT == STD_ON
-	    if (CanIf_INF_GetPduHandleId (destination->DestPduRef ,&PduHandleId) == E_OK){
-	        Std_ReturnType retVal = CanIf_Transmit(PduHandleId, PduInfo);
-	        if (retVal != E_OK) {
-	            //raise an error
-	        }
-	    }
+
+
+
+	//if (CanIf_INF_GetPduHandleId(destination->DestPduRef, &PduHandleId) == E_OK) {
+	//	Std_ReturnType retVal = CanIf_Transmit(PduHandleId, PduInfo);
+	//	if (retVal != E_OK) {
+	//		//raise an error
+	//	}
+	//}
+	printf("CanIf_Transmit2");
+
+
 #endif
 }

@@ -15,48 +15,72 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source and Headers\Com_PbCfg.h">
+    <ClInclude Include="..\..\Can_GeneralTypes.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source and Headers\Com_Types.h">
+    <ClInclude Include="..\..\CanIf.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source and Headers\ComStack_Types.h">
+    <ClInclude Include="..\..\CanIf_Cbk.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source and Headers\PduR.h">
+    <ClInclude Include="..\..\CanIf_Cfg.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source and Headers\PduR_Cfg.h">
+    <ClInclude Include="..\..\CanIf_Types.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source and Headers\PduR_PbCfg.h">
+    <ClInclude Include="..\..\Com.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source and Headers\PduR_Types.h">
+    <ClInclude Include="..\..\Com_PbCfg.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source and Headers\Std_Types.h">
+    <ClInclude Include="..\..\Com_Types.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source and Headers\Com.h">
+    <ClInclude Include="..\..\ComStack_Types.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PduR.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PduR_CanIf.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PduR_Cfg.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PduR_PbCfg.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\PduR_Types.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Std_Types.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source and Headers\Com_PbCfg.c">
+    <ClCompile Include="..\..\CanIf.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source and Headers\PduR.c">
+    <ClCompile Include="..\..\CanIf_Cfg.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source and Headers\PduR_PbCfg.c">
+    <ClCompile Include="..\..\CANStack_main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source and Headers\CANStack_main.c">
+    <ClCompile Include="..\..\Com.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source and Headers\Com.c">
+    <ClCompile Include="..\..\Com_PbCfg.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PduR.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\PduR_PbCfg.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
