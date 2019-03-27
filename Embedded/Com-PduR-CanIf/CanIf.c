@@ -41,6 +41,7 @@ Std_ReturnType CanIf_GetControllerMode(uint8 ControllerId, CanIf_ControllerModeT
 	ControllerModePtr = &currentControllerMode;
 	return E_OK;
 }
+
 //-----------------------------------------------------------------------------
 //initiates a transition to the requested CAN controller mode ControllerMode of the CAN controller
 // which is assigned by parameter ControllerId.
@@ -116,6 +117,8 @@ Std_ReturnType CanIf_Transmit(PduIdType CanIfTxSduId, const PduInfoType *CanIfTx
 		printf("CanIf_Transmit : CanIF is not initialized or no Data sent");
 		return E_NOT_OK;
 	}
+
+	//TTTT
 	const CanIfTxPduCfg *txEntry = (CanIfTxPduCfg *)(&canIf_ConfigPtr->canIfInitCfg->canIfTxPduCfg[CanIfTxSduId]);
 
 	//prepare the PDU data
@@ -125,13 +128,14 @@ Std_ReturnType CanIf_Transmit(PduIdType CanIfTxSduId, const PduInfoType *CanIfTx
 	canPdu.sdu = CanIfTxInfoPtr->SduDataPtr;
 	canPdu.swPduHandle = CanIfTxSduId;
 
+	printf("\nCanIf_Transmit with payload: %s", canPdu.sdu);
+	printf("\nCanIf_Transmit with PduID: %d", CanIfTxSduId);
 
 	//TTTT
 	/*Can_ReturnType retVal = Can_Write(txEntry->canIfTxPduBufferRef->canIfBufferHthRef->canIfHthIdSymRef->canObjectId, &canPdu);
 		if (retVal == CAN_NOT_OK || retVal == CAN_BUSY) {
 			return E_NOT_OK;
 		}*/
-
 
 	return E_OK;
 

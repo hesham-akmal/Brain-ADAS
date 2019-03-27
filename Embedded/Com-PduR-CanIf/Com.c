@@ -2,47 +2,18 @@
 
 #include "Com.h"
 
-void ComSendMessage(uint8_t Msg[]) {
+void ComSendSignal(uint8_t PduId, uint8_t Msg[]) {
 	/** formulating I-PDU */
 	const PduInfoType distanceMsg = {
 		.SduDataPtr = Msg,
 		.SduLength = sizeof(Msg) / sizeof(Msg[0])
 	};
-	/** query PDUR routing paths sources to find global pdu reference .
-		inside COM module &Pdus[1] will be reference to related message .
-	*/
-	PduIdType PduHandleId;
-
-	//TODO: simplify and use only one PDU Handle
-	if (PduR_INF_GetSourcePduHandleId(&Pdus[1], &PduHandleId) == E_OK) {
-		PduR_ComTransmit(PduHandleId, &distanceMsg);
-		//PduR_ComCancelTransmit(PduHandleId);
-	}
+	PduR_ComTransmit(PduId, &distanceMsg);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-void PduR_ComTransmit_Test(void) {
-	/** in case of COM module these lines exist in function that intend to transmit */
-	/** formulating I-PDU */
-	uint8_t distMsg[] = "ComTransmitMessage1234";
-	const PduInfoType distanceMsg = {
-		.SduDataPtr = distMsg,
-		.SduLength = sizeof(distMsg) / sizeof(distMsg[0])
-	};
-
-	/** query PDUR routing paths sources to find global pdu reference .
-		inside COM module &Pdus[1] will be reference to related message .
-	*/
-	PduIdType PduHandleId;
-
-	if (PduR_INF_GetSourcePduHandleId(&Pdus[1], &PduHandleId) == E_OK) {
-		PduR_ComTransmit(PduHandleId, &distanceMsg);
-		//PduR_ComCancelTransmit(PduHandleId);
-	}
-}
 
 Std_ReturnType Com_TriggerTransmit(PduIdType TxPduId, PduInfoType* PduInfoPtr) {
 	/**

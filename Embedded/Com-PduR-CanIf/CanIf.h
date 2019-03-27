@@ -1,10 +1,11 @@
+#ifndef CANIF_H_INCLUDED
+#define CANIF_H_INCLUDED
+
 #include "CanIf_Types.h"
 #include "CanIf_Cfg.h"
 
-
-
 // CANIF interface for PDUR
-extern const CanIf_ConfigType* canIf_ConfigPtr; 
+extern const CanIf_ConfigType* canIf_ConfigPtr;
 
 void CanIf_Init(const CanIf_ConfigType *ConfigPtr);
 Std_ReturnType CanIf_Transmit(PduIdType TxPduId, const PduInfoType* PduInfoPtr); ///tested
@@ -13,8 +14,7 @@ void CanIf_TxConfirmation(PduIdType CanTxPduId);
 void CanIf_RxIndication(const Can_HwType *Mailbox, const PduInfoType *PduInfoPtr);
 
 Std_ReturnType CanIf_GetControllerMode(uint8 ControllerId, CanIf_ControllerModeType *ControllerModePtr);
-Std_ReturnType CanIf_SetControllerMode(uint8 ControllerId, CanIf_ControllerModeType ControllerMode);
-
+//Std_ReturnType CanIf_SetControllerMode(uint8 ControllerId, CanIf_ControllerModeType ControllerMode);
 //Std_ReturnType CanIf_CancelTransmit(PduIdType TxPduId);
 //Std_ReturnType CanIf_GetControllerErrorState(uint8 ControllerId, Can_ErrorStateType *ErrorStatePtr); ///tested
 //#if (CANIF_PUBLIC_READRXPDU_DATA_API == STD_ON)
@@ -49,5 +49,5 @@ Std_ReturnType CanIf_SetControllerMode(uint8 ControllerId, CanIf_ControllerModeT
 //#endif
 //#if(CANIF_PUBLIC_ICOM_SUPPORT == STD_ON)
 //Std_ReturnType CanIf_SetIcomConfiguration(uint8 ControllerId, IcomConfigIdType ConfigurationId); ///tested
-//#endif
 
+#endif
