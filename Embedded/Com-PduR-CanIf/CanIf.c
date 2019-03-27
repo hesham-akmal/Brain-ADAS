@@ -102,14 +102,14 @@ Std_ReturnType CanIf_SetControllerMode(uint8 ControllerId, CanIf_ControllerModeT
  */
  //-----------------------------------------------------------------------------
 
- /*
- CanIfTxSduId L-SDU handle to be transmitted.This handle specifies the corresponding CAN L-SDU ID and
- implicitly the CAN Driver instance as well as the corresponding CAN controller device.
- CanIfTxInfoPtr Pointer to a structure with CAN L-SDU related data: DLC and pointer to
- CAN L-SDU buffer including the MetaData of dynamic L-PDUs.
- This service initiates a request for transmission of the CAN L-PDU specified by the CanTxSduId and CAN related
- data in the L-SDU structure.
-  */
+/*
+CanIfTxSduId L-SDU handle to be transmitted.This handle specifies the corresponding CAN L-SDU ID and
+implicitly the CAN Driver instance as well as the corresponding CAN controller device.
+CanIfTxInfoPtr Pointer to a structure with CAN L-SDU related data: DLC and pointer to
+CAN L-SDU buffer including the MetaData of dynamic L-PDUs.
+This service initiates a request for transmission of the CAN L-PDU specified by the CanTxSduId and CAN related
+data in the L-SDU structure.
+ */
 
 Std_ReturnType CanIf_Transmit(PduIdType CanIfTxSduId, const PduInfoType *CanIfTxInfoPtr) {
 	if (canIf_ConfigPtr == 0 || CanIfTxInfoPtr == 0) {

@@ -81,8 +81,6 @@ Std_ReturnType PduR_INF_RouteTransmit(PduIdType TxPduId, const PduInfoType* PduI
 	Std_ReturnType result = E_OK;
 	PduIdType PduHandleId;
 
-
-
 	//Pointer to routing paths
 	PduRRoutingPath_type ** routes = PduRConfig->RoutingPaths;
 	if (routes[0] == NULL) {
@@ -98,9 +96,9 @@ Std_ReturnType PduR_INF_RouteTransmit(PduIdType TxPduId, const PduInfoType* PduI
 #if PDUR_CANIF_SUPPORT == STD_ON
 
 			//TTTT
-			/*if (CanIf_INF_GetPduHandleId(routes[i]->PduRDestPduRef->DestPduRef, &PduHandleId) == E_OK) {
-				result |= CanIf_Transmit(PduHandleId, PduInfoPtr);
-			}*/
+			//if (CanIf_INF_GetPduHandleId(routes[i]->PduRDestPduRef->DestPduRef, &PduHandleId) == E_OK) {
+			result |= CanIf_Transmit(PduHandleId, PduInfoPtr);
+			//}
 
 			printf("CanIf_Transmit1");
 
@@ -191,10 +189,10 @@ void PduR_INF_RouteRxIndication(const PduRDestPdu_type *destination, const PduIn
 
 	//TTTT
 	//if (CanIf_INF_GetPduHandleId(destination->DestPduRef, &PduHandleId) == E_OK) {
-	//	Std_ReturnType retVal = CanIf_Transmit(PduHandleId, PduInfo);
-	//	if (retVal != E_OK) {
-	//		//raise an error
-	//	}
+	Std_ReturnType retVal = CanIf_Transmit(PduHandleId, PduInfo);
+	if (retVal != E_OK) {
+		//raise an error
+	}
 	//}
 	printf("CanIf_Transmit2");
 
