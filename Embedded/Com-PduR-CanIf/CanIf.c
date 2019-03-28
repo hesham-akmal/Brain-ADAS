@@ -117,19 +117,22 @@ Std_ReturnType CanIf_Transmit(PduIdType CanIfTxSduId, const PduInfoType *CanIfTx
 		printf("CanIf_Transmit : CanIF is not initialized or no Data sent");
 		return E_NOT_OK;
 	}
-
+	printf("\n%u\n", CanIfTxSduId);
 	//TTTT
 	const CanIfTxPduCfg *txEntry = (CanIfTxPduCfg *)(&canIf_ConfigPtr->canIfInitCfg->canIfTxPduCfg[CanIfTxSduId]);
-
 	//prepare the PDU data
 	Can_PduType canPdu;
-	canPdu.id = txEntry->canIfTxPduCanId;
+	//canPdu.id = txEntry->canIfTxPduCanId;
+	canPdu.id = (CanIfTxSduId & (uint32)0xFFFFF000) >> 12;
 	canPdu.length = CanIfTxInfoPtr->SduLength;
 	canPdu.sdu = CanIfTxInfoPtr->SduDataPtr;
-	canPdu.swPduHandle = CanIfTxSduId;
+	//canPdu.swPduHandle = CanIfTxSduId;
+	canPdu.swPduHandle = CAN_IF_ID;
+	uint8 hth = (CanIfTxSduId & (uint32)0x00000FF0) >> 4;
 
 	printf("\nCanIf_Transmit with payload: %s", canPdu.sdu);
 	printf("\nCanIf_Transmit with PduID: %d", CanIfTxSduId);
+	printf("\nInterface ID: %d, msgId: %d, hth: %d\n", canPdu.swPduHandle, canPdu.id, hth);
 
 	//TTTT
 	/*Can_ReturnType retVal = Can_Write(txEntry->canIfTxPduBufferRef->canIfBufferHthRef->canIfHthIdSymRef->canObjectId, &canPdu);

@@ -91,15 +91,20 @@ Std_ReturnType PduR_INF_RouteTransmit(PduIdType TxPduId, const PduInfoType* PduI
 	}
 
 	printf("\nPduR_INF_RouteTransmit with payload: %s", PduInfoPtr->SduDataPtr);
-	printf("\nPduR_INF_RouteTransmit with PduID: %d", TxPduId);
-
+	printf("\nPduR_INF_RouteTransmit with PduID: %d\n", TxPduId);
+	/*
 	//Query routing paths for target path
 	for (uint8_t i = 0; routes[i] != NULL; i++)
 		if (routes[i]->PduRSrcPduRef->SourcePduHandleId == TxPduId)
 		{
 			result |= CanIf_Transmit(TxPduId, PduInfoPtr);
 			return result;
-		}
+		}*/
+	uint32 interfaceId = TxPduId & 0xF;
+	if (interfaceId == CAN_IF_ID) {
+		result |= CanIf_Transmit((TxPduId & (~(uint32)0xF)) >> 4, PduInfoPtr);
+		return result;
+	}
 	return result;
 }
 

@@ -2,13 +2,13 @@
 
 #include "Com.h"
 
-void ComSendSignal(uint8_t PduId, uint8_t Msg[]) {
+void ComSendSignal(uint32_t Id, uint8_t Msg[]) {
 	/** formulating I-PDU */
 	const PduInfoType distanceMsg = {
 		.SduDataPtr = Msg,
 		.SduLength = sizeof(Msg) / sizeof(Msg[0])
 	};
-	PduR_ComTransmit(PduId, &distanceMsg);
+	PduR_ComTransmit(Id, &distanceMsg);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
