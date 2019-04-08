@@ -65,6 +65,24 @@ int main() {
 		ComSendSignal(Id, msg, length);
 	}
 	
+	
+	////////////////////////
+	////////////////////////
+	/////testing canif > com////////////////////////
+	uint8_t Msg[] = "RECEIVETEST";
+	const PduInfoType distanceMsg = {
+		.SduDataPtr = Msg,
+		.SduLength = sizeof(Msg) / sizeof(Msg[0])
+	};
+	Can_HwType Mailbox;
+	Mailbox.CanId = (uint16)7;
+	Mailbox.Hoh = (uint16)0;
+	Mailbox.ControllerId = (uint8)1;
+	CanIf_RxIndication(&Mailbox, &distanceMsg);
+	////////////////////////
+	//////////////////////////
+	
+	
 
 	return 0;
 }
