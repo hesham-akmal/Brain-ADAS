@@ -3,7 +3,6 @@
 
 # In[9]:
 
-
 import pandas as pd
 import numpy as np
 import os
@@ -32,6 +31,14 @@ def make_all_columns(electrodes):
         for i in range(192):
             newCols.append(col + '.' + str(i))
     newCols.append('y')
+    return newCols
+
+def make_all_columns_test(electrodes):
+    newCols = []
+    for col in electrodes:
+        for i in range(64):
+            newCols.append(col + '.' + str(i))
+    
     return newCols
 
 
@@ -88,6 +95,13 @@ def convert_to_row(start, label, electrodes, data):
     for col in electrodes:
         row += data[col][start:start+192].tolist()
     row += [label]
+    return row
+
+def convert_to_row_test(start, electrodes, data):
+    row = []
+    for col in electrodes:
+        row += data[col][start:start+64].tolist()
+    #print(row)
     return row
 
 
@@ -201,8 +215,11 @@ def time_intervals_features_test(packets, interval, numOfCols):
             mean_features_packets[newCols[i*numOfCols + j]] = np.mean(packets[cols[i*interval+step*j:i*interval+numOfCols*j + step]], axis = 1).values
     return mean_features_packets
     
-def live_test(packets):
-    mean_features_packets = time_intervals_features_test(packets, interval=72, numOfCols=36)
+def live_test(packets): #listen to me
+    test_packets = pd.DataFrame(columns = colsTest)
+ 
+    test_packets.loc[0] = convert_to_row_test(0, electrodes, packets)
+    mean_features_packets = time_intervals_features_test(test_packets, interval=64, numOfCols=36)
     mean_features_packets = np.nan_to_num(mean_features_packets)
     y_predict = model.predict(mean_features_packets)
     return y_predict
@@ -216,6 +233,9 @@ electrodes = ['F3', ' FC5', ' AF3', ' F7', ' T7', ' P7', ' O1', ' O2', ' P8', ' 
 # In[17]:
 
 newCols = make_all_columns(electrodes)
+electrodes =['F3', 'FC5', 'AF3', 'F7', 'T7', 'P7', 'O1', 'O2', 'P8', 'T8',
+       'F8', 'AF4', 'FC6', 'F4']
+colsTest = make_all_columns_test(electrodes)
 
 
 # In[18]:
@@ -232,10 +252,3 @@ model = train_for_live_test("Hesham2")
 
 
 # In[25]:
-
-
-
-
-
-
-
