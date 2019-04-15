@@ -197,12 +197,12 @@ def time_intervals_features_test(packets, interval, numOfCols):
     step = int((len(cols)-1)/len(newCols))
     for i in range(0, 14):
         for j in range(0, numOfCols):
-            mean_features_packets[newCols[i*numOfCols + j]] = np.mean(pos[cols[i*interval+step*j:i*interval+numOfCols*j + step]], axis = 1).values
+            mean_features_packets[newCols[i*numOfCols + j]] = np.mean(packets[cols[i*interval+step*j:i*interval+numOfCols*j + step]], axis = 1).values
     return mean_features_packets
     
 def live_test(packets):
-    dropCols = get_drop_cols(12*6)
-    packets = packets.drop(dropCols, axis = 1)
+    #dropCols = get_drop_cols(12*6)
+    #packets = packets.drop(dropCols, axis = 1)
     mean_features_packets = time_intervals_features_test(packets, interval=72, numOfCols=36)
     mean_features_packets = np.nan_to_num(mean_features_packets)
     y_predict = model.predict(mean_features_packets)
@@ -222,15 +222,10 @@ newCols = make_all_columns(electrodes)
 # In[18]:
 
 #fnames = ["Subject_1"]
-#befor calling upload_and_save_pos_neg, you should put all the file names in fnames except Subject file
+#before calling upload_and_save_pos_neg, you should put all the file names in fnames except Subject file
 #you should put the files the files in a folder called "Our Dataset" in EEG work directory
 
 
 # In[25]:
 
 #upload_and_save_pos_neg("Wagih2")
-
-
-
-
-
