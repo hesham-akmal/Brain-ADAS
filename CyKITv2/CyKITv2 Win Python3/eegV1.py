@@ -33,7 +33,6 @@ import array
 import inspect
 import random 
 import winsound
-import model_training_and_live_testing
 
 #  Import C functions for Bluetooth.
 # ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
@@ -1459,9 +1458,7 @@ class EEG(object):
             
             sleep_time = time.time()
             dataLoss = 0
-            firstPacket = ''
-            secondPacket = ''
-            sixtyFourPackets = pd.DataFrame(columns = ['Brake Pedal', 'F3', 'FC5', 'AF3', 'F7', 'T7', 'P7', 'O1', 'O2', 'P8', 'T8', 'F8', 'AF4', 'FC6', 'F4', 'y'])
+
             while not tasks.empty() and self.running == True:
                 time.sleep(0)
 
@@ -1585,26 +1582,6 @@ class EEG(object):
                                 y = '-1'
                             else:
                                 y = '0'
-								
-                            packet_formatted = str(CarControls['brake']) + self.delimiter + packet_data + y
-                            packet_formatted = packet_formatted.split(',') 
-                            if (len(sixtyFourPackets) < 64):
-                                sixtyFourPackets.loc[len(sixtyFourPackets)] = packet_formatted
-                            elif (firstPacket == ''):
-                                firstPacket = packet_formatted
-                            elif(secondPacket == ''):
-                                secondPacket = packet_formatted
-                            else:
-                                #sixtyFourPackets.to_csv('s'+ counter_data +".csv", index = False)
-                                sixtyFourPackets = sixtyFourPackets[2:]
-                                #print(str(len(sixtyFourPackets)))
-                                p = pd.DataFrame([firstPacket, secondPacket], columns = ['Brake Pedal', 'F3', 'FC5', 'AF3', 'F7', 'T7', 'P7', 'O1', 'O2', 'P8', 'T8', 'F8', 'AF4', 'FC6', 'F4', 'y'])
-                                sixtyFourPackets = sixtyFourPackets.append(p)
-                                #print(str(len(sixtyFourPackets)))
-                                brake = live_test(sixtyFourPackets) #here you should check if brake == 1, then the car must perform an emergency brake. 
-                                firstPacket = ''
-                                secondPacket = ''	
-							
                             
                             airsim_data = str(CarControls['brake']) + self.delimiter
 
