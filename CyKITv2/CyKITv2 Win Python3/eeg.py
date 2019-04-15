@@ -15,7 +15,6 @@
 #  Contributions by yikestone
 #
 
-
 #############
 # Edited by Brain-ADAS Team
 import time
@@ -34,15 +33,17 @@ import inspect
 import random 
 import winsound
 import pandas as pd
-import model_training_and_live_testing
+from pathlib import Path
+from model_training_and_live_testing import *
 
 #  Import C functions for Bluetooth.
 # ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
 from ctypes import *
 from ctypes.wintypes import HANDLE, ULONG, DWORD, USHORT
 
+##############################################################
+
 # Add airsim path, Importing airsim, Getting CarClient
-from pathlib import Path
 sys.path.append(str(Path().resolve().parent.parent).replace('\\','/') + '/AirSimClient')
 import airsim
 airsimClient = airsim.CarClient()
@@ -53,8 +54,15 @@ def StartFullBrake():
 
 def StopBrake():
     client.setBrakeInput(0)
-        
 
+    
+#Adding SDL2 and INIT  ######################################
+os.environ["PYSDL2_DLL_PATH"] = str(Path().resolve().parent.parent) + '\AirSimClient'
+import sdl2
+sdl2.SDL_Init(sdl2.SDL_INIT_JOYSTICK)
+joystick = sdl2.SDL_JoystickOpen(0)
+##############################################################
+##############################################################
 
 #  Detect 32 / 64 Bit Architecture.
 # ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
@@ -342,11 +350,10 @@ class ControllerIO():
                     self.cyFile = open(cyPath + "\\EEG-Logs\\" + self.recordFile + ".csv", "w+" ,newline='')
                     #mirror.text(str(dir(self.f)))
 
-                    #Car Distance,Ped Distance,
+                    #COLUMN HEADERS BADAS
                     csvHeader = ""
-                    csvHeader += "Brake Pedal,COUNTER"
-
-
+                    # ,HW PEDAL #,COUNTER
+                    csvHeader += "Brake Pedal"  
                     if int(self.getInfo("keymodel")) == 3 or int(self.getInfo("keymodel")) == 4:
                         # Insight
                         csvHeader += "AF3 T7 Pz T8 AF4 RAW_CQ GYROX GYROY MARKER SYNC TIME_STAMP_s TIME_STAMP_ms CQ_AF3 CQ_T7 CQ_Pz CQ_T8 CQ_AF4, "
@@ -1574,33 +1581,6 @@ class EEG(object):
                         if self.format < 1:
                             for i in range(0,14):
                                 packet_data = packet_data + str(self.convertEPOC(data, self.mask[i])) + self.delimiter
-                            
-                            AdasPacket = airsimClient.getAdasPacket()
-                            CarControls = airsimClient.getCarControls()
-
-                            #car evnum AdasPacket[0]
-                            #ped evnum AdasPacket[2]
-
-                            #car distance AdasPacket[1]
-                            #pedestrian distance AdasPacket[3]
-
-                            y = '0'
-                            if AdasPacket[0] == 1 and AdasPacket[2] == 0:
-                                y = '1'
-                            elif AdasPacket[0] == 0 and AdasPacket[2] == 1:
-                                y = '2'
-                            elif AdasPacket[0] == 1 and AdasPacket[2] == 1:
-                                y = '3'
-                            elif AdasPacket[0] == -1 and AdasPacket[2] == -1:
-                                y = '-1'
-                            else:
-                                y = '0'
-
-                            
-
-                            airsim_data = str(CarControls['brake']) + self.delimiter
-
-                            cyIO.CurrentPacket = (airsim_data + counter_data + packet_data + y)
 
                             if cyIO.isRecording() == True:
                                 cyIO.startRecord(cyIO.CurrentPacket)
@@ -1706,7 +1686,7 @@ class EEG(object):
                             if self.outputdata == True:
                                 mirror.text(str(counter_data + packet_data))
                         
-                    #  Epoc+
+                    #  Epoc+ BADAS
                     # ¯¯¯¯¯¯¯¯
                     if self.KeyModel == 6 or self.KeyModel == 5:
 
@@ -1724,7 +1704,7 @@ class EEG(object):
                         else:
                             counter_data = str(data[0]) + self.delimiter
 
-                        # ~Format 0: (Default) (Decode to Floating Point)
+                        # ~Format 0: (Default) (Decode to Floating Point) 
                         # ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
                         if self.format < 1:
                             for i in range(2,16,2):
@@ -1737,11 +1717,23 @@ class EEG(object):
 
                             AdasPacket = airsimClient.getAdasPacket()
                             CarControls = airsimClient.getCarControls()
+                            
+                            airsim_data = str(CarControls['brake']) + self.delimiter #+ str(joy_y) + self.delimiter
 
                             #AdasPacket[0]: car event num
                             #AdasPacket[1]: car distance
                             #AdasPacket[2]: ped event num
                             #AdasPacket[3]: pedestrian distance
+
+                            ####### HW PEDAL VALS
+
+                            sdl2.SDL_PumpEvents()
+                            joy_y = sdl2.SDL_JoystickGetAxis(joystick, 1) 
+                            joy_y = (joy_y / 32767)
+                            if(joy_y < 0.001):
+                                joy_y=0
+
+                            ############
 
                             y = '0'
                             if AdasPacket[0] == 0 and AdasPacket[2] == 0:
@@ -1761,21 +1753,16 @@ class EEG(object):
                             else:
                                 y = '?'
 
-                            packet_formatted = str(CarControls['brake']) + self.delimiter + packet_data + y
+                            packet_formatted = airsim_data + packet_data + self.delimiter + y
                             packet_formatted = packet_formatted.split(',') 
                             if (len(sixtyFourPackets) < 64):
-                                print('CCCCC111111111')
                                 sixtyFourPackets.loc[len(sixtyFourPackets)] = packet_formatted
                             elif (firstPacket == ''):
-                                print('CCCCC222222222')
                                 firstPacket = packet_formatted
                             elif(secondPacket == ''):
-                                print('CCCCC33333333333')
                                 secondPacket = packet_formatted
                             else:
-                                print('CCCCC4444444444')
-                                #sixtyFourPackets.to_csv('s'+ counter_data
-                                #+".csv", index = False)
+                                #sixtyFourPackets.to_csv('s'+ counter_data +".csv", index = False)
                                 sixtyFourPackets = sixtyFourPackets[2:]
                                 #print(str(len(sixtyFourPackets)))
                                 p = pd.DataFrame([firstPacket, secondPacket], columns = ['Brake Pedal', 'F3', 'FC5', 'AF3', 'F7', 'T7', 'P7', 'O1', 'O2', 'P8', 'T8', 'F8', 'AF4', 'FC6', 'F4', 'y'])
@@ -1787,10 +1774,10 @@ class EEG(object):
                                     StartFullBrake()
 
                                 firstPacket = ''
-                                secondPacket = ''	
+                                secondPacket = ''
 
-                            airsim_data = str(CarControls['brake']) + self.delimiter
-                            cyIO.CurrentPacket = airsim_data + counter_data + packet_data + self.delimiter + y
+                            # remved +counter_data 
+                            cyIO.CurrentPacket = airsim_data + packet_data + self.delimiter + y
 
                             #print(cyIO.CurrentPacket)
                             if cyIO.isRecording() == True:
