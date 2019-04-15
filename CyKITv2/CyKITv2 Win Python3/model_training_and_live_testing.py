@@ -3,6 +3,7 @@
 
 # In[9]:
 
+import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import os
@@ -201,8 +202,6 @@ def time_intervals_features_test(packets, interval, numOfCols):
     return mean_features_packets
     
 def live_test(packets):
-    #dropCols = get_drop_cols(12*6)
-    #packets = packets.drop(dropCols, axis = 1)
     mean_features_packets = time_intervals_features_test(packets, interval=72, numOfCols=36)
     mean_features_packets = np.nan_to_num(mean_features_packets)
     y_predict = model.predict(mean_features_packets)
@@ -221,11 +220,22 @@ newCols = make_all_columns(electrodes)
 
 # In[18]:
 
-#fnames = ["Subject_1"]
-#before calling upload_and_save_pos_neg, you should put all the file names in fnames except Subject file
-#you should put the files the files in a folder called "Our Dataset" in EEG work directory
+#1-make a directory called "Our Dataset"
+#2-make another directory inide our dataset, and call it Hesham2
+#3-put all csv files inside Hesham2
+
+fnames = ["Subject_1", "Subject_2"]
+upload_and_save_pos_neg("Hesham2")
+model = train_for_live_test("Hesham2")
+
+
 
 
 # In[25]:
 
-#upload_and_save_pos_neg("Wagih2")
+
+
+
+
+
+
