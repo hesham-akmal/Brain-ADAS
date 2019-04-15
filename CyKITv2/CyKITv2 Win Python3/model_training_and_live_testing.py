@@ -14,6 +14,7 @@ from sklearn.metrics import classification_report
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis 
 from sklearn import preprocessing
 from sklearn import metrics
+import time
 
 
 # In[2]:
@@ -216,12 +217,26 @@ def time_intervals_features_test(packets, interval, numOfCols):
     return mean_features_packets
     
 def live_test(packets): #listen to me
+    t = time.time()
     test_packets = pd.DataFrame(columns = colsTest)
+    print('a: ' , time.time() - t )
  
+    t = time.time()
     test_packets.loc[0] = convert_to_row_test(0, electrodes, packets)
+    print('b: ' , time.time() - t )
+
+    t = time.time()
     mean_features_packets = time_intervals_features_test(test_packets, interval=64, numOfCols=36)
+    print('c: ' , time.time() - t )
+    
+    t = time.time()
     mean_features_packets = np.nan_to_num(mean_features_packets)
+    print('d: ' , time.time() - t )
+
+    t = time.time()
     y_predict = model.predict(mean_features_packets)
+    print('e: ' , time.time() - t )
+
     return y_predict
 
 # In[16]:

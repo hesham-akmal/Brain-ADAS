@@ -1752,7 +1752,7 @@ class EEG(object):
                                 y = '-1'
                             else:
                                 y = '?'
-
+                                
                             packet_formatted = airsim_data + packet_data + self.delimiter + y
                             packet_formatted = packet_formatted.split(',') 
                             if (len(sixtyFourPackets) < 64):
@@ -1762,21 +1762,21 @@ class EEG(object):
                             elif(secondPacket == ''):
                                 secondPacket = packet_formatted
                             else:
+                                print('d')
                                 #sixtyFourPackets.to_csv('s'+ counter_data +".csv", index = False)
                                 sixtyFourPackets = sixtyFourPackets[2:]
                                 #print(str(len(sixtyFourPackets)))
                                 p = pd.DataFrame([firstPacket, secondPacket], columns = ['Brake Pedal', 'F3', 'FC5', 'AF3', 'F7', 'T7', 'P7', 'O1', 'O2', 'P8', 'T8', 'F8', 'AF4', 'FC6', 'F4', 'y'])
                                 sixtyFourPackets = sixtyFourPackets.append(p)
                                 #print(str(len(sixtyFourPackets)))
-                                brake = live_test(sixtyFourPackets)
 
-                                #print(brake.shape)
+                                brake = live_test(sixtyFourPackets)
 
                                 print('brake val = ' , brake)
 
-                                #if(brake == 1):
-                                #    y = 'B'
-                                #    StartFullBrake()
+                                if(brake == 1):
+                                    y = 'B'
+                                    StartFullBrake()
                                 firstPacket = ''
                                 secondPacket = ''
 
