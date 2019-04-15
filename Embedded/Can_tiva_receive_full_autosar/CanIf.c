@@ -214,5 +214,5 @@ void CanIf_RxIndication(const Can_HwType* Mailbox, const PduInfoType* PduInfoPtr
 	com2pdur = true;
 
 	// | ((Mailbox->Hoh) << 8) | ((Mailbox->ControllerId) << 4);
-	PduR_INF_RouteRxIndication(&Id, PduInfoPtr);
+	PduR_INF_RouteRxIndication(&Id, &PduInfoPtr);
 }
