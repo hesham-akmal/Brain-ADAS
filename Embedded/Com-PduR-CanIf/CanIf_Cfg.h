@@ -5,21 +5,24 @@
 /*                           Macros & Typedefs                                */
 /* -------------------------------------------------------------------------- */
 /** CANIF_INF_RUNTIME_PDU_CONFIGURATION
-    STD_OFF ->  Pre-compile time configuration
-    STD_ON  ->  Post build time configuration
+	STD_OFF ->  Pre-compile time configuration
+	STD_ON  ->  Post build time configuration
 
-    m4 mwgodeen
+	m4 mwgodeen
 */
+
+#define CAN_IF_ID 2
+
 #define CANIF_INF_RUNTIME_PDU_CONFIGURATION      STD_OFF
 #define CANIF_INF_CAN_TRCV_SUPPORT               STD_ON
 
 /** service CanIf_CancelTransmit() shall be pre-compile time
-    configurable On/Off
+	configurable On/Off
 */
 #define CANIF_PUBLIC_CANCEL_TRANSMIT_SUPPORT     STD_ON
 
 /** CanIf_ReadRxPduData(): This API can
-    be enabled or disabled at pre-compile time
+	be enabled or disabled at pre-compile time
 */
 #define CANIF_PUBLIC_READRXPDU_DATA_API          STD_OFF
 #define CANIF_PUBLIC_READTXPDU_NOTIFY_STATUS_API STD_OFF
@@ -33,7 +36,7 @@
 #define CANIF_PUBLIC_ICOM_SUPPORT                STD_ON
 
 /** Enables and disables the API for reading the notification
-    status of transmit L-PDUs.
+	status of transmit L-PDUs.
 */
 #define CANIF_READTXPDU_NOTIFY_STATUS_API        STD_OFF
 #define CANIF_PUBLIC_SETDYNAMICTXID_API          STD_OFF
@@ -66,13 +69,13 @@
 /*                       Structures and Enumerations                          */
 /* -------------------------------------------------------------------------- */
 typedef enum {
-    CANIF_INF_RX_PDU_0=0,   ///PduR
-    CANIF_INF_RX_CNT  =1
+	CANIF_INF_RX_PDU_0 = 0,   ///PduR
+	CANIF_INF_RX_CNT = 1
 }CanIf_INF_Rx_Pdus;
 
 typedef enum {
-    CANIF_INF_TX_PDU_0=0,   ///PduR
-    CANIF_INF_TX_CNT  =1
+	CANIF_INF_TX_PDU_0 = 0,   ///PduR
+	CANIF_INF_TX_CNT = 1
 }CanIf_Rx_Pdus;
 
 /* -------------------------------------------------------------------------- */

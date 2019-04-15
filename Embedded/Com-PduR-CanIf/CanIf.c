@@ -117,7 +117,7 @@ Std_ReturnType CanIf_Transmit(PduIdType CanIfTxSduId, const PduInfoType *CanIfTx
 		printf("CanIf_Transmit : CanIF is not initialized or no Data sent");
 		return E_NOT_OK;
 	}
-	printf("\n%u\n", CanIfTxSduId);
+	//printf("\n%u\n", CanIfTxSduId);
 	//TTTT
 	const CanIfTxPduCfg *txEntry = (CanIfTxPduCfg *)(&canIf_ConfigPtr->canIfInitCfg->canIfTxPduCfg[CanIfTxSduId]);
 	//prepare the PDU data
@@ -186,26 +186,29 @@ static CanIfRxPduCfg *findRxPduCfg(Can_HwHandleType Hoh) {
 }
 
 void CanIf_RxIndication(const Can_HwType *Mailbox, const PduInfoType *PduInfoPtr) {
-	const CanIfRxPduCfg *RxPduCfgPtr;
+	/*const CanIfRxPduCfg *RxPduCfgPtr;
 	CanIf_PduModeType PduMode;
 	PduIdType RxPduId;
+	RxPduCfgPtr = findRxPduCfg(Mailbox->Hoh);
+	if (RxPduCfgPtr == 0) {
+		///report development error code CANIF_E_PARAM_HOH to the Det
+		return;
+	}
+	if (PduInfoPtr->SduLength != RxPduCfgPtr->canIfRxPduDlc) {
+		///report development error code CANIF_E_INVALID_DATA_LENGTH to the Det
+		return;
+	}
+	(RxPduCfgPtr->canIfRxPduUserRxIndicationName)(RxPduCfgPtr->CanIfRxPduId, PduInfoPtr);*/
 
 	if (Mailbox == 0 || PduInfoPtr == 0) {
 		///Report an error CANIF_E_PARAM_POINTER to the Det_ReportError
 		return;
 	}
 
-	RxPduCfgPtr = findRxPduCfg(Mailbox->Hoh);
-	//
-	if (RxPduCfgPtr == 0) {
-		///report development error code CANIF_E_PARAM_HOH to the Det
-		return;
-	}
 
-	if (PduInfoPtr->SduLength != RxPduCfgPtr->canIfRxPduDlc) {
-		///report development error code CANIF_E_INVALID_DATA_LENGTH to the Det
-		return;
-	}
+	uint32 Id = Mailbox->CanId;
+	Id = Id << 16 | (Mailbox->Hoh) << 8;
 
-	(RxPduCfgPtr->canIfRxPduUserRxIndicationName)(RxPduCfgPtr->CanIfRxPduId, PduInfoPtr);
+	// | ((Mailbox->Hoh) << 8) | ((Mailbox->ControllerId) << 4);
+	PduR_INF_RouteRxIndication(&Id, PduInfoPtr);
 }

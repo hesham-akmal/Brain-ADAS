@@ -177,25 +177,14 @@ void PduR_INF_RxIndication(PduIdType pduId, const PduInfoType* pduInfoPtr) {
 	}
 }
 void PduR_INF_RouteRxIndication(PduIdType pduId, const PduInfoType *PduInfo) {
-	//PduIdType PduHandleId;
-
 #if PDUR_COM_SUPPORT == STD_ON
-	//if (Com_INF_GetPduHandleId(destination->DestPduRef, &PduHandleId) == E_OK) {
 	Com_RxIndication(pduId, PduInfo);
-	//}
 #endif
 #if PDUR_CANIF_SUPPORT == STD_ON
-
-
-	//TTTT
-	//if (CanIf_INF_GetPduHandleId(destination->DestPduRef, &PduHandleId) == E_OK) {
-	Std_ReturnType retVal = CanIf_Transmit(pduId, PduInfo);
+	/*Std_ReturnType retVal = CanIf_Transmit(pduId, PduInfo);
 	if (retVal != E_OK) {
-		//raise an error
-	}
-	//}
-	printf("CanIf_Transmit2");
-
+		printf("ERROR");
+	}*/
 
 #endif
 }

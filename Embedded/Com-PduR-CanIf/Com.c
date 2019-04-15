@@ -46,6 +46,8 @@ Std_ReturnType Com_TriggerTransmit(PduIdType TxPduId, PduInfoType* PduInfoPtr) {
 
 void Com_RxIndication(PduIdType PduHandleId, const PduInfoType *PduInfoPtr) {
 	printf("now in Com Rx Indication & message received is %s\n", PduInfoPtr->SduDataPtr);
+	printf("Id is %d\n", PduHandleId);
+
 	printf("Can -> Com reception indication has finished\n");
 }
 
