@@ -5,14 +5,10 @@
 
 import pandas as pd
 import numpy as np
-import os
-import gc
 from sklearn import preprocessing
 from sklearn.model_selection import train_test_split
-import lightgbm as lgb
 from sklearn.metrics import classification_report
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis 
-from sklearn import preprocessing
 from sklearn import metrics
 import time
 
@@ -98,10 +94,10 @@ def convert_to_row(start, label, electrodes, data):
     row += [label]
     return row
 
-def convert_to_row_test(start, electrodes, data):
-    row = []
-    for col in electrodes:
-        row += data[col][start:start+64].tolist()
+def convert_to_row_test(data):
+    row = np.zeros(64*14, dtype=np.float64)
+    for i in range(14):
+        row[i*64:i*64+64] = data[:,i]
     #print(row)
     return row
 
@@ -182,7 +178,7 @@ def train_for_live_test(f):
     dropCols = get_drop_cols(12*6)
     pos = pos.drop(dropCols, axis = 1)
     neg = neg.drop(dropCols, axis = 1)
-    mean_features_pos, mean_features_neg = time_intervals_features(pos, neg, 12*6, 36)
+    mean_features_pos, mean_features_neg = time_intervals_features(pos, neg, 12*6, 32)
     mean_features_pos['y'] = 1
     mean_features_neg['y'] = 0
     all_data = mean_features_pos.append(mean_features_neg)
@@ -208,25 +204,23 @@ def train_for_live_test(f):
 def time_intervals_features_test(packets, interval, numOfCols):
     #cols = list(pos)
     newCols = make_columns(numOfCols)
-    mean_features_packets = pd.DataFrame(columns = newCols)
-    cols = list(packets)
-    step = int((len(cols)-1)/len(newCols))
+    mean_features_packets = np.zeros(numOfCols*14)
+    #cols = ['F3', 'FC5', 'AF3', 'F7', 'T7', 'P7', 'O1', 'O2', 'P8', 'T8',
+    #   'F8', 'AF4', 'FC6', 'F4']
+    step = int(interval/numOfCols)
     for i in range(0, 14):
         for j in range(0, numOfCols):
-            mean_features_packets[newCols[i*numOfCols + j]] = np.mean(packets[cols[i*interval+step*j:i*interval+numOfCols*j + step]], axis = 1).values
+            mean_features_packets[i*numOfCols + j] = np.mean(packets[i*interval+step*j:i*interval+numOfCols*j + step], axis = 0)
     return mean_features_packets
     
 def live_test(packets): #listen to me
-    t = time.time()
-    test_packets = pd.DataFrame(columns = colsTest)
-    print('a: ' , time.time() - t )
  
     t = time.time()
-    test_packets.loc[0] = convert_to_row_test(0, electrodes, packets)
+    test_packets = convert_to_row_test(packets)
     print('b: ' , time.time() - t )
 
     t = time.time()
-    mean_features_packets = time_intervals_features_test(test_packets, interval=64, numOfCols=36)
+    mean_features_packets = time_intervals_features_test(test_packets, interval=64, numOfCols=32)
     print('c: ' , time.time() - t )
     
     t = time.time()
@@ -234,7 +228,7 @@ def live_test(packets): #listen to me
     print('d: ' , time.time() - t )
 
     t = time.time()
-    y_predict = model.predict(mean_features_packets)
+    y_predict = model.predict(mean_features_packets.reshape(1, -1))
     print('e: ' , time.time() - t )
 
     return y_predict
@@ -243,6 +237,7 @@ def live_test(packets): #listen to me
 
 electrodes = ['F3', ' FC5', ' AF3', ' F7', ' T7', ' P7', ' O1', ' O2', ' P8', ' T8',
        ' F8', ' AF4', ' FC6', ' F4']
+
 
 
 # In[17]:
@@ -259,7 +254,7 @@ colsTest = make_all_columns_test(electrodes)
 #2-make another directory inide our dataset, and call it Hesham2
 #3-put all csv files inside Hesham2
 
-fnames = ["Subject_1", "Subject_2"]
+fnames = ["Subject", "Subject_1", "Subject_2"]
 upload_and_save_pos_neg("Hesham2")
 model = train_for_live_test("Hesham2")
 

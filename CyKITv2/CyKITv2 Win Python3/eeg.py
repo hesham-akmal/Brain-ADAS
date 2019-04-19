@@ -20,19 +20,15 @@
 import time
 import os
 import sys
-import platform
 import socket
 import struct
 import operator
-import math
 import queue
 import threading
-import traceback
-import array
-import inspect
-import random 
+import traceback 
 import winsound
-import pandas as pd
+#import pandas as pd
+import numpy as np
 from pathlib import Path
 from model_training_and_live_testing import *
 
@@ -62,6 +58,14 @@ import sdl2
 sdl2.SDL_Init(sdl2.SDL_INIT_JOYSTICK)
 joystick = sdl2.SDL_JoystickOpen(0)
 ##############################################################
+
+def Find_BADAS_ClientNormal():
+    global client
+    client = airsim.CarClient()
+
+def Find_BADAS_Client(): #Thread
+    threading.Thread(target=Find_BADAS_ClientNormal).start()
+
 ##############################################################
 
 #  Detect 32 / 64 Bit Architecture.
@@ -1478,7 +1482,10 @@ class EEG(object):
             dataLoss = 0
             firstPacket = ''
             secondPacket = ''
-            sixtyFourPackets = pd.DataFrame(columns = ['Brake Pedal', 'F3', 'FC5', 'AF3', 'F7', 'T7', 'P7', 'O1', 'O2', 'P8', 'T8', 'F8', 'AF4', 'FC6', 'F4', 'y'])
+            #sixtyFourPackets = pd.DataFrame(columns = ['Brake Pedal', 'F3', 'FC5', 'AF3', 'F7', 'T7', 'P7', 'O1', 'O2', 'P8', 'T8', 'F8', 'AF4', 'FC6', 'F4', 'y'])
+            print('bbbbbbbbbbbbbbbaaaa')
+            packetIndex = 0
+            testPackets = np.zeros((64, 14), dtype=np.float64)
             while not tasks.empty() and self.running == True:
                 time.sleep(0)
 
@@ -1752,25 +1759,24 @@ class EEG(object):
                                 y = '-1'
                             else:
                                 y = '?'
-                                
+                            							
                             packet_formatted = airsim_data + packet_data + self.delimiter + y
                             packet_formatted = packet_formatted.split(',') 
-                            if (len(sixtyFourPackets) < 64):
-                                sixtyFourPackets.loc[len(sixtyFourPackets)] = packet_formatted
+                            if (packetIndex < 64):
+                                testPackets[packetIndex] = [float(x) for x in packet_data.split(',')]
+                                packetIndex += 1
                             elif (firstPacket == ''):
-                                firstPacket = packet_formatted
+                                firstPacket = [float(x) for x in packet_data.split(',')]
                             elif(secondPacket == ''):
-                                secondPacket = packet_formatted
+                                secondPacket = [float(x) for x in packet_data.split(',')]
                             else:
                                 print('d')
                                 #sixtyFourPackets.to_csv('s'+ counter_data +".csv", index = False)
-                                sixtyFourPackets = sixtyFourPackets[2:]
-                                #print(str(len(sixtyFourPackets)))
-                                p = pd.DataFrame([firstPacket, secondPacket], columns = ['Brake Pedal', 'F3', 'FC5', 'AF3', 'F7', 'T7', 'P7', 'O1', 'O2', 'P8', 'T8', 'F8', 'AF4', 'FC6', 'F4', 'y'])
-                                sixtyFourPackets = sixtyFourPackets.append(p)
-                                #print(str(len(sixtyFourPackets)))
-
-                                brake = live_test(sixtyFourPackets)
+                                testPackets = testPackets[2:]
+                                print(testPackets.dtype)
+                                testPackets = np.append(testPackets, [firstPacket], axis=0)
+                                testPackets = np.append(testPackets, [secondPacket], axis=0)
+                                brake = live_test(testPackets)
 
                                 print('brake val = ' , brake)
 
