@@ -202,11 +202,8 @@ def train_for_live_test(f):
 
 #mean of columns
 def time_intervals_features_test(packets, interval, numOfCols):
-    #cols = list(pos)
-    newCols = make_columns(numOfCols)
+
     mean_features_packets = np.zeros(numOfCols*14)
-    #cols = ['F3', 'FC5', 'AF3', 'F7', 'T7', 'P7', 'O1', 'O2', 'P8', 'T8',
-    #   'F8', 'AF4', 'FC6', 'F4']
     step = int(interval/numOfCols)
     for i in range(0, 14):
         for j in range(0, numOfCols):
