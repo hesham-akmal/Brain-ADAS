@@ -13,7 +13,7 @@ typedef struct {
 
 extern PduR_PBConfigType PBPduRConfig;
 
-#define PDUR_PDU_ID_CANIF_RX_COM_MESSAGE_1      5
+#define PDUR_PDU_ID_CANIF_RX_COM_MESSAGE_1      1
 #define PDUR_PDU_ID_COM_TX_CANIF_MESSAGE_2      0
 
 #endif

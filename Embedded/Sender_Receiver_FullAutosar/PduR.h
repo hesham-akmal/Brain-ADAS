@@ -14,7 +14,7 @@ extern Pdu_Type Pdus[];
 void PduR_Init(const PduR_PBConfigType* ConfigPtr);
 //PduR_PBConfigIdType PduR_GetConfigurationId(void);
 Std_ReturnType PduR_ComTransmit(PduIdType TxPduId, const PduInfoType* PduInfoPtr);
-void PduR_CanIfTxConfirmation(PduIdType TxPduId, Std_ReturnType result);
+//void PduR_CanIfTxConfirmation(PduIdType TxPduId, Std_ReturnType result);
 void PduR_CanIfRxIndication(PduIdType RxPduId, const PduInfoType* PduInfoPtr);
 
 Std_ReturnType PduR_INF_GetSourcePduHandleId(Pdu_Type *Pdu, PduIdType *PduHandleIdPtr);

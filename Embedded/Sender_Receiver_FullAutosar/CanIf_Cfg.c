@@ -31,9 +31,9 @@ CanIfHrhCfg canIfHrhCfg = {
 CanIfRxPduCfg canIfRxPduCfg[] = {
     {
         //CanId that CanIf use
-				.CanIfRxPduId = 5,
+		.CanIfRxPduId = CANIF_PDU_ID_CAN_RX_PDUR,
 				//??
-        .canIfRxPduCanId = 2,
+        .canIfRxPduCanId = CANIF_INF_RX_PDU_0_CAN_ID,
         // mask range
         .canIfRxPduCanIdMask = 0x7FF,
         // CanIfPduCanIdType used by the Can Driver
@@ -77,9 +77,9 @@ const CanIfBufferCfg canIfTxPduBufferRef = {
 CanIfTxPduCfg canIfTxPduCfg[] = {
     {
         //pdu canID used by can Driver in transmission (check m3 CanDriver Configuration)
-        .canIfTxPduCanId = 7,
+        .canIfTxPduCanId = CANIF_INF_TX_PDU_0_CAN_ID,
         // wide unique ID
-        .canIfTxPduId = 600,
+        .canIfTxPduId = CANIF_PDU_ID_CANIF_TX_CAN,
         //in case a mask will be used set it to another value
         .canIfTxPduCanIdMask = 0x7FF,
         // pduCanIdType
@@ -94,9 +94,11 @@ CanIfTxPduCfg canIfTxPduCfg[] = {
         .canIfTxPduUserTxConfirmationUL = PDUR,
         
         //user TX Confirmation method (el method ele 3nd PduR ele CANIf Hae3mlaha call fl tx confirmation) 
-        .canIfTxPduUserTxConfirmationName = PduR_CanIfTxConfirmation,
+        //.canIfTxPduUserTxConfirmationName = PduR_CanIfTxConfirmation,
 
         .canIfTxPduBufferRef = &canIfTxPduBufferRef,
+
+		.canIfTxPduRef = &Pdus[1],
     },
 
 };

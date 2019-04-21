@@ -10,12 +10,14 @@
 #include "Com.h"
 #endif
 
-#include "utils/uartstdio.h"
+#include <inttypes.h>
+
+//#include "utils/uartstdio.h"
 
 //extern bool com2pdur;
 
 /* ========================================================================== */
-/*                         PDUR MODULE INITIALIZATION                         */
+/*                         PDUR MODULE FUNCTIONS							                */
 /* ========================================================================== */
 
 //PDUR Initial State
@@ -42,16 +44,14 @@ void PduR_Init(const PduR_PBConfigType* ConfigPtr) {
 	}
 }
 
-
-
-/**
+/*
 	Description  : query global I-PDU reference in PDUR configuration (routing paths sources)
 	inputs       : Pdu            | Reference to global PDU .
 	output       : PduHandleIdPtr | Identifier to local I-PDU .
 	I/O          : None
-	return value : Std_ReturnType | Determine if I-PDU is exist or not .
+	Return value : Std_ReturnType | Determine if I-PDU is exist or not .
 */
-Std_ReturnType PduR_INF_GetSourcePduHandleId(Pdu_Type *Pdu, PduIdType *PduHandleIdPtr) {
+Std_ReturnType PduR_INF_GetSourcePduHandleId(Pdu_Type* Pdu, PduIdType* PduHandleIdPtr) {
 	Std_ReturnType Std_Ret = E_NOT_OK;
 
 	if (PduRConfig->RoutingPaths[0] == NULL || Pdu == NULL) {
@@ -79,44 +79,75 @@ Std_ReturnType PduR_INF_GetSourcePduHandleId(Pdu_Type *Pdu, PduIdType *PduHandle
   Return Value: The transmission request succeded or failed
 */
 Std_ReturnType PduR_ComTransmit(PduIdType TxPduId, const PduInfoType* PduInfoPtr) {
-	
+
+	printf("PDUR Received PDU from COM\n");
+	printf("ID: %d\n", TxPduId);
+	printf("MSG: %s\n", PduInfoPtr->SduDataPtr);
+	printf("----------------------------------\n");
 	//Printing the message details to UART
-	UARTprintf("PduR got a message; Id: %d, Length: %d, Data: ", 
-							TxPduId, PduInfoPtr->SduLength);
-	for(int i=0; i<PduInfoPtr->SduLength; i++) {
+	/*UARTprintf("PduR got a message; Id: %d, Length: %d, Data: ",
+		TxPduId, PduInfoPtr->SduLength);
+	for (int i = 0; i < PduInfoPtr->SduLength; i++) {
 		UARTprintf("%02X ", PduInfoPtr->SduDataPtr[i]);
 	}
-	UARTprintf("\n");
-	
+	UARTprintf("\n");*/
+
 	return PduR_INF_RouteTransmit(TxPduId, PduInfoPtr);
 }
 #endif
 
 Std_ReturnType PduR_INF_RouteTransmit(PduIdType TxPduId, const PduInfoType* PduInfoPtr) {
-	
+
 	Std_ReturnType result = E_OK;
-	//PduIdType PduHandleId;
+	PduIdType PduHandleId;
 
 	//Pointer to routing paths
-	PduRRoutingPath_type ** routes = PduRConfig->RoutingPaths;
+	PduRRoutingPath_type** routes = PduRConfig->RoutingPaths;
 	if (routes[0] == NULL) {
 		//ERROR
 		return E_NOT_OK;
 	}
 
+	/*printf("\nPduR_INF_RouteTransmit with payload: %s", PduInfoPtr->SduDataPtr);
+	printf("\nPduR_INF_RouteTransmit with PduID: %d\n", TxPduId);*/
+
 	//Query routing paths for target path
 	for (uint8_t i = 0; routes[i] != NULL; i++) {
 		if (routes[i]->PduRSrcPduRef->SourcePduHandleId == TxPduId) {
-#if PDUR_CANIF_SUPPORT == STD_ON
+#if PDUR_CANIF_SUPPORT == STD_ON && PDUR_COM_SUPPORT == STD_ON
 
-			/*if (CanIf_INF_GetPduHandleId(routes[i]->PduRDestPduRef->DestPduRef, &PduHandleId) == E_OK) {
+			if (TxPduId == 1) { 
+				printf("PDUR Sending to COM\n");
+				printf("ID: %d\n", TxPduId);
+				printf("MSG: %s\n", PduInfoPtr->SduDataPtr);
+				printf("----------------------------------\n");
+			}
+			if (TxPduId == 0) {
+				printf("PDUR Sending to CANIF\n");
+				printf("ID: %d\n", TxPduId);
+				printf("MSG: %s\n", PduInfoPtr->SduDataPtr);
+				printf("----------------------------------\n");
+			}
+
+			//Sending path
+			if (TxPduId == 0) {
+				CanIf_INF_GetPduHandleId(routes[i]->PduRDestPduRef->DestPduRef, &PduHandleId);
 				result |= CanIf_Transmit(PduHandleId, PduInfoPtr);
-			}*/
-			
-			result |= CanIf_Transmit(TxPduId, PduInfoPtr);
+			}
+				
+			//Receiving path
+			else if (Com_INF_GetPduHandleId(routes[i]->PduRDestPduRef->DestPduRef, &PduHandleId) == E_OK && TxPduId == 1)
+				Com_RxIndication(PduHandleId, PduInfoPtr);
+
+			else {
+				printf("Error in PduR_INF_RouteTransmit");
+				result = E_NOT_OK;
+			}
+
+				//result |= CanIf_Transmit(TxPduId, PduInfoPtr);
 
 #endif
-			return result;
+				return result;
 		}
 	}
 	return result;
@@ -130,12 +161,13 @@ Std_ReturnType PduR_INF_RouteTransmit(PduIdType TxPduId, const PduInfoType* PduI
 /*
   Description:  CanIF module confirms the transmission of a PDU
   Parameters:   TxPduId => The ID of the transmitted PDU,
-				result => Transmission result
+								result => Transmission result
   Return Value: Nothing
 */
+/*
 void PduR_CanIfTxConfirmation(PduIdType TxPduId, Std_ReturnType result) {
 	PduR_INF_TxConfirmation(TxPduId, result);
-}
+}*/
 
 /*
   Description:  Indication of a received PDU from a CanIF module
@@ -143,14 +175,21 @@ void PduR_CanIfTxConfirmation(PduIdType TxPduId, Std_ReturnType result) {
 				PduInfoPtr  => The length and data of the received PDU
   Return Value: Nothing
 */
-void PduR_CanIfRxIndication(PduIdType RxPduId, const PduInfoType* PduInfoPtr) {
-	PduR_INF_RxIndication(RxPduId, PduInfoPtr);
+void PduR_CanIfRxIndication(PduIdType RxPduId, const PduInfoType * PduInfoPtr) {
+	//PduR_INF_RxIndication(RxPduId, PduInfoPtr);
+	printf("PDUR Received PDU from CANIF\n");
+	printf("ID: %d\n", RxPduId);
+	printf("MSG: %s\n", PduInfoPtr->SduDataPtr);
+	printf("----------------------------------\n");
+
+	PduR_INF_RouteTransmit(RxPduId, PduInfoPtr);
 }
 #endif
 
+/*
 void PduR_INF_TxConfirmation(PduIdType PduId, Std_ReturnType result) {
 	//Pointer to routing paths
-	PduRRoutingPath_type ** routes = PduRConfig->RoutingPaths;
+	PduRRoutingPath_type** routes = PduRConfig->RoutingPaths;
 	if (routes[0] == NULL) {
 		//ERROR
 		return;
@@ -164,16 +203,19 @@ void PduR_INF_TxConfirmation(PduIdType PduId, Std_ReturnType result) {
 		}
 	}
 }
-void PduR_INF_RouteTxConfirmation(PduIdType PduId, Std_ReturnType result) {
-	//PduIdType PduHandleId; TTTT
-	printf("PduR_INF_RouteTxConfirmation\n");
+
+
+void PduR_INF_RouteTxConfirmation(const PduRRoutingPath_type * route, Std_ReturnType result) {
+	PduIdType PduHandleId;
 
 #if PDUR_COM_SUPPORT == STD_ON
-	//	if (Com_INF_GetPduHandleId(route->PduRSrcPduRef->SrcPduRef, &PduHandleId) == E_OK) {
-	Com_TxConfirmation(PduId, result);
-	//	}
+	if (Com_INF_GetPduHandleId(route->PduRSrcPduRef->SrcPduRef, &PduHandleId) == E_OK) {
+		Com_TxConfirmation(PduHandleId, result);
+	}
 #endif
-}
+}*/
+
+/*
 void PduR_INF_RxIndication(PduIdType pduId, const PduInfoType* pduInfoPtr) {
 
 	//Pointer to routing paths
@@ -193,14 +235,14 @@ void PduR_INF_RxIndication(PduIdType pduId, const PduInfoType* pduInfoPtr) {
 
 void PduR_INF_RouteRxIndication(const PduRDestPdu_type *destination, const PduInfoType *PduInfo) {
 	PduIdType PduHandleId;
-	
-	UARTprintf("Message arrived to PduR, CanId: %d, Length: %d, Data: ", 
+
+	UARTprintf("Message arrived to PduR, CanId: %d, Length: %d, Data: ",
 			destination->DestPduHandleId, PduInfo->SduLength);
 	for(int i=0; i<PduInfo->SduLength; i++) {
 		UARTprintf("%02X ", PduInfo->SduDataPtr[i]);
 	}
 	UARTprintf("\n");
-	
+
   #if PDUR_COM_SUPPORT == STD_ON
 	if (Com_INF_GetPduHandleId(destination->DestPduRef, &PduHandleId) == E_OK) {
 	//if (com2pdur) { com2pdur = false; Com_RxIndication(pduId, PduInfo); }
@@ -222,8 +264,9 @@ void PduR_INF_RouteRxIndication(const PduRDestPdu_type *destination, const PduIn
 	//}
 	//printf("CanIf_Transmit2");
 	//}
-	
+
 
 
 	#endif
 }
+*/

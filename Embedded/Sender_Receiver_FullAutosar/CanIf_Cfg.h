@@ -61,21 +61,25 @@
 //#define CANIF_INF_USE_PDUR                      STD_OFF
 //#define CANIF_INF_USE_XCP                       STD_OFF
 
-#define CANIF_INF_RX_PDU_0_CAN_ID   0
-#define CANIF_INF_TX_PDU_0_CAN_ID   1
+#define CANIF_INF_RX_PDU_0_CAN_ID   1
+#define CANIF_INF_TX_PDU_0_CAN_ID   0
+
+#define CANIF_PDU_ID_CAN_RX_PDUR 1
+#define CANIF_PDU_ID_CANIF_TX_CAN 0
+
 
 /* -------------------------------------------------------------------------- */
 /*                       Structures and Enumerations                          */
 /* -------------------------------------------------------------------------- */
-typedef enum {
-    CANIF_INF_RX_PDU_0=0,   ///PduR
-    CANIF_INF_RX_CNT  =1
+/*typedef enum {
+	CANIF_INF_RX_PDU_0 = 0,   ///PduR
+	CANIF_INF_RX_CNT = 1
 }CanIf_INF_Rx_Pdus;
 
 typedef enum {
-    CANIF_INF_TX_PDU_0=0,   ///PduR
-    CANIF_INF_TX_CNT  =1
-}CanIf_Rx_Pdus;
+	CANIF_INF_TX_PDU_0 = 0,   ///PduR
+	CANIF_INF_TX_CNT = 1
+}CanIf_Rx_Pdus;*/
 
 /* -------------------------------------------------------------------------- */
 /*                      Global variables  Declarations	                      */

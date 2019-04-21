@@ -3,6 +3,7 @@
 
 #include "CanIf_Types.h"
 #include "CanIf_Cfg.h"
+#include "Can_GeneralTypes.h"
 
 // CANIF interface for PDUR
 extern const CanIf_ConfigType* canIf_ConfigPtr;

@@ -5,6 +5,7 @@
 #include "PduR.h"
 #include "CanIf.h"
 
+/*
 #include "inc/hw_memmap.h"
 #include "driverlib/can.h"
 #include "driverlib/sysctl.h"
@@ -12,21 +13,47 @@
 #include "uart.h"
 
 #include "Can_PbCfg.h"
-#include "Can.h"
+#include "Can.h"*/
 
-/*
+void MAIN_Can_To_CanIf(uint8_t Msg[], PduLengthType SduLength, uint32_t id, uint16 hoh, uint8 ControllerID) {
+	//uint8_t Msg[] = "from CAN drv to CANIF";
+	printf("CANIF Received PDU from CAN\n");
+	printf("ID: %d\n", id);
+	printf("MSG: %s\n", Msg);
+	printf("----------------------------------\n");
+
+	const PduInfoType L_PDU = {
+		.SduDataPtr = Msg,
+		.SduLength = SduLength
+	};
+	Can_HwType Mailbox;
+	Mailbox.CanId = (uint16)id;
+	Mailbox.Hoh = hoh;
+	Mailbox.ControllerId = ControllerID;
+	CanIf_RxIndication(&Mailbox, &L_PDU);
+}
+
+
 int main() {
 
 	//Initialize all the modules
-  ConfigureUART();
+  /*ConfigureUART();
 	
   SysCtlClockSet(SYSCTL_SYSDIV_1 | SYSCTL_USE_OSC | SYSCTL_OSC_MAIN |
                    SYSCTL_XTAL_16MHZ);
-  InitConsole();
+  InitConsole();*/
 	PduR_Init(&PBPduRConfig);
 	CanIf_Init(&canIf_Config);
+
+	/*uint32 Id = 0;
+	uint8 length = 8;
+	ComSendSignal(Id, "lmfao", length);*/
+
+	MAIN_Can_To_CanIf("hehe", 8, 1, 1, 1);
+
+
   //Init CAN module
-	Can_Init(&CanConfig);
+	/*Can_Init(&CanConfig);
 	
 	while(1) {
 		uint32 Id = 1;
@@ -36,15 +63,17 @@ int main() {
 		uint64 lmsg = atoll(buff);
 		uint8 *msg = (uint8*)(&lmsg);
 		ComSendSignal(Id, msg, length);
-	}
+	}*/
 	
 
 	return 0;
 }
 
-*/
 
-int main(void)
+
+
+
+/*int main(void)
 {
 	//
     // Initialize the UART.
@@ -93,4 +122,4 @@ int main(void)
     // Return no errors
     //
     return(0);
-}
+}*/

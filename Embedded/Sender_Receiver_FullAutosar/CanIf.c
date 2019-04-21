@@ -5,11 +5,11 @@
 #include "PduR_CanIf.h"
 #include "stdio.h"
 
-#include "utils/uartstdio.h"
+//#include "utils/uartstdio.h"
 
 //extern bool com2pdur = false;
 
-Can_ReturnType Can_Write(Can_HwHandleType hth, Can_PduType *pduInfo);
+//Can_ReturnType Can_Write(Can_HwHandleType hth, Can_PduType *pduInfo);
 
 //---------------------------------------------------------------------------
 
@@ -109,6 +109,18 @@ Std_ReturnType CanIf_SetControllerMode(uint8 ControllerId, CanIf_ControllerModeT
  */
  //-----------------------------------------------------------------------------
 
+void CanIf_INF_GetPduHandleId(Pdu_Type* Pdu, PduIdType* PduHandleIdPtr) {
+	//Std_ReturnType Std_Ret = E_NOT_OK;
+
+	for (uint32 i = 0; i < canIf_ConfigPtr->canIfInitCfg->canIfMaxTxPduCfg; ++i) {
+		if (canIf_ConfigPtr->canIfInitCfg->canIfTxPduCfg[i].canIfTxPduRef == Pdu) {
+			//Std_Ret = E_OK;
+			*PduHandleIdPtr = canIf_ConfigPtr->canIfInitCfg->canIfTxPduCfg[i].canIfTxPduId;
+		}
+	}
+	//return Std_Ret;
+}
+
 /*
 CanIfTxSduId L-SDU handle to be transmitted.This handle specifies the corresponding CAN L-SDU ID and
 implicitly the CAN Driver instance as well as the corresponding CAN controller device.
@@ -119,19 +131,24 @@ data in the L-SDU structure.
  */
 
 Std_ReturnType CanIf_Transmit(PduIdType CanIfTxSduId, const PduInfoType *CanIfTxInfoPtr) {
+
+	printf("CANIF Received PDU from PDUR\n");
+	printf("ID: %d\n", CanIfTxSduId);
+	printf("MSG: %s\n", CanIfTxInfoPtr->SduDataPtr);
+	printf("----------------------------------\n");
 	
 	/*UARTprintf("CanIf got a message; CanId: %d, hth: %d, ControllerId: %d, Length: %d, Data: ", 
 							(CanIfTxSduId>>12), ((CanIfTxSduId>>4)&0xFF), (CanIfTxSduId&0xF), CanIfTxInfoPtr->SduLength);
 	for(int i=0; i<CanIfTxInfoPtr->SduLength; i++) {
 		UARTprintf("%02X ", CanIfTxInfoPtr->SduDataPtr[i]);
 	}
-	UARTprintf("\n");*/
+	UARTprintf("\n");
 	UARTprintf("CanIf got a message; Id: %d, Length: %d, Data: ", 
 							CanIfTxSduId, CanIfTxInfoPtr->SduLength);
 	for(int i=0; i<CanIfTxInfoPtr->SduLength; i++) {
 		UARTprintf("%02X ", CanIfTxInfoPtr->SduDataPtr[i]);
 	}
-	UARTprintf("\n");
+	UARTprintf("\n");*/
 	
 	if (canIf_ConfigPtr == 0 || CanIfTxInfoPtr == 0) {
 		//printf("CanIf_Transmit : CanIF is not initialized or no Data sent");
@@ -140,13 +157,14 @@ Std_ReturnType CanIf_Transmit(PduIdType CanIfTxSduId, const PduInfoType *CanIfTx
 	//printf("\n%u\n", CanIfTxSduId);
 	//TTTT
 	
-	const CanIfTxPduCfg *txEntry = (CanIfTxPduCfg *) (&canIf_ConfigPtr->canIfInitCfg->canIfTxPduCfg[CanIfTxSduId]);
 	//const CanIfTxPduCfg *txEntry = (CanIfTxPduCfg *)(&canIf_ConfigPtr->canIfInitCfg->canIfTxPduCfg[CanIfTxSduId]);
 	//prepare the PDU data
 	Can_PduType canPdu;
 	
 	//canPdu.id = (CanIfTxSduId & (uint32)0xFFFFF000) >> 12;
-	canPdu.id = txEntry->canIfTxPduCanId;
+	//canPdu.id = txEntry->canIfTxPduCanId;
+	canPdu.id = canIf_ConfigPtr->canIfInitCfg->canIfTxPduCfg->canIfTxPduCanId;
+
 	
 	canPdu.length = CanIfTxInfoPtr->SduLength;
 	canPdu.sdu = CanIfTxInfoPtr->SduDataPtr;
@@ -156,17 +174,18 @@ Std_ReturnType CanIf_Transmit(PduIdType CanIfTxSduId, const PduInfoType *CanIfTx
 	
 	
 	//uint8 hth = (CanIfTxSduId & (uint32)0x00000FF0) >> 4;
-	uint8 hth = txEntry->canIfTxPduBufferRef->canIfBufferHthRef->canIfHthIdSymRef->canObjectId;
+	//uint8 hth = txEntry->canIfTxPduBufferRef->canIfBufferHthRef->canIfHthIdSymRef->canObjectId;
+	uint8 hth = canIf_ConfigPtr->canIfInitCfg->canIfTxPduCfg->canIfTxPduBufferRef->canIfBufferHthRef->canIfHthIdSymRef->canObjectId;
 	
 	//printf("\nCanIf_Transmit with payload: %s", canPdu.sdu);
 	//printf("\nCanIf_Transmit with PduID: %d", CanIfTxSduId);
 	//printf("\nInterface ID: %d, msgId: %d, hth: %d\n", canPdu.swPduHandle, canPdu.id, hth);
 
-	Can_ReturnType retVal = Can_Write(hth, &canPdu);
+	/*Can_ReturnType retVal = Can_Write(hth, &canPdu);
 	
 	if (retVal == CAN_NOT_OK || retVal == CAN_BUSY) {
 		return E_NOT_OK;
-	}
+	}*/
 	return E_OK;
 
 }
@@ -215,12 +234,18 @@ static CanIfRxPduCfg *findRxPduCfg(Can_HwHandleType Hoh) {
 
 void CanIf_RxIndication(const Can_HwType* Mailbox, const PduInfoType* PduInfoPtr) {
 	//Printing data coming to CanIf to UART
+	/**
 	UARTprintf("Message arrived to CanIf, CanId: %d, ControllerId: %d, Hoh: %d, Length: %d, Data: ", 
 		Mailbox->CanId, Mailbox->ControllerId, Mailbox->Hoh, PduInfoPtr->SduLength);
 	for(int i=0; i<PduInfoPtr->SduLength; i++) {
 		UARTprintf("%02X ", PduInfoPtr->SduDataPtr[i]);
 	}
-	UARTprintf("\n");
+	UARTprintf("\n");*/
+
+	printf("CANIF Sending PDU to PDUR\n");
+	printf("ID: %d\n", Mailbox->CanId);
+	printf("MSG: %s\n", PduInfoPtr->SduDataPtr);
+	printf("----------------------------------\n");
 	
 	const CanIfRxPduCfg *RxPduCfgPtr;
 	CanIf_PduModeType PduMode;
@@ -239,6 +264,7 @@ void CanIf_RxIndication(const Can_HwType* Mailbox, const PduInfoType* PduInfoPtr
 	}*/
 	
 	(RxPduCfgPtr->canIfRxPduUserRxIndicationName)(RxPduCfgPtr->CanIfRxPduId, PduInfoPtr);
+	//PduR_CanIfRxIndication(RxPduCfgPtr->CanIfRxPduId, PduInfoPtr);
 
 	if (Mailbox == 0 || PduInfoPtr == 0) {
 		///Report an error CANIF_E_PARAM_POINTER to the Det_ReportError
