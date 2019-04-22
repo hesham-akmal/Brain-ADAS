@@ -2,20 +2,20 @@
 
 #include "Com.h"
 
-//#include "utils/uartstdio.h"
+#include "utils/uartstdio.h"
 
-void ComSendSignal(uint32_t Id, uint8_t Msg[], uint8_t length) {
-	printf("COM Received PDU from RTE\n");
+Std_ReturnType ComSendSignal(uint32_t Id, uint8_t Msg[], uint8_t length) {
+	/*printf("COM Received PDU from RTE\n");
 	printf("ID: %d\n" , Id);
 	printf("MSG: %s\n" , Msg);
-	printf("----------------------------------\n");
+	printf("----------------------------------\n");*/
 	
-	/*UARTprintf("Com got a message; Id: %d, Length: %d, Data: ", 
+	UARTprintf("Com got a message; Id: %d, Length: %d, Data: ", 
 							Id, length);
 	for(int i=0; i<length; i++) {
 		UARTprintf("%02X ", Msg[i]);
 	}
-	UARTprintf("\n");*/
+	UARTprintf("\n");
 	
 	/** formulating I-PDU */
 	const PduInfoType distanceMsg = {
@@ -27,12 +27,15 @@ void ComSendSignal(uint32_t Id, uint8_t Msg[], uint8_t length) {
 
 	//TODO: simplify and use only one PDU Handle
 	if (PduR_INF_GetSourcePduHandleId(&Pdus[Id], &PduHandleId) == E_OK) {
-		printf("COM Sending to PDUR\n");
+		/*printf("COM Sending to PDUR\n");
 		printf("ID: %d\n", Id);
 		printf("MSG: %s\n", Msg);
-		printf("----------------------------------\n");
-		PduR_ComTransmit(Id, &distanceMsg);
+		printf("----------------------------------\n");*/
+		return PduR_ComTransmit(PduHandleId, &distanceMsg);
 		//PduR_ComCancelTransmit(PduHandleId);
+	}
+	else {
+		return E_NOT_OK;
 	}
 }
 
@@ -70,16 +73,16 @@ Std_ReturnType Com_TriggerTransmit(PduIdType TxPduId, PduInfoType* PduInfoPtr) {
 }
 
 void Com_RxIndication(PduIdType PduHandleId, const PduInfoType* PduInfoPtr) {
-	printf("COM Received PDU from PDUR\n");
+	/*printf("COM Received PDU from PDUR\n");
 	printf("ID: %d\n", PduHandleId);
 	printf("MSG: %s\n", PduInfoPtr->SduDataPtr);
-	printf("----------------------------------\n");
-	/*UARTprintf("Message arrived to Com, CanId: %d, Length: %d, Data: ", 
+	printf("----------------------------------\n");*/
+	UARTprintf("Message arrived to Com, CanId: %d, Length: %d, Data: ", 
 			PduHandleId, PduInfoPtr->SduLength);
 	for(int i=0; i<PduInfoPtr->SduLength; i++) {
 		UARTprintf("%02X ", PduInfoPtr->SduDataPtr[i]);
 	}
-	UARTprintf("\n");*/
+	UARTprintf("\n");
 }
 
 void Com_TxConfirmation(PduIdType PduHandleId, Std_ReturnType result) {

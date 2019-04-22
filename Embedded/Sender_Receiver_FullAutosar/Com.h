@@ -17,7 +17,7 @@ void Com_TpTxConfirmation(PduIdType, Std_ReturnType);
 
 Std_ReturnType Com_TriggerTransmit(PduIdType, PduInfoType *);
 
-void ComSendSignal(uint32_t PduId, uint8_t Msg[], uint8_t length);
+Std_ReturnType ComSendSignal(uint32_t PduId, uint8_t Msg[], uint8_t length);
 Std_ReturnType Com_INF_GetPduHandleId(Pdu_Type *Pdu, PduIdType *PduHandleIdPtr);
 
 BufReq_ReturnType Com_StartOfReception(PduIdType, const PduInfoType*,

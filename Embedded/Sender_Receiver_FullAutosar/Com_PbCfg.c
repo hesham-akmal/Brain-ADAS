@@ -7,25 +7,25 @@
  */
 const ComIPdu_type ComIPdu[] = {
 
+	{ // CanDB_Message_0
+		//TX message
+		.IPduHandleId = COM_PDU_ID_COM_TX_CANIF_MESSAGE_0,
+		.PduIdRef = &Pdus[0]   //like SRC PDUR
+	},
 	{ // CanDB_Message_1
 		//RX message
 		.IPduHandleId = COM_PDU_ID_CANIF_RX_COM_MESSAGE_1,
-		.PduIdRef = &Pdus[0]   //like DST PDUR
+		.PduIdRef = &Pdus[1]   //like DST PDUR
 	},
 	{ // CanDB_Message_2
 		//TX message
-		.IPduHandleId = COM_PDU_ID_COM_TX_CANIF_MESSAGE_2,
-		.PduIdRef = &Pdus[1]   //like SRC PDUR
+		.IPduHandleId = COM_PDU_ID_COM_TX_CANTP_MESSAGE_2,
+		.PduIdRef = &Pdus[2]   //like SRC PDUR
 	},
 	{ // CanDB_Message_3
 		//RX message
 		.IPduHandleId = COM_PDU_ID_CANTP_RX_COM_MESSAGE_3,
-		.PduIdRef = &Pdus[2]   //like DST PDUR
-	},
-	{ // CanDB_Message_4
-		//TX message
-		.IPduHandleId = COM_PDU_ID_COM_TX_CANTP_MESSAGE_4,
-		.PduIdRef = &Pdus[3]   //like SRC PDUR
+		.PduIdRef = &Pdus[3]   //like DST PDUR
 	}
 };
 
