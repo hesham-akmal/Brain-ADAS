@@ -1,6 +1,7 @@
 /** incomplete Com code file used as a test to PDUR module */
 
 #include "Com.h"
+#include "Decision_Logic.h"
 
 Std_ReturnType ComSendSignal(uint32_t Id, uint8_t Msg[], uint8_t length) {
 	/*printf("COM Received PDU from RTE\n");
@@ -68,6 +69,10 @@ void Com_RxIndication(PduIdType PduHandleId, const PduInfoType* PduInfoPtr) {
 	printf("ID: %d\n", PduHandleId);
 	printf("MSG: %s\n", PduInfoPtr->SduDataPtr);
 	printf("----------------------------------\n");*/
+	
+	//Send acc, vel, dist to decision logic
+	uint8* Data = PduInfoPtr->SduDataPtr;
+	EmergencyCheck(Data[0], Data[1], Data[2]);
 }
 
 void Com_TxConfirmation(PduIdType PduHandleId, Std_ReturnType result) {
