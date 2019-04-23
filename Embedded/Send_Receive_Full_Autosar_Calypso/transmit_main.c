@@ -8,6 +8,14 @@
 #include "Can_PbCfg.h"
 #include "Can.h"
 
+#include "Calypso.h"
+
+//Just in case the registers don't have default values (idk check later)
+void LED_IValues(){
+	SIUL2.GPDO[LED2].R = 0;
+	SIUL2.GPDO[LED3].R = 0;
+}
+
 /*
 int main() {
 
@@ -32,7 +40,7 @@ int main() {
 
 int main(void)
 {
-
+		LED_IValues();
 		PduR_Init(&PBPduRConfig);
 		CanIf_Init(&canIf_Config);
     //Enable CAN module
