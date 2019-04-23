@@ -1,6 +1,7 @@
 /** incomplete Com code file used as a test to PDUR module */
 
 #include "Com.h"
+#include "Decision_Logic.h"
 
 #include "utils/uartstdio.h"
 
@@ -83,6 +84,10 @@ void Com_RxIndication(PduIdType PduHandleId, const PduInfoType* PduInfoPtr) {
 		UARTprintf("%02X ", PduInfoPtr->SduDataPtr[i]);
 	}
 	UARTprintf("\n");
+	
+	//Send acc, vel, dist to decision logic
+	uint8* Data = PduInfoPtr->SduDataPtr;
+	EmergencyCheck(Data[0], Data[1], Data[2]);
 }
 
 void Com_TxConfirmation(PduIdType PduHandleId, Std_ReturnType result) {
