@@ -14,6 +14,10 @@ extern "C" {
 #ifdef __ghs__
 #pragma ghs nowarning 618
 #endif
+  
+#define LED1 98		/* pin PG[2] */
+#define LED2 99		/* pin PG[3] */
+#define LED3 100	/* pin PG[4] */
 
 /*******************CAN 0**********************/
 
