@@ -2,6 +2,7 @@
 
 #include "Com.h"
 #include "Decision_Logic.h"
+#include "Calypso.h"
 
 Std_ReturnType ComSendSignal(uint32_t Id, uint8_t Msg[], uint8_t length) {
 	/*printf("COM Received PDU from RTE\n");
@@ -72,7 +73,16 @@ void Com_RxIndication(PduIdType PduHandleId, const PduInfoType* PduInfoPtr) {
 	
 	//Send acc, vel, dist to decision logic
 	uint8* Data = PduInfoPtr->SduDataPtr;
-	EmergencyCheck(Data[0], Data[1], Data[2]);
+	int res = EmergencyCheck(Data[0], Data[1], Data[2]);
+	
+	if(res == 0){
+		SIUL2.GPDO[LED3].R = 0		/* Turn LED3 off */
+		SIUL2.GPDO[LED2].R ^= 1;	/* Turn LED2 on */
+	}
+	else{
+		SIUL2.GPDO[LED2].R = 0;		/* Turn LED2 off */
+		SIUL2.GPDO[LED3].R ^= 1;	/* Turn LED3 on*/
+	}
 }
 
 void Com_TxConfirmation(PduIdType PduHandleId, Std_ReturnType result) {
