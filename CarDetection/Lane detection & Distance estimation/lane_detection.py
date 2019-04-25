@@ -81,7 +81,7 @@ def apply_smoothing(image, debug, kernel_size=15):
 	
 
 # produce edges image
-def detect_edges(image, debug, low_threshold=50, high_threshold=100):
+def detect_edges(image, debug, low_threshold=50, high_threshold=80):
     ret = cv2.Canny(image, low_threshold, high_threshold)
     
     if(debug):
@@ -111,10 +111,10 @@ def select_region(image, debug):
     # first, define the polygon by vertices
     # cols, rows where: 0.1, 0.4, 0.9, 0.6 | 0.95, 0.6, 0.95, 0.6
     rows, cols = image.shape[:2]
-    bottom_left  = [cols*0.1, rows*0.95]
-    top_left     = [cols*0.15, rows*0.55]
-    bottom_right = [cols*0.9, rows*0.95]
-    top_right    = [cols*0.85, rows*0.55] 
+    bottom_left  = [cols*0.0, rows*0.9]
+    top_left     = [cols*0.0, rows*0.55]
+    bottom_right = [cols*1.0, rows*0.9]
+    top_right    = [cols*1.0, rows*0.55] 
     # the vertices are an array of polygons (i.e array of arrays) and the data type must be integer
     vertices = np.array([[bottom_left, top_left, top_right, bottom_right]], dtype=np.int32)
     ret = filter_region(image, vertices)
@@ -133,7 +133,7 @@ def hough_lines(image):
     
     Returns hough lines (not the image with lines)
     """
-    return cv2.HoughLinesP(image, rho=1, theta=np.pi/180, threshold=20, minLineLength=40, maxLineGap=300)
+    return cv2.HoughLinesP(image, rho=1, theta=np.pi/180, threshold=20, minLineLength=10, maxLineGap=5)
 	
 	
 
