@@ -124,7 +124,7 @@ def get_ratio(H, H_inv, orig_warped, mtx, debug):
     	# lanes on warped
         utilities.show_images([cv2.cvtColor(warped, cv2.COLOR_BGR2RGB)])
     
-    approx_dist = x_max - x_min
+    approx_dist = avg_xrit - avg_xlft
     x_pixels_per_meter = approx_dist / (12 * meter_to_feet)
     
     inv_H_x_mtx = np.linalg.inv(np.matmul(H , mtx))
