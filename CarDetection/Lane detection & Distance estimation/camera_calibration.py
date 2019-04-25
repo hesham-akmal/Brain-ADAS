@@ -5,9 +5,10 @@ import os
 from skimage import io, data
 from matplotlib import pyplot as plt
 import matplotlib.image as mpimg
+import utilities
 
 
-def calibrate():
+def calibrate(debug):
     
     vi, vj = 9, 6
     
@@ -40,7 +41,10 @@ def calibrate():
 
             # Draw and display the corners
             img = cv2.drawChessboardCorners(img, (vi, vj), corners2,ret)
-            display(cv2.cvtColor(img, cv2.COLOR_BGR2RGB), 'RGB', 'RGB')
+            
+            if(debug):
+                utilities.show_images([cv2.cvtColor(img, cv2.COLOR_BGR2RGB)])
+            
             cv2.waitKey(500)
 
     cv2.destroyAllWindows()

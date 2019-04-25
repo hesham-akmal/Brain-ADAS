@@ -26,17 +26,15 @@ def display_trapezoid(img_orig, p1, p2, p3, p4, vp):
     utilities.show_images([cv2.cvtColor(img, cv2.COLOR_BGR2RGB)])
 	
 
-def perspective_transform(vp, img):
+def perspective_transform(vp, img, debug):
     #vp = calculate_vanishing_point(img)
     y_base = img.shape[0]-100
     x_off, y_off =  200, 30
     p1, p2 = [vp[0,0]-x_off, vp[1, 0]+y_off], [vp[0,0]+x_off, vp[1, 0]+y_off]
     p3, p4 = [find_x(p1, [vp[0, 0], vp[1, 0]], y_base), y_base], [find_x(p2, [vp[0, 0], vp[1, 0]], y_base), y_base]
-    ps = [p1, p2, p3, p4]
-    for p in ps:
-        p[0], p[1] = int(p[0]), int(p[1])
-            
-    display_trapezoid(img, p1, p2, p3, p4, vp)
+		
+    if(debug):
+        display_trapezoid(img, p1, p2, p3, p4, vp)
             
     map_size = (300, 600)
     src = np.float32([p1, p2, p3, p4])
@@ -44,8 +42,9 @@ def perspective_transform(vp, img):
     H, H_inv = cv2.getPerspectiveTransform(src, dst), cv2.getPerspectiveTransform(dst, src)
     warped = cv2.warpPerspective(img, H, map_size)
     
-	# warped image
-    utilities.show_images([cv2.cvtColor(warped, cv2.COLOR_BGR2RGB)])
+    if(debug):
+    	# warped image
+        utilities.show_images([cv2.cvtColor(warped, cv2.COLOR_BGR2RGB)])
     
     return H, H_inv, warped
 	
@@ -54,11 +53,13 @@ def get_mapped_pxl(pxl, H):
     return cv2.perspectiveTransform(np.float32([[pxl]]), H)[0][0]
 	
 	
-def get_ratio(H, H_inv, orig_warped, img_height, img_width, mtx):
+def get_ratio(H, H_inv, orig_warped, mtx, debug):
     meter_to_feet = 1/3.28084
     low_thresh = 50
     high_thresh = 100
-    warped = np.array(orig_warped)
+	
+    if(debug):
+        warped = np.array(orig_warped)
     
     #gray = cv2.cvtColor(warped,cv2.COLOR_BGR2GRAY)
     #gray = cv2.GaussianBlur(gray,(9, 9),0)
@@ -66,7 +67,7 @@ def get_ratio(H, H_inv, orig_warped, img_height, img_width, mtx):
     #utilities.show_images([edges])
     #lines = cv2.HoughLines(edges,1,np.pi/180,100)
     detector = lane_detection.LaneDetector()
-    lines = detector.process(cv2.cvtColor(warped,cv2.COLOR_BGR2RGB), False)
+    lines = detector.process(cv2.cvtColor(orig_warped,cv2.COLOR_BGR2RGB), False, 0.01, debug)
     '''lines = cv2.HoughLinesP(
         edges,
         rho=2,
@@ -77,7 +78,7 @@ def get_ratio(H, H_inv, orig_warped, img_height, img_width, mtx):
         maxLineGap=120
     )'''
     
-    x_min = img_width
+    x_min = 1000000
     x_max = 0
     
     for line in lines:
@@ -88,14 +89,18 @@ def get_ratio(H, H_inv, orig_warped, img_height, img_width, mtx):
         if(x1 > x_max):
             x_max = x1
 
-        cv2.line(warped,(x1,y1),(x2,y2),(0,0,255),2)
+        if(debug):
+            cv2.line(warped,(x1,y1),(x2,y2),(0,0,255),2)
     
-    left_low, left_high, right_low, right_high = get_mapped_pxl([x_min, img_height-1], H_inv),\
-    get_mapped_pxl([x_min, 0], H_inv), get_mapped_pxl([x_max, img_height-1], H_inv),\
+    warped_height = orig_warped.shape[0]
+    left_low, left_high, right_low, right_high = get_mapped_pxl([x_min, warped_height-1], H_inv),\
+    get_mapped_pxl([x_min, 0], H_inv), get_mapped_pxl([x_max, warped_height-1], H_inv),\
     get_mapped_pxl([x_max, 0], H_inv)
     
-	# lanes on warped
-    utilities.show_images([cv2.cvtColor(warped, cv2.COLOR_BGR2RGB)])
+    if(debug):
+    	# lanes on warped
+        utilities.show_images([cv2.cvtColor(warped, cv2.COLOR_BGR2RGB)])
+    
     approx_dist = x_max - x_min
     x_pixels_per_meter = approx_dist / (12 * meter_to_feet)
     

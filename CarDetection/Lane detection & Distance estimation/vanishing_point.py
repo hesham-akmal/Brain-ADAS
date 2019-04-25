@@ -19,9 +19,10 @@ def getnormal(line, isp):
     return np.cos(theta), np.sin(theta)
 
 
-def calculate_vanishing_point(lines, ud_img_BGR):
+def calculate_vanishing_point(lines, ud_img_BGR, debug):
 
-    ud_img = np.array(ud_img_BGR)
+    if(debug):
+        ud_img = np.array(ud_img_BGR)
     
     t1 = np.zeros((2,2) , dtype=np.float)
     t2 = np.zeros((2,1) , dtype= np.float)
@@ -37,15 +38,16 @@ def calculate_vanishing_point(lines, ud_img_BGR):
         t1 += n_x_nt
         t2 += np.matmul(n_x_nt , p)
 
-        cv2.line(ud_img,(x1,y1),(x2,y2),(0,0,255),2)
+        if(debug):
+            cv2.line(ud_img,(x1,y1),(x2,y2),(0,0,255),2)
             
             
     vp = np.matmul(np.linalg.pinv(t1),t2)
     vp = np.array(vp , dtype = np.int)
-    print(vp)
     
-    cv2.line(ud_img,(vp[0,0],vp[1,0]),(vp[0,0],vp[1,0]),(255,0,0),20)
-            
-    utilities.show_images([cv2.cvtColor(ud_img, cv2.COLOR_BGR2RGB)])
+    if(debug):
+        print(vp)
+        cv2.line(ud_img,(vp[0,0],vp[1,0]),(vp[0,0],vp[1,0]),(255,0,0),20)        
+        utilities.show_images([cv2.cvtColor(ud_img, cv2.COLOR_BGR2RGB)])
 	
     return vp
