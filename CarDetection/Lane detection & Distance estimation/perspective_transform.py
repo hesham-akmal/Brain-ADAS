@@ -33,7 +33,10 @@ def perspective_transform(vp, img, debug):
     p1, p2 = [vp[0,0]-x_off, vp[1, 0]+y_off], [vp[0,0]+x_off, vp[1, 0]+y_off]
     p3, p4 = [find_x(p1, [vp[0, 0], vp[1, 0]], y_base), y_base], [find_x(p2, [vp[0, 0], vp[1, 0]], y_base), y_base]
 		
-    if(debug):
+    if(debug):        
+        ps = [p1, p2, p3, p4]
+        for p in ps:
+            p[0], p[1] = int(p[0]), int(p[1])
         display_trapezoid(img, p1, p2, p3, p4, vp)
             
     map_size = (300, 600)
