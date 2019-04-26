@@ -133,7 +133,8 @@ def get_ratio(H, H_inv, orig_warped, mtx, debug):
     scale = x_norm / y_norm
     y_pixels_per_meter = x_pixels_per_meter * scale
     
-    print("pxls/mtr: "+str(x_pixels_per_meter)+","+str(y_pixels_per_meter))
+    if(debug):
+        print("pxls/mtr: "+str(x_pixels_per_meter)+","+str(y_pixels_per_meter))
 	
     return x_pixels_per_meter , y_pixels_per_meter, left_low, left_high, right_low, right_high
 	
