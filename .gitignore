@@ -355,3 +355,72 @@ healthchecksdb
 
 # Backup folder for Package Reference Convert tool in Visual Studio 2017
 MigrationBackup/
+*.weights
+
+CarDetection/YOLO and Distance/chess/calibration1\.jpg
+
+CarDetection/YOLO and Distance/chess/calibration10\.jpg
+
+CarDetection/YOLO and Distance/chess/calibration11\.jpg
+
+CarDetection/YOLO and Distance/chess/calibration12\.jpg
+
+CarDetection/YOLO and Distance/chess/calibration13\.jpg
+
+CarDetection/YOLO and Distance/chess/calibration14\.jpg
+
+CarDetection/YOLO and Distance/chess/calibration15\.jpg
+
+CarDetection/YOLO and Distance/chess/calibration16\.jpg
+
+CarDetection/YOLO and Distance/chess/calibration17\.jpg
+
+CarDetection/YOLO and Distance/chess/calibration18\.jpg
+
+CarDetection/YOLO and Distance/chess/calibration19\.jpg
+
+CarDetection/YOLO and Distance/chess/calibration2\.jpg
+
+CarDetection/YOLO and Distance/chess/calibration20\.jpg
+
+CarDetection/YOLO and Distance/chess/calibration3\.jpg
+
+CarDetection/YOLO and Distance/chess/calibration4\.jpg
+
+CarDetection/YOLO and Distance/chess/calibration5\.jpg
+
+CarDetection/YOLO and Distance/chess/calibration6\.jpg
+
+CarDetection/YOLO and Distance/chess/calibration7\.jpg
+
+CarDetection/YOLO and Distance/chess/calibration8\.jpg
+
+CarDetection/YOLO and Distance/chess/calibration9\.jpg
+
+CarDetection/YOLO and Distance/chess/chess2/left01\.jpg
+
+CarDetection/YOLO and Distance/chess/chess2/left02\.jpg
+
+CarDetection/YOLO and Distance/chess/chess2/left03\.jpg
+
+CarDetection/YOLO and Distance/chess/chess2/left04\.jpg
+
+CarDetection/YOLO and Distance/chess/chess2/left05\.jpg
+
+CarDetection/YOLO and Distance/chess/chess2/left06\.jpg
+
+CarDetection/YOLO and Distance/chess/chess2/left07\.jpg
+
+CarDetection/YOLO and Distance/chess/chess2/left08\.jpg
+
+CarDetection/YOLO and Distance/chess/chess2/left09\.jpg
+
+CarDetection/YOLO and Distance/chess/chess2/left11\.jpg
+
+CarDetection/YOLO and Distance/chess/chess2/left12\.jpg
+
+CarDetection/YOLO and Distance/chess/chess2/left13\.jpg
+
+CarDetection/YOLO and Distance/chess/chess2/left14\.jpg
+
+CarDetection/YOLO and Distance/chess/chessboard_corners\.png
