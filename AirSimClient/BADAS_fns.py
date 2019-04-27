@@ -123,14 +123,13 @@ class Haptic:
 import time
 h = Haptic()
 
-
-def BeepAlert():
-    for i in range(5):
-        winsound.Beep(1000, 100)
+def BeepAlertStart():
+    for i in range(2):
+        winsound.Beep(500, 100)
         
 def StartFullBrake():
     client.setBrakeInput(1)
-    threading.Thread(target=BeepAlert).start()
+    threading.Thread(target=BeepAlertStart).start()
 
 def StopBrake():
     client.setBrakeInput(0)
