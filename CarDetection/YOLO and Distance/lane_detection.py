@@ -67,7 +67,7 @@ def convert_gray_scale(image, debug):
 	
 
 # apply gaussian blurring over the image
-def apply_smoothing(image, debug, kernel_size=15):
+def apply_smoothing(image, debug, kernel_size=13):
     """
     kernel_size must be postivie and odd
     """
@@ -149,10 +149,22 @@ class LaneDetector:
         gray         = convert_gray_scale(white_yellow, debug)
         smooth_gray  = apply_smoothing(gray, debug)
         edges        = detect_edges(smooth_gray, debug)
-        #edges        = detect_edges(gray)
+        #edges        = detect_edges(gray, debug)
         if(ROI):
             regions  = select_region(edges, debug)
         else:
             regions  = edges
         lines 		 = hough_lines(regions)
         return lines
+
+		
+def get_lane_lines(lines, left_m, left_c, right_m, right_c, max_m_diff, max_c_diff):
+    left_lane_lines, right_lane_lines = [], []
+    for line in lines:
+        for p1x, p1y, p2x, p2y in line:
+            m, c = Utilities.get_line([p1x, p1y], [p2x, p2y])
+            if(Utilities.approx_eq(left_m, m, max_m_diff) and Utilities.approx_eq(left_c, c, max_c_diff)):
+                left_lane_lines.append([m, c])
+            elif(Utilities.approx_eq(right_m, m, max_m_diff) and Utilities.approx_eq(right_c, c, max_c_diff)):
+                right_lane_lines.append([m, c])
+    return left_lane_lines, right_lane_lines

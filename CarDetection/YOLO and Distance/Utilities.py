@@ -53,8 +53,29 @@ def round_float(v, ndigits=2, rt_str=False):
     if rt_str:
         return v_str
     return Decimal(v_str)
+	
+
+def get_line(p1, p2):
+    dy, dx = p2[1]-p1[1], p2[0]-p1[0]
+    if(dx == 0):
+        return 1000000000, -1000000000
+    m = float(dy)/dx
+    return m, p1[1] - m*p1[0]
+	
+	
+def approx_eq(a, b, max_diff):
+    return abs(a-b) <= max_diff 
 
 
+def get_lines_mean(lines):
+    cnt, tot_m, tot_c = 0, 0, 0
+    for line in lines:
+        cnt += 1
+        tot_m += line[0]
+        tot_c += line[1]
+    return tot_m/cnt, tot_c/cnt
+	
+	
 def parse_cfg(cfgfile):
     
     """
