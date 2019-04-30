@@ -104,17 +104,17 @@ def filter_region(image, vertices):
 	
 	
 # select region of interest based on predetermined ratios of the image dimensions
-def select_region(image, debug):
+def select_region(image, top, debug):
     """
     It keeps the region surrounded by the `vertices` (i.e. polygon).  Other area is set to 0 (black).
     """
     # first, define the polygon by vertices
     # cols, rows where: 0.1, 0.4, 0.9, 0.6 | 0.95, 0.6, 0.95, 0.6
     rows, cols = image.shape[:2]
-    bottom_left  = [cols*0.0, rows*0.9]
-    top_left     = [cols*0.0, rows*0.5]
-    bottom_right = [cols*1.0, rows*0.9]
-    top_right    = [cols*1.0, rows*0.5] 
+    bottom_left  = [cols*0.0, rows*1.0]
+    top_left     = [cols*0.0, rows*top]
+    bottom_right = [cols*1.0, rows*1.0]
+    top_right    = [cols*1.0, rows*top] 
     # the vertices are an array of polygons (i.e array of arrays) and the data type must be integer
     vertices = np.array([[bottom_left, top_left, top_right, bottom_right]], dtype=np.int32)
     ret = filter_region(image, vertices)
@@ -144,14 +144,14 @@ class LaneDetector:
         self.left_lines  = deque(maxlen=QUEUE_LENGTH)
         self.right_lines = deque(maxlen=QUEUE_LENGTH)
 
-    def process(self, image, ROI, lightest_percent, debug):
+    def process(self, image, ROI, ROI_top, lightest_percent, debug=False):
         white_yellow = select_white_yellow(image, lightest_percent, debug)
         gray         = convert_gray_scale(white_yellow, debug)
         smooth_gray  = apply_smoothing(gray, debug)
         edges        = detect_edges(smooth_gray, debug)
         #edges        = detect_edges(gray, debug)
         if(ROI):
-            regions  = select_region(edges, debug)
+            regions  = select_region(edges, ROI_top, debug)
         else:
             regions  = edges
         lines 		 = hough_lines(regions)
