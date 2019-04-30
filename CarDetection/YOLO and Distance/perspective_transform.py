@@ -38,10 +38,8 @@ def perspective_transform(vp, img, debug):
     p3, p4 = [find_x(p1, [vp[0, 0], vp[1, 0]], y_base), y_base], [find_x(p2, [vp[0, 0], vp[1, 0]], y_base), y_base]
 		
     if(debug):        
-        ps = [p1, p2, p3, p4]
-        for p in ps:
-            p[0], p[1] = int(p[0]), int(p[1])
-        display_trapezoid(img, p1, p2, p3, p4, vp)
+        display_trapezoid(img, [int(p1[0]), int(p1[1])], [int(p2[0]), int(p2[1])],\
+							   [int(p3[0]), int(p3[1])], [int(p4[0]), int(p4[1])], vp)
             
     map_size = (300, 600)
     src = np.float32([p1, p2, p3, p4])
@@ -74,7 +72,7 @@ def get_ratio(H, H_inv, orig_warped, mtx, debug):
     #Utilities.show_images([edges])
     #lines = cv2.HoughLines(edges,1,np.pi/180,100)
     detector = lane_detection.LaneDetector()
-    lines = detector.process(cv2.cvtColor(orig_warped,cv2.COLOR_BGR2RGB), False, 0.02, debug)
+    lines = detector.process(cv2.cvtColor(orig_warped,cv2.COLOR_BGR2RGB), False, 0, 0.02, debug)
     '''lines = cv2.HoughLinesP(
         edges,
         rho=2,
