@@ -77,7 +77,7 @@ def get_lines_mean(lines):
 	
 
 def scale_pixel(pixel, shape):
-    return [int(pixel[0] * (shape[1]/1200)), int(pixel[1] * (shape[0]/500))]
+    return [int(pixel[0] * (1200/shape[1])), int(pixel[1] * (500/shape[0]))]
 	
 	
 def parse_cfg(cfgfile):
