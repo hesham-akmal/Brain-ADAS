@@ -45,11 +45,11 @@ import airsim
 airsimClient = airsim.CarClient()
 
 def StartFullBrake():
-    client.setBrakeInput(1)
-    threading.Thread(target=BeepAlert).start()
+    airsimClient.setBrakeInput(1)
+    #threading.Thread(target=BeepAlert).start()
 
 def StopBrake():
-    client.setBrakeInput(0)
+    airsimClient.setBrakeInput(0)
 
     
 #Adding SDL2 and INIT  ######################################
@@ -357,7 +357,7 @@ class ControllerIO():
                     #COLUMN HEADERS BADAS
                     csvHeader = ""
                     # ,HW PEDAL #,COUNTER
-                    csvHeader += "Brake Pedal"  
+                    csvHeader += "Brake Pedal ,COUNTER"  
                     if int(self.getInfo("keymodel")) == 3 or int(self.getInfo("keymodel")) == 4:
                         # Insight
                         csvHeader += "AF3 T7 Pz T8 AF4 RAW_CQ GYROX GYROY MARKER SYNC TIME_STAMP_s TIME_STAMP_ms CQ_AF3 CQ_T7 CQ_Pz CQ_T8 CQ_AF4, "
@@ -1483,7 +1483,7 @@ class EEG(object):
             firstPacket = ''
             secondPacket = ''
             #sixtyFourPackets = pd.DataFrame(columns = ['Brake Pedal', 'F3', 'FC5', 'AF3', 'F7', 'T7', 'P7', 'O1', 'O2', 'P8', 'T8', 'F8', 'AF4', 'FC6', 'F4', 'y'])
-            print('bbbbbbbbbbbbbbbaaaa')
+            #print('bbbbbbbbbbbbbbbaaaa')
             packetIndex = 0
             testPackets = np.zeros((64, 14), dtype=np.float64)
             while not tasks.empty() and self.running == True:
@@ -1770,24 +1770,23 @@ class EEG(object):
                             elif(secondPacket == ''):
                                 secondPacket = [float(x) for x in packet_data.split(',')]
                             else:
-                                print('d')
+                                #print('d')
                                 #sixtyFourPackets.to_csv('s'+ counter_data +".csv", index = False)
                                 testPackets = testPackets[2:]
-                                print(testPackets.dtype)
+                                #print(testPackets.dtype)
                                 testPackets = np.append(testPackets, [firstPacket], axis=0)
                                 testPackets = np.append(testPackets, [secondPacket], axis=0)
                                 brake = live_test(testPackets)
 
-                                print('brake val = ' , brake)
-
                                 if(brake == 1):
+                                #    print('brake = 1' , time.time())
                                     y = 'B'
-                                    StartFullBrake()
+                                    #StartFullBrake()
                                 firstPacket = ''
                                 secondPacket = ''
 
                             # remved +counter_data 
-                            cyIO.CurrentPacket = airsim_data + packet_data + self.delimiter + y
+                            cyIO.CurrentPacket = airsim_data +counter_data + packet_data + self.delimiter + y
 
                             #print(cyIO.CurrentPacket)
                             if cyIO.isRecording() == True:
