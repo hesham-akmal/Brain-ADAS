@@ -366,7 +366,7 @@ class ControllerIO():
                         #csvHeader += "AF3 F7 F3 FC5 T7 P7 O1 O2 P8 T8 FC6 F4
                         #F8 AF4 "
                         csvHeader += ",F3, FC5, AF3, F7, T7, P7, O1, O2, P8, T8, F8, AF4, FC6, F4"
-                        csvHeader += ',y'
+                        csvHeader += ',y,pred'
 
                     self.cyFile.write(csvHeader + "\r\n")
                     self.cyFile.flush()
@@ -1759,7 +1759,7 @@ class EEG(object):
                                 y = '-1'
                             else:
                                 y = '?'
-                            							
+
                             packet_formatted = airsim_data + packet_data + self.delimiter + y
                             packet_formatted = packet_formatted.split(',') 
                             if (packetIndex < 64):
@@ -1777,16 +1777,16 @@ class EEG(object):
                                 testPackets = np.append(testPackets, [firstPacket], axis=0)
                                 testPackets = np.append(testPackets, [secondPacket], axis=0)
                                 brake = live_test(testPackets)
-
+                                
                                 if(brake == 1):
-                                #    print('brake = 1' , time.time())
-                                    y = 'B'
-                                    #StartFullBrake()
+                                    print('brake = 1' , time.time())
+                                #       y = 'B'
+                                #StartFullBrake()
                                 firstPacket = ''
                                 secondPacket = ''
 
-                            # remved +counter_data 
-                            cyIO.CurrentPacket = airsim_data +counter_data + packet_data + self.delimiter + y
+                            # remved + counter_data
+                            cyIO.CurrentPacket = airsim_data + counter_data + packet_data + self.delimiter + y + self.delimiter + brake 
 
                             #print(cyIO.CurrentPacket)
                             if cyIO.isRecording() == True:
