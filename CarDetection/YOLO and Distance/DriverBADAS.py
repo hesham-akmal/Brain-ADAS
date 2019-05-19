@@ -14,7 +14,7 @@ import pickle as pkl
 import pandas as pd
 import random
 from skimage import io
-from matplotlib import pyplot as plt
+#from matplotlib import pyplot as plt
 from ConfidenceThresholdingAndNonMaximumSuppression import *
 from NeuralNetwork import *
 from Utilities import *
@@ -42,9 +42,6 @@ nms_thesh = 0.4
 start = 0
 weights_file = 'yolov3.weights'
 cfg_file = 'cfg/yolov3.cfg'
-
-# weights_file = 'yolov3-tiny.weights'
-# cfg_file = 'cfg/yolov3-tiny.cfg'
 
 #Change cfg file and save
 def SetYoloReso(reso):
@@ -410,14 +407,6 @@ def BrakeDecide(new_dist):
     
     return prob
 
-#########################################################################################################################
-
-# Sim Real-time distance detection and showing output using CV2
-
-#Connect/Reconnect
-#BADAS_fns.SimConnectAndCheck()
-
-# Braking = False
 ##################################################################################################################################################################
 
 def crop_center(img,cropx,cropy):
@@ -436,7 +425,7 @@ lineType               = 2
 img = cv2.imread('imgs/noshade1200x500.JPG')
 H, x_pixels_per_meter, y_pixels_per_meter = driver_perspective_transform(img, False)
 
-drawDebug = True
+drawDebug = False
 printDebug = False
 
 def EstimateDistance():
@@ -465,13 +454,13 @@ def EstimateDistance():
         t1 = time.time()
         img, inlane = get_lane_image(img, float(img.shape[0])/500)
         LaneWarningControllerUpdate()
-            
+
         if(printDebug):
             print('T get_lane_image: ' , time.time() - t1)
-        
+
         imgYOLO = crop_center(img,208,208)
         #imgYOLO = img
-		
+
         if(drawDebug):
             #cv2.imshow("", img)
             show_images([cv2.cvtColor(img, cv2.COLOR_BGR2RGB)])
@@ -482,8 +471,9 @@ def EstimateDistance():
             print('T Yolo: ' , time.time() - t1)
         if(drawDebug):
             show_images([cv2.cvtColor(pred, cv2.COLOR_BGR2RGB)])
-    except:
+    except Exception as e:
         print('YException ')
+        print(e)
         return prob
     
     t1 = time.time()
@@ -546,3 +536,9 @@ class VisionThread(threading.Thread):
         while(True):
             self.prop = EstimateDistance()
         return
+    
+    def stop(self):
+        self._stop_event.set()
+
+    def stopped(self):
+        return self._stop_event.is_set()

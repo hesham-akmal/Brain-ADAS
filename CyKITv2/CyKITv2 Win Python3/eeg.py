@@ -41,27 +41,6 @@ from ctypes.wintypes import HANDLE, ULONG, DWORD, USHORT
 
 ##############################################################
 
-# Add airsim path, Importing airsim, Getting CarClient
-#sys.path.append(str(Path().resolve().parent.parent).replace('\\','/') + '/AirSimClient')
-#import airsim
-#airsimClient = airsim.CarClient()
-    
-##Adding SDL2 and INIT  ######################################
-#os.environ["PYSDL2_DLL_PATH"] = str(Path().resolve().parent.parent) + '\AirSimClient'
-#import sdl2
-#sdl2.SDL_Init(sdl2.SDL_INIT_JOYSTICK)
-#joystick = sdl2.SDL_JoystickOpen(0)
-##############################################################
-
-#def Find_BADAS_ClientNormal():
-#    global client
-#    client = airsim.CarClient()
-
-#def Find_BADAS_Client(): #Thread
-#    threading.Thread(target=Find_BADAS_ClientNormal).start()
-
-##############################################################
-
 #  Detect 32 / 64 Bit Architecture.
 # ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
 arch = struct.calcsize("P") * 8
@@ -207,7 +186,7 @@ class ControllerIO():
     
     #  Initialize at thread creation.
     # ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    def __init__(self, AC):
+    def __init__(self, AC, VT):
         global BTLE_device_name
         BTLE_device_name = ""
         self.integer = False
@@ -237,6 +216,7 @@ class ControllerIO():
         self.CurrentPacket = 'x'
         self.mode = ''
         self.airsimClient = AC
+        self.visionThread = VT
 
     #  Data Input.
     # ¯¯¯¯¯¯¯¯¯¯¯¯¯¯
@@ -361,7 +341,7 @@ class ControllerIO():
                         csvHeader += ",F3, FC5, AF3, F7, T7, P7, O1, O2, P8, T8, F8, AF4, FC6, F4"
                         csvHeader += ',y'
                         if(live_testing):
-                            csvHeader += ',pred'
+                            csvHeader += ',EEGprob,CVprob'
 
                     self.cyFile.write(csvHeader + "\r\n")
                     self.cyFile.flush()
@@ -785,11 +765,15 @@ def DataCallback(EventOutParameter):
                 encrypted_data = encrypted_data + bytearray(data_bin[2:18])
                 tasks.put(encrypted_data)
 
+
+
 class EEG(object):
 
     def __init__(self, model, io, config):
         global running
         global cyIO
+        self.sec_test = time.time()
+        self.pkts_num = 0
         
         config = config.lower()
         self.config = config
@@ -1560,6 +1544,9 @@ class EEG(object):
                     # Function Every Second.
                     if (int(time.time() % 60) - self.getSeconds) == 1:
                         time.sleep(0)
+                        print('1 sec, pkts: ' ,self.pkts_num )
+                        self.pkts_num = 0
+
                         if eval(cyIO.getInfo("status")) != True:
                             self.running = False
 
@@ -1575,120 +1562,6 @@ class EEG(object):
                     
                     self.getSeconds = int(time.time() % 60)
 
-                    #  Epoc.
-                    # ¯¯¯¯¯¯¯¯
-                    if self.KeyModel == 2:
-                        counter_data = str(data[0]) + self.delimiter
-                        # ~Format-0: (Default)
-                        # ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-                        if self.format < 1:
-                            for i in range(0,14):
-                                packet_data = packet_data + str(self.convertEPOC(data, self.mask[i])) + self.delimiter
-
-                            if cyIO.isRecording() == True:
-                                cyIO.startRecord(cyIO.CurrentPacket)
-                    #eval('0xaf0faf') >> (14*1+1) & 0b1111111
-                    #  Insight.
-                    # ¯¯¯¯¯¯¯¯¯¯¯
-                    if self.KeyModel == 4 or self.KeyModel == 7:
-                        counter_data = str(data[0]) + self.delimiter
-                                                
-                        # ~Format-0: (Default) (Decodes to Floating Point)
-                        # ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-                        
-                        if self.format == 2: 
-                            
-                            z = ''
-                            for i in range(1,len(data)):
-                                z = z + format(data[i],'08b')
-                            
-                            for i in range(2,len(self.insight_1),2):
-                                i_1 = self.insight_1[(i - 2)]
-                                i_2 = self.insight_1[(i - 1)]
-                                
-                                #mirror.text(str(i_1) + ":" + str(i_2))
-                                
-                                if i_2 > len(z):
-                                    i = len(self.insight_1)
-                                    continue
-                                # Get 2 halves of 14bytes (8byte + 6byte)
-                                v_1 = '0b' + z[(i_1):(i_2)]
-                                v_2 = '0b' + z[(i_2):(i_2 + 6)]
-                                
-                                packet_data = packet_data + str(int(eval(v_1))) + self.delimiter + str(int(eval(v_2))) + self.delimiter
-                            
-                            if self.outputdata == True:
-                                if self.channel != None:
-                                    mirror.text(str(counter_data) + self.delimiter + str(packet_data.split(self.delimiter)[int(self.channel)]))
-                                else:
-                                    mirror.text(str(counter_data + packet_data))
-                        
-                        #Bluetooth Formatting.
-                        if self.format == 3:                           
-                            # Every 14 Bits of first 10 Bytes are split up into
-                            # 8 bit + 6 bits.
-                            
-                            z = ''
-                            for i in range(1,len(data)):
-                                #if i == 16:
-                                #    continue
-                                z = z + format(data[i],'08b')
-                            
-                            insight_bt_index = 15
-                            for i in range(2,(len(self.insight_1)),2):
-                                #if i == 14:
-                                #    packet_data = packet_data + str(data[14])
-                                #    + self.delimiter + str(data[15]) +
-                                #    self.delimiter
-                                #    continue
-                                
-                                i_1 = self.insight_1[(i - 2)]
-                                i_2 = self.insight_1[(i - 1)]
-                                
-                                #mirror.text(str(i_1) + ":" + str(i_2) + " - "
-                                #+ str(i_2) + ":" + str((i_2+6)))
-                                
-                                if i_2 > len(z):
-                                    i = len(self.insight_1)
-
-                                # Get 2 halves of 14bytes (8byte + 6byte)
-                                v_1 = '0b' + z[(i_1):(i_2)]
-                                
-                                v_2 = '0b' + z[(i_2):(i_2 + 6)]
-                                packet_data = packet_data + str(int(eval(v_1))) + self.delimiter + str(int(eval(v_2))) + self.delimiter
-                            
-                            
-                            if self.outputdata == True:
-                                mirror.text(str(counter_data + packet_data))
-                        
-                        if self.format < 1:
-                            for i in range(2,16,2):
-                                packet_data = packet_data + str(self.convertEPOC_PLUS(str(data[i]), str(data[i + 1]))) + self.delimiter
-                            
-                            for i in range(18,len(data),2):
-                                packet_data = packet_data + str(self.convertEPOC_PLUS(str(data[i]), str(data[i + 1]))) + self.delimiter
-
-                            packet_data = packet_data[:-len(self.delimiter)]
-                            
-                            if cyIO.isRecording() == True:
-                                cyIO.startRecord(counter_data + packet_data)
-                            if self.outputdata == True:
-                                mirror.text(str(counter_data + packet_data))
-                        
-                            if self.nobattery == False:
-                                packet_data = packet_data + self.delimiter + str(data[16]) + str(self.delimiter) + str(data[17]) 
-                                
-                        #  ~Format-1: (Raw Data Format.) (Data not Decoded)
-                        # ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-                        if self.format == 1: 
-                            for i in range(1,len(data)):
-                                packet_data = packet_data + str(data[i]) + self.delimiter
-                            packet_data = packet_data[:-len(self.delimiter)]
-                            if cyIO.isRecording() == True:
-                                cyIO.startRecord(counter_data + packet_data)
-                            if self.outputdata == True:
-                                mirror.text(str(counter_data + packet_data))
-                        
                     #  Epoc+ BADAS
                     # ¯¯¯¯¯¯¯¯
                     if self.KeyModel == 6 or self.KeyModel == 5:
@@ -1718,47 +1591,20 @@ class EEG(object):
 
                             packet_data = packet_data[:-len(self.delimiter)]
 
-                            AdasPacket = self.airsimClient.getAdasPacket()
-                            CarControls = self.airsimClient.getCarControls()
-                            
-                            airsim_data = str(CarControls['brake']) + self.delimiter #+ str(joy_y) + self.delimiter
-
-                            #AdasPacket[0]: car event num
-                            #AdasPacket[1]: car distance
-                            #AdasPacket[2]: ped event num
-                            #AdasPacket[3]: pedestrian distance
-
                             ####### HW PEDAL VALS
-
                             #sdl2.SDL_PumpEvents()
                             #joy_y = sdl2.SDL_JoystickGetAxis(joystick, 1) 
                             #joy_y = (joy_y / 32767)
                             #if(joy_y < 0.001):
                             #    joy_y=0
-
                             ############
-
-                            y = '0'
-                            if AdasPacket[0] == 0 and AdasPacket[2] == 0:
-                                y = '0'
-                            elif AdasPacket[0] == 1 and AdasPacket[2] == 0:
-                                y = '1'
-                            elif AdasPacket[0] == 0 and AdasPacket[2] == 1:
-                                y = '2'
-                            elif AdasPacket[0] == 0 and AdasPacket[2] == 2:
-                                y = '3'
-                            elif AdasPacket[0] == 0 and AdasPacket[2] == 3:
-                                y = '4'
-                            elif AdasPacket[0] == 1 and AdasPacket[2] == 1:
-                                y = '5'
-                            elif AdasPacket[0] == -1 and AdasPacket[2] == -1:
-                                y = '-1'
-                            else:
-                                y = '?'
+                            self.pkts_num += 1
 
                             if(live_testing):
-                                packet_formatted = airsim_data + packet_data + self.delimiter + y
-                                packet_formatted = packet_formatted.split(',') 
+                                #print('cyIO.visionThread.prop: ' , cyIO.visionThread.prop)
+
+                                #packet_formatted = airsim_data + packet_data + self.delimiter + y
+                                #packet_formatted = packet_formatted.split(',') 
                                 if (packetIndex < 64):
                                     testPackets[packetIndex] = [float(x) for x in packet_data.split(',')]
                                     packetIndex += 1
@@ -1767,27 +1613,45 @@ class EEG(object):
                                 elif(secondPacket == ''):
                                     secondPacket = [float(x) for x in packet_data.split(',')]
                                 else:
-                                    #print('d')
-                                    #sixtyFourPackets.to_csv('s'+ counter_data +".csv", index = False)
+                                    #sixtyFourP`ackets.to_csv('s'+ counter_data +".csv", index = False)
                                     testPackets = testPackets[2:]
                                     #print(testPackets.dtype)
                                     testPackets = np.append(testPackets, [firstPacket], axis=0)
                                     testPackets = np.append(testPackets, [secondPacket], axis=0)
-                                    brake = live_test(testPackets)
-                                
-                                    if(brake == 1):
-                                        print('brake = 1' , time.time())
-                                        #y = 'B'
-                                        #StartFullBrake()
+                                    EEGprob = live_test(testPackets)
                                     firstPacket = ''
                                     secondPacket = ''
 
-                                cyIO.CurrentPacket = airsim_data + counter_data + packet_data + self.delimiter + y + self.delimiter + brake
-                            else:
-                                cyIO.CurrentPacket = airsim_data + counter_data + packet_data + self.delimiter + y
+                                cyIO.CurrentPacket = 'X,' + counter_data + packet_data + self.delimiter + 'X,' + EEGprob + self.delimiter + str(cyIO.visionThread.prop)
 
-                            # remved + counter_data
-                            
+                            else: #Training
+                                AdasPacket = cyIO.airsimClient.getAdasPacket()
+                                CarControls = cyIO.airsimClient.getCarControls()
+                                airsim_data = str(CarControls['brake']) + self.delimiter # + str(joy_y) + self.delimiter
+
+                                #AdasPacket[0]: car event num
+                                #AdasPacket[1]: car distance
+                                #AdasPacket[2]: ped event num
+                                #AdasPacket[3]: pedestrian distance
+                                y = '0'
+                                if AdasPacket[0] == 0 and AdasPacket[2] == 0:
+                                    y = '0'
+                                elif AdasPacket[0] == 1 and AdasPacket[2] == 0:
+                                    y = '1'
+                                elif AdasPacket[0] == 0 and AdasPacket[2] == 1:
+                                    y = '2'
+                                elif AdasPacket[0] == 0 and AdasPacket[2] == 2:
+                                    y = '3'
+                                elif AdasPacket[0] == 0 and AdasPacket[2] == 3:
+                                    y = '4'
+                                elif AdasPacket[0] == 1 and AdasPacket[2] == 1:
+                                    y = '5'
+                                elif AdasPacket[0] == -1 and AdasPacket[2] == -1:
+                                    y = '-1'
+                                else:
+                                    y = '?'
+
+                                cyIO.CurrentPacket = airsim_data + counter_data + packet_data + self.delimiter + y
 
                             #print(cyIO.CurrentPacket)
                             if cyIO.isRecording() == True:

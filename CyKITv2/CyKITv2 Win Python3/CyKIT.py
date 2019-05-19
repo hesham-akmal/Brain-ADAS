@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 #
 #  ♦ CyKIT ♦ 2018.May.24
 # ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
@@ -50,16 +50,22 @@ import os
 import time
 from ctypes import *
 sys.path.append(str(Path().resolve().parent.parent).replace('\\','/') + '/AirSimClient')
+sys.path.append(str(Path().resolve().parent.parent).replace('\\','/') + '/CarDetection/YOLO and Distance')
 os.environ['PATH'] = str(Path().resolve().parent.parent).replace('\\','/') + '/AirSimClient' + os.pathsep + os.environ['PATH']
 d = CDLL('SDL2.dll') #Steering kit haptic feedback dll
 import BADAS_fns
 
-#If changed, Sim must be restarted to take effect
-#BADAS_fns.SetSimImgRes(500,208)
-
 BADAS_fns.SimConnectAndCheck()
 
-cy_IO = eeg.ControllerIO(BADAS_fns.client)
+RunVision = True
+if(RunVision):
+    os.chdir("../../CarDetection/YOLO and Distance")
+    import DriverBADAS
+    visionThread = DriverBADAS.VisionThread(BADAS_fns)
+    visionThread.start()
+    os.chdir("../../CyKITv2/CyKITv2 Win Python3")
+
+cy_IO = eeg.ControllerIO(BADAS_fns.client , visionThread)
 
 def main(CyINIT):
 

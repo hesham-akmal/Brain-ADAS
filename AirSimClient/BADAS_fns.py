@@ -47,7 +47,7 @@ class Haptic:
 
         #print("Trying to find haptics")
         if (sdl2.SDL_NumHaptics() == 0):
-            print("No haptic devices found, Driving kit not connected.")
+            print("No haptic devices found (Driving kit not connected).")
             sdl2.SDL_Quit()
 
         for index in range(0, sdl2.SDL_NumHaptics()):
