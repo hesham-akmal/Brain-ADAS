@@ -415,7 +415,7 @@ def BrakeDecide(new_dist):
 # Sim Real-time distance detection and showing output using CV2
 
 #Connect/Reconnect
-BADAS_fns.SimConnectAndCheck()
+#BADAS_fns.SimConnectAndCheck()
 
 # Braking = False
 ##################################################################################################################################################################
@@ -436,20 +436,22 @@ lineType               = 2
 img = cv2.imread('imgs/noshade1200x500.JPG')
 H, x_pixels_per_meter, y_pixels_per_meter = driver_perspective_transform(img, False)
 
-drawDebug = False
-printDebug = True
+drawDebug = True
+printDebug = False
 
 def EstimateDistance():
     prob = -1
     t3 = time.time()
     t1 = t3
     
+    global veh_speed
     veh_speed = BADAS_fns.client.getCarState().speed
     
     try:
         img = BADAS_fns.GetSimImg()
         if(drawDebug):
-            cv2.imshow("", img)
+            #cv2.imshow("", img)
+            show_images([cv2.cvtColor(img, cv2.COLOR_BGR2RGB)])
         if(printDebug):
             print('T Sim image extract: ' , time.time() - t1)
     except:
@@ -468,14 +470,18 @@ def EstimateDistance():
             print('T get_lane_image: ' , time.time() - t1)
         
         imgYOLO = crop_center(img,208,208)
-        
+        #imgYOLO = img
+		
         if(drawDebug):
-            cv2.imshow("", img)
+            #cv2.imshow("", img)
+            show_images([cv2.cvtColor(img, cv2.COLOR_BGR2RGB)])
         # Getting predictions from yolo
         t1 = time.time()
         pred, top_left, bottom_right, labels = get_pred(imgYOLO)
         if(printDebug):
             print('T Yolo: ' , time.time() - t1)
+        if(drawDebug):
+            show_images([cv2.cvtColor(pred, cv2.COLOR_BGR2RGB)])
     except:
         print('YException ')
         return prob
@@ -507,6 +513,8 @@ def EstimateDistance():
             dtime = time.time()
             #paste yolo img on lane img
             img[0:pred.shape[0] , 146:146 + pred.shape[1]] = pred
+            #img = pred
+			
             distance = str(round_float(float_dist))+"m"
 #             if(EmergencyBool):
 #                 cv2.putText(img, "EMERGENCY",(cx-60+146, cy-60), font, fontScale,fontColor, lineType)
@@ -514,7 +522,8 @@ def EstimateDistance():
             cv2.putText(img, distance, (cx-60+146, cy+30), font, fontScale, fontColor, lineType)
             if(printDebug):
                 print('T Get distance: ' , time.time() - t1)
-            cv2.imshow("", img)
+            #cv2.imshow("", img)
+            show_images([cv2.cvtColor(pred, cv2.COLOR_BGR2RGB)])
             if(printDebug):
                 print('T Debug Draw: ' , time.time() - dtime)
     if(printDebug):
@@ -522,3 +531,18 @@ def EstimateDistance():
         print('FrameEnd\n')
         
     return prob
+	
+	
+class VisionThread(threading.Thread):
+
+    def __init__(self, BADAS_fns_param):
+        super().__init__()
+        self.prop = 0
+        global BADAS_fns
+        BADAS_fns = BADAS_fns_param
+        return
+
+    def run(self):
+        while(True):
+            self.prop = EstimateDistance()
+        return
