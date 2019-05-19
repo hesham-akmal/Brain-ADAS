@@ -27,10 +27,12 @@ import queue
 import threading
 import traceback 
 import winsound
-#import pandas as pd
 import numpy as np
 from pathlib import Path
-from model_training_and_live_testing import *
+
+live_testing = False
+if(live_testing):
+    from model_training_and_live_testing import *
 
 #  Import C functions for Bluetooth.
 # ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
@@ -40,31 +42,23 @@ from ctypes.wintypes import HANDLE, ULONG, DWORD, USHORT
 ##############################################################
 
 # Add airsim path, Importing airsim, Getting CarClient
-sys.path.append(str(Path().resolve().parent.parent).replace('\\','/') + '/AirSimClient')
-import airsim
-airsimClient = airsim.CarClient()
-
-def StartFullBrake():
-    airsimClient.setBrakeInput(1)
-    #threading.Thread(target=BeepAlert).start()
-
-def StopBrake():
-    airsimClient.setBrakeInput(0)
-
+#sys.path.append(str(Path().resolve().parent.parent).replace('\\','/') + '/AirSimClient')
+#import airsim
+#airsimClient = airsim.CarClient()
     
-#Adding SDL2 and INIT  ######################################
-os.environ["PYSDL2_DLL_PATH"] = str(Path().resolve().parent.parent) + '\AirSimClient'
-import sdl2
-sdl2.SDL_Init(sdl2.SDL_INIT_JOYSTICK)
-joystick = sdl2.SDL_JoystickOpen(0)
+##Adding SDL2 and INIT  ######################################
+#os.environ["PYSDL2_DLL_PATH"] = str(Path().resolve().parent.parent) + '\AirSimClient'
+#import sdl2
+#sdl2.SDL_Init(sdl2.SDL_INIT_JOYSTICK)
+#joystick = sdl2.SDL_JoystickOpen(0)
 ##############################################################
 
-def Find_BADAS_ClientNormal():
-    global client
-    client = airsim.CarClient()
+#def Find_BADAS_ClientNormal():
+#    global client
+#    client = airsim.CarClient()
 
-def Find_BADAS_Client(): #Thread
-    threading.Thread(target=Find_BADAS_ClientNormal).start()
+#def Find_BADAS_Client(): #Thread
+#    threading.Thread(target=Find_BADAS_ClientNormal).start()
 
 ##############################################################
 
@@ -128,7 +122,6 @@ if parameters > 4:
 else:
     eeg_config = ""
      
-
 if parameters > 4 and "verbose" in eeg_config:
     verbose = True
 else:
@@ -136,7 +129,6 @@ else:
 
 if parameters > 4 and "path" in eeg_config:
     mirror.text("[Python Search Path] " + str(sys.path))
-
 
 #  Setup [ pyUSB (Default) / pywinusb ]
 # ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
@@ -215,7 +207,7 @@ class ControllerIO():
     
     #  Initialize at thread creation.
     # ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    def __init__(self):
+    def __init__(self, AC):
         global BTLE_device_name
         BTLE_device_name = ""
         self.integer = False
@@ -244,11 +236,12 @@ class ControllerIO():
         self.setInfo("recording","False")
         self.CurrentPacket = 'x'
         self.mode = ''
+        self.airsimClient = AC
 
     #  Data Input.
     # ¯¯¯¯¯¯¯¯¯¯¯¯¯¯
     def onData(self, uid, text):
-        global airsimClient
+        #global airsimClient
         ioCommand = text.split(":::")
         if ioCommand[0] == "CyKITv2":
             if ioCommand[1] == "setModel":
@@ -366,7 +359,9 @@ class ControllerIO():
                         #csvHeader += "AF3 F7 F3 FC5 T7 P7 O1 O2 P8 T8 FC6 F4
                         #F8 AF4 "
                         csvHeader += ",F3, FC5, AF3, F7, T7, P7, O1, O2, P8, T8, F8, AF4, FC6, F4"
-                        csvHeader += ',y,pred'
+                        csvHeader += ',y'
+                        if(live_testing):
+                            csvHeader += ',pred'
 
                     self.cyFile.write(csvHeader + "\r\n")
                     self.cyFile.flush()
@@ -1478,14 +1473,15 @@ class EEG(object):
                     mirror.text(" ¯¯¯¯¯ eegThread.run() Error reading data.")
                     mirror.text(" =E.11: " + print_format.format(exc_type.__name__, line_number, ex))
             
-            sleep_time = time.time()
-            dataLoss = 0
-            firstPacket = ''
-            secondPacket = ''
-            #sixtyFourPackets = pd.DataFrame(columns = ['Brake Pedal', 'F3', 'FC5', 'AF3', 'F7', 'T7', 'P7', 'O1', 'O2', 'P8', 'T8', 'F8', 'AF4', 'FC6', 'F4', 'y'])
-            #print('bbbbbbbbbbbbbbbaaaa')
-            packetIndex = 0
-            testPackets = np.zeros((64, 14), dtype=np.float64)
+
+            if(live_testing):
+                sleep_time = time.time()
+                dataLoss = 0
+                firstPacket = ''
+                secondPacket = ''
+                #sixtyFourPackets = pd.DataFrame(columns = ['Brake Pedal', 'F3', 'FC5', 'AF3', 'F7', 'T7', 'P7', 'O1', 'O2', 'P8', 'T8', 'F8', 'AF4', 'FC6', 'F4', 'y'])
+                packetIndex = 0
+                testPackets = np.zeros((64, 14), dtype=np.float64)
             while not tasks.empty() and self.running == True:
                 time.sleep(0)
 
@@ -1722,8 +1718,8 @@ class EEG(object):
 
                             packet_data = packet_data[:-len(self.delimiter)]
 
-                            AdasPacket = airsimClient.getAdasPacket()
-                            CarControls = airsimClient.getCarControls()
+                            AdasPacket = self.airsimClient.getAdasPacket()
+                            CarControls = self.airsimClient.getCarControls()
                             
                             airsim_data = str(CarControls['brake']) + self.delimiter #+ str(joy_y) + self.delimiter
 
@@ -1734,11 +1730,11 @@ class EEG(object):
 
                             ####### HW PEDAL VALS
 
-                            sdl2.SDL_PumpEvents()
-                            joy_y = sdl2.SDL_JoystickGetAxis(joystick, 1) 
-                            joy_y = (joy_y / 32767)
-                            if(joy_y < 0.001):
-                                joy_y=0
+                            #sdl2.SDL_PumpEvents()
+                            #joy_y = sdl2.SDL_JoystickGetAxis(joystick, 1) 
+                            #joy_y = (joy_y / 32767)
+                            #if(joy_y < 0.001):
+                            #    joy_y=0
 
                             ############
 
@@ -1760,33 +1756,38 @@ class EEG(object):
                             else:
                                 y = '?'
 
-                            packet_formatted = airsim_data + packet_data + self.delimiter + y
-                            packet_formatted = packet_formatted.split(',') 
-                            if (packetIndex < 64):
-                                testPackets[packetIndex] = [float(x) for x in packet_data.split(',')]
-                                packetIndex += 1
-                            elif (firstPacket == ''):
-                                firstPacket = [float(x) for x in packet_data.split(',')]
-                            elif(secondPacket == ''):
-                                secondPacket = [float(x) for x in packet_data.split(',')]
-                            else:
-                                #print('d')
-                                #sixtyFourPackets.to_csv('s'+ counter_data +".csv", index = False)
-                                testPackets = testPackets[2:]
-                                #print(testPackets.dtype)
-                                testPackets = np.append(testPackets, [firstPacket], axis=0)
-                                testPackets = np.append(testPackets, [secondPacket], axis=0)
-                                brake = live_test(testPackets)
+                            if(live_testing):
+                                packet_formatted = airsim_data + packet_data + self.delimiter + y
+                                packet_formatted = packet_formatted.split(',') 
+                                if (packetIndex < 64):
+                                    testPackets[packetIndex] = [float(x) for x in packet_data.split(',')]
+                                    packetIndex += 1
+                                elif (firstPacket == ''):
+                                    firstPacket = [float(x) for x in packet_data.split(',')]
+                                elif(secondPacket == ''):
+                                    secondPacket = [float(x) for x in packet_data.split(',')]
+                                else:
+                                    #print('d')
+                                    #sixtyFourPackets.to_csv('s'+ counter_data +".csv", index = False)
+                                    testPackets = testPackets[2:]
+                                    #print(testPackets.dtype)
+                                    testPackets = np.append(testPackets, [firstPacket], axis=0)
+                                    testPackets = np.append(testPackets, [secondPacket], axis=0)
+                                    brake = live_test(testPackets)
                                 
-                                if(brake == 1):
-                                    print('brake = 1' , time.time())
-                                #       y = 'B'
-                                #StartFullBrake()
-                                firstPacket = ''
-                                secondPacket = ''
+                                    if(brake == 1):
+                                        print('brake = 1' , time.time())
+                                        #y = 'B'
+                                        #StartFullBrake()
+                                    firstPacket = ''
+                                    secondPacket = ''
+
+                                cyIO.CurrentPacket = airsim_data + counter_data + packet_data + self.delimiter + y + self.delimiter + brake
+                            else:
+                                cyIO.CurrentPacket = airsim_data + counter_data + packet_data + self.delimiter + y
 
                             # remved + counter_data
-                            cyIO.CurrentPacket = airsim_data + counter_data + packet_data + self.delimiter + y + self.delimiter + brake 
+                            
 
                             #print(cyIO.CurrentPacket)
                             if cyIO.isRecording() == True:

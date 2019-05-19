@@ -20,6 +20,7 @@ import winsound
 
 import threading
 import sys
+import os
 
 import airsim
 
@@ -37,6 +38,7 @@ def Find_BADAS_Client(): #Thread
 
 #Feedback Haptic effects
 import sdl2 #Local sdl2 dir which is a wrapper to SDL2.dll
+
 
 class Haptic:
 
@@ -145,3 +147,34 @@ def EmergencyBrake_TillCarStop():
     
     StopBrake()
     h.stop_haptic()
+
+
+
+##Change Airsim Img Res
+from shutil import copy2
+AirSimDocPath = os.path.expanduser('~/Documents') + '/AirSim'
+
+def SetSimImgRes(resoW,resoH):
+    AirSimDocPath = os.path.expanduser('~/Documents') + '/AirSim/settings.json'
+    with open(AirSimDocPath , "r+") as f:
+        lines = f.readlines()
+        del lines[10]
+        del lines[10]
+        lines.insert(10, '"Height": ' + str(resoH) + '\n') 
+        lines.insert(10, '"Width": ' + str(resoW) + ',\n') 
+        f.seek(0)
+        f.truncate()
+        f.writelines(lines)
+        
+import cv2
+def GetSimImg():
+    responses = client.simGetImages([ airsim.ImageRequest("0", airsim.ImageType.Scene, False, False) ])
+    response = responses[0]
+    img1d = np.fromstring(response.image_data_uint8, dtype=np.uint8) 
+    img = img1d.reshape(response.height, response.width, 4)  
+    return cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
+
+def SimConnectAndCheck():
+    Find_BADAS_Client()
+    time.sleep(0.5)
+    client.confirmConnection()

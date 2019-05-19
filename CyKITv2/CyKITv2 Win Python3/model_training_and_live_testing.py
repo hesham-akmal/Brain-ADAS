@@ -251,7 +251,7 @@ colsTest = make_all_columns_test(electrodes)
 #2-make another directory inide our dataset, and call it Hesham2
 #3-put all csv files inside Hesham2
 
-fnames = ["Subject", "Subject_1", "Subject_2"]
+fnames = ["Subject_1", "Subject_2"]
 upload_and_save_pos_neg("Hesham2")
 model = train_for_live_test("Hesham2")
 
