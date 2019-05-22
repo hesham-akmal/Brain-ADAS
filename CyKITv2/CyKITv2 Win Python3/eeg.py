@@ -30,7 +30,7 @@ import winsound
 import numpy as np
 from pathlib import Path
 
-live_testing = False
+live_testing = True
 if(live_testing):
     from model_training_and_live_testing import *
 
@@ -1601,6 +1601,7 @@ class EEG(object):
                             self.pkts_num += 1
 
                             if(live_testing):
+                                EEGprob = 0
                                 #print('cyIO.visionThread.prop: ' , cyIO.visionThread.prop)
 
                                 #packet_formatted = airsim_data + packet_data + self.delimiter + y
@@ -1622,9 +1623,11 @@ class EEG(object):
                                     firstPacket = ''
                                     secondPacket = ''
 
-                                cyIO.CurrentPacket = 'X,' + counter_data + packet_data + self.delimiter + 'X,' + EEGprob + self.delimiter + str(cyIO.visionThread.prop)
+                                print('EEGprob: ' , EEGprob)
+                                print('cyIO.visionThread.prop: ' , cyIO.visionThread.prop)
+                                cyIO.CurrentPacket = 'X,' + counter_data + packet_data + self.delimiter + 'X,' + str(EEGprob) + self.delimiter + str(cyIO.visionThread.prop)
 
-                            else: #Training
+                            else: #Recording
                                 AdasPacket = cyIO.airsimClient.getAdasPacket()
                                 CarControls = cyIO.airsimClient.getCarControls()
                                 airsim_data = str(CarControls['brake']) + self.delimiter # + str(joy_y) + self.delimiter

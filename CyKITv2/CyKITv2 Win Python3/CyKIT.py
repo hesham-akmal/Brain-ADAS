@@ -58,6 +58,7 @@ import BADAS_fns
 BADAS_fns.SimConnectAndCheck()
 
 RunVision = True
+visionThread = None
 if(RunVision):
     os.chdir("../../CarDetection/YOLO and Distance")
     import DriverBADAS
