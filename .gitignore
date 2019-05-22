@@ -424,3 +424,5 @@ CarDetection/YOLO and Distance/chess/chess2/left13\.jpg
 CarDetection/YOLO and Distance/chess/chess2/left14\.jpg
 
 CarDetection/YOLO and Distance/chess/chessboard_corners\.png
+
+*.csv
