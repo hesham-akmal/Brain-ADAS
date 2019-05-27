@@ -1,12 +1,16 @@
 
 
+import plotly.plotly as py
+import plotly.graph_objs as go
+import plotly.figure_factory as ff
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import os
 import gc
 from sklearn import preprocessing
-
+import plotly 
+from plotly.offline import *
 
 def upload_file(fname):
     data = pd.read_csv("Our Dataset/" + fname,  index_col=False)
@@ -64,7 +68,7 @@ def negative_events(indices, newCols, y, data, electrodes):
             break
     return negDfs
 
-def upload_and_draw(folder, preprocess):
+def upload_and_draw(folder, preprocess, apply_filter):
     fnames = os.listdir("Our Dataset/"+folder)
     data = upload_file(folder + '/'+fnames[0])
     data = data.drop("COUNTER", axis = 1)
@@ -80,9 +84,12 @@ def upload_and_draw(folder, preprocess):
     posDfs.to_csv("Our Dataset/csv/"+folder+"pos.csv", index = False)
     negDfs = negative_events(indices, newCols, y, data, electrodes)
     negDfs.to_csv("Our Dataset/csv/"+folder+"neg.csv", index = False)
-    draw_signals(folder, posDfs, negDfs, preprocess)
+    #return posDfs, negDfs
+    if(apply_filter):
+        draw_signals_low_pass(folder, posDfs, negDfs)
+    else:
+        draw_signals(folder, posDfs, negDfs, preprocess)
 
-#run this block if you want to draw without preprocessing
 
 
 def draw_signals(subject, posDfs, negDfs, preprocess):
@@ -101,3 +108,76 @@ def draw_signals(subject, posDfs, negDfs, preprocess):
         plt.plot(meanNeg[i*192:i*192+192], label="Normal Driving")
         plt.legend()
         plt.show()
+        
+def mean_zero(array):
+    mean = np.mean(array)
+    for i in range(len(array)):
+        array[i] -= mean
+        
+def apply_filter(pos_interval, neg_interval):
+    fc = 0.02
+    b = 0.08
+    N = int(np.ceil((4 / b)))
+    if not N % 2: N += 1
+    n = np.arange(N)
+
+    sinc_func = np.sinc(2 * fc * (n - (N - 1) / 2.))
+    window = 0.42 - 0.5 * np.cos(2 * np.pi * n / (N - 1)) + 0.08 * np.cos(4 * np.pi * n / (N - 1))
+    sinc_func = sinc_func * window
+    sinc_func = sinc_func / np.sum(sinc_func)
+
+    s = list(pos_interval)
+    new_signal_pos = np.convolve(s, sinc_func)
+
+    #trace1 = go.Scatter(
+    #    x=list(range(len(s))),
+    #    y=new_signal,
+    #    mode='lines',
+    #    name='Braking Event',
+    #    marker=dict(
+    #        color='#C54C82'
+    #    )
+    #)
+
+    s = list(neg_interval)
+    new_signal_neg = np.convolve(s, sinc_func)
+
+    #trace2 = go.Scatter(
+    #    x=list(range(len(s))),
+    #    y=new_signal,
+    #    mode='lines',
+    #    name='Normal Driving',
+    #)
+
+
+    #layout = go.Layout(
+    #    title=title,
+    #    showlegend=True
+    #)
+
+    #trace_data = [trace1, trace2]
+    #fig = go.Figure(data=trace_data, layout=layout)
+  #py.iplot(fig, filename='fft-low-pass-filter')
+    #plotly.offline.plot(fig, filename='gauge-meter-chart.html')
+    return new_signal_pos, new_signal_neg
+        
+
+def draw_signals_low_pass(subject, posDfs, negDfs):
+    #plotly.tools.set_credentials_file(username='fatema4', api_key='cKM0lg5CtfIveNnvRSfH')
+    #plotly.tools.set_config_file(world_readable=True, sharing='public')
+    meanPos = np.mean(posDfs.drop("y", axis = 1)).values
+    meanNeg = np.mean(negDfs.drop("y", axis = 1)).values
+    mean_zero(meanPos)
+    mean_zero(meanNeg)
+    cols = list(posDfs)
+    for i in range(14):
+        name = cols[i*192].split('.')[0]
+        title = subject + ": " + name
+        new_signal_pos, new_signal_neg = apply_filter(meanPos[i*192:i*192+192], meanNeg[i*192:i*192+192])
+        plt.title(subject + ": " + name, fontsize=16, fontweight='bold')
+        plt.plot(new_signal_pos, label="Braking Event")
+        plt.plot(new_signal_neg, label="Normal Driving")
+        plt.axis('tight')
+        plt.legend()
+        plt.show()
+        #print("should be drawn")
