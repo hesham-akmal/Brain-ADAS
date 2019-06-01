@@ -68,7 +68,7 @@ def negative_events(indices, newCols, y, data, electrodes):
             break
     return negDfs
 
-def upload_and_draw(folder, preprocess, apply_filter):
+def upload_and_draw(folder, preprocess, apply_filter, fc):
     fnames = os.listdir("Our Dataset/"+folder)
     data = upload_file(folder + '/'+fnames[0])
     data = data.drop("COUNTER", axis = 1)
@@ -86,7 +86,7 @@ def upload_and_draw(folder, preprocess, apply_filter):
     negDfs.to_csv("Our Dataset/csv/"+folder+"neg.csv", index = False)
     #return posDfs, negDfs
     if(apply_filter):
-        draw_signals_low_pass(folder, posDfs, negDfs)
+        draw_signals_low_pass(folder, posDfs, negDfs, fc, preprocess)
     else:
         draw_signals(folder, posDfs, negDfs, preprocess)
 
@@ -114,8 +114,7 @@ def mean_zero(array):
     for i in range(len(array)):
         array[i] -= mean
         
-def apply_filter(pos_interval, neg_interval):
-    fc = 0.02
+def apply_filter(pos_interval, neg_interval, fc):
     b = 0.08
     N = int(np.ceil((4 / b)))
     if not N % 2: N += 1
@@ -162,21 +161,26 @@ def apply_filter(pos_interval, neg_interval):
     return new_signal_pos, new_signal_neg
         
 
-def draw_signals_low_pass(subject, posDfs, negDfs):
+def draw_signals_low_pass(subject, posDfs, negDfs, fc, preprocess):
     #plotly.tools.set_credentials_file(username='fatema4', api_key='cKM0lg5CtfIveNnvRSfH')
     #plotly.tools.set_config_file(world_readable=True, sharing='public')
-    meanPos = np.mean(posDfs.drop("y", axis = 1)).values
-    meanNeg = np.mean(negDfs.drop("y", axis = 1)).values
+    if(preprocess):
+        meanPos = preprocessing.scale(np.mean(posDfs.drop("y", axis = 1)))
+        meanNeg = preprocessing.scale(np.mean(negDfs.drop("y", axis = 1)))
+    else:
+        meanPos = np.mean(posDfs.drop("y", axis = 1)).values
+        meanNeg = np.mean(negDfs.drop("y", axis = 1)).values
     mean_zero(meanPos)
     mean_zero(meanNeg)
     cols = list(posDfs)
     for i in range(14):
         name = cols[i*192].split('.')[0]
         title = subject + ": " + name
-        new_signal_pos, new_signal_neg = apply_filter(meanPos[i*192:i*192+192], meanNeg[i*192:i*192+192])
+        new_signal_pos, new_signal_neg = apply_filter(meanPos[i*192:i*192+192], meanNeg[i*192:i*192+192], fc)
         plt.title(subject + ": " + name, fontsize=16, fontweight='bold')
-        plt.plot(new_signal_pos, label="Braking Event")
-        plt.plot(new_signal_neg, label="Normal Driving")
+        out_bound = int((new_signal_pos.shape[0] - 192)/2)
+        plt.plot(new_signal_pos[out_bound:new_signal_pos.shape[0]-out_bound], label="Braking Event")
+        plt.plot(new_signal_neg[out_bound:new_signal_pos.shape[0]-out_bound], label="Normal Driving")
         plt.axis('tight')
         plt.legend()
         plt.show()
