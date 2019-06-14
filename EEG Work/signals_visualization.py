@@ -110,9 +110,10 @@ def draw_signals(subject, posDfs, negDfs, preprocess):
         plt.show()
         
 def mean_zero(array):
-    mean = np.mean(array)
-    for i in range(len(array)):
-        array[i] -= mean
+    for i in range(14):
+        mean = np.mean(array[i*192:i*192+192])
+        for j in range(192):
+            array[i*192+j] -= mean
         
 def apply_filter(pos_interval, neg_interval, fc):
     b = 0.08
@@ -127,37 +128,8 @@ def apply_filter(pos_interval, neg_interval, fc):
 
     s = list(pos_interval)
     new_signal_pos = np.convolve(s, sinc_func)
-
-    #trace1 = go.Scatter(
-    #    x=list(range(len(s))),
-    #    y=new_signal,
-    #    mode='lines',
-    #    name='Braking Event',
-    #    marker=dict(
-    #        color='#C54C82'
-    #    )
-    #)
-
     s = list(neg_interval)
     new_signal_neg = np.convolve(s, sinc_func)
-
-    #trace2 = go.Scatter(
-    #    x=list(range(len(s))),
-    #    y=new_signal,
-    #    mode='lines',
-    #    name='Normal Driving',
-    #)
-
-
-    #layout = go.Layout(
-    #    title=title,
-    #    showlegend=True
-    #)
-
-    #trace_data = [trace1, trace2]
-    #fig = go.Figure(data=trace_data, layout=layout)
-  #py.iplot(fig, filename='fft-low-pass-filter')
-    #plotly.offline.plot(fig, filename='gauge-meter-chart.html')
     return new_signal_pos, new_signal_neg
         
 
@@ -170,6 +142,7 @@ def draw_signals_low_pass(subject, posDfs, negDfs, fc, preprocess):
     else:
         meanPos = np.mean(posDfs.drop("y", axis = 1)).values
         meanNeg = np.mean(negDfs.drop("y", axis = 1)).values
+        print(posDfs.columns)
     mean_zero(meanPos)
     mean_zero(meanNeg)
     cols = list(posDfs)
