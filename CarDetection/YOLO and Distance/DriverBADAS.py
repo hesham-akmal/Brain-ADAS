@@ -347,6 +347,13 @@ def LaneWarningControllerUpdate():
         WarningSnRunning = True
         threading.Thread(target=WarningSn).start()
 
+History_Dists = []
+def AvgLastDists(new_dist):
+    History_Dists.append(new_dist)
+    if(len(History_Dists) == 4 ):
+       History_Dists.pop(0)
+    return sum(History_Dists)/len(History_Dists)
+
 def BrakeDecide(new_dist):
     global BrakeStartTime
     global Braking
@@ -354,6 +361,8 @@ def BrakeDecide(new_dist):
     global last_dist
     global last_VDi
     global last_t
+
+    new_dist = AvgLastDists(new_dist)
     
     time_from_last_frame = time.time() - last_t
     RV =  ( last_dist - new_dist ) / time_from_last_frame
