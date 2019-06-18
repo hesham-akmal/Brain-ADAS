@@ -50,7 +50,7 @@ def positive_events(newCols, y, data, electrodes):
 
 def check_if_driver_brake(start_stim, data):
     for i in range(start_stim,start_stim+192):
-        if(data["Brake Pedal "][i] == 1):
+        if(data[data.columns[0]][i] == 1):
             return True
     return False
 
@@ -77,7 +77,8 @@ def upload_and_draw(folder, preprocess, apply_filter, fc):
         d = d.drop("COUNTER", axis = 1)
         data = data.append(d, ignore_index=True)
         print(fnames[i])
-    electrodes = data.columns.drop(["Brake Pedal ", "y"])
+    brake_col = data.columns[0]
+    electrodes = data.columns.drop([data.columns[0], "y"])
     newCols = make_columns_drawing(electrodes)
     y = data["y"]
     posDfs, indices = positive_events(newCols, y, data, electrodes)
