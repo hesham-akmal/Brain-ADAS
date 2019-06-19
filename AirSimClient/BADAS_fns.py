@@ -24,9 +24,10 @@ import os
 
 import airsim
 
-################################################################################################################################################################################
-################################################################################################################################################################################
+from threading import Lock, Thread
+Tornado_lock = Lock()
 
+################################################################################################################################################################################
 #client = airsim.CarClient()
 
 def Find_BADAS_ClientNormal():
@@ -122,7 +123,6 @@ class Haptic:
     def stop_haptic(self):
         sdl2.SDL_HapticStopAll(self.haptic)
 
-import time
 h = Haptic()
 
 def BeepAlertStart():
@@ -130,25 +130,39 @@ def BeepAlertStart():
         winsound.Beep(500, 100)
         
 def StartFullBrake():
+    global h
+
+    Tornado_lock.acquire()
     client.setBrakeInput(1)
+    Tornado_lock.release()
+
     threading.Thread(target=BeepAlertStart).start()
+    if(h is not None):
+        h.start_haptic(5) # Start Steering wheel Haptic
 
 def StopBrake():
+    global h
+
+    Tornado_lock.acquire()
     client.setBrakeInput(0)
+    Tornado_lock.release()
+
+    if(h is not None):
+        h.stop_haptic()
         
 # Overrides brake control and brakes until speed is less than 1        
 def EmergencyBrake_TillCarStop():
-    h.start_haptic(5) # Start Steering wheel Haptic
+    if(h is not None):
+        h.start_haptic(5) # Start Steering wheel Haptic
     StartFullBrake()
     
-#     Keep brakes on till car speed almost zero
+#   Keep brakes on till car speed almost zero
     while(client.getCarState().speed > 1):
         time.sleep(0.1)
     
     StopBrake()
-    h.stop_haptic()
-
-
+    if(h is not None):
+        h.stop_haptic()
 
 ##Change Airsim Img Res
 from shutil import copy2
@@ -168,7 +182,9 @@ def SetSimImgRes(resoW,resoH):
         
 import cv2
 def GetSimImg():
+    Tornado_lock.acquire()
     responses = client.simGetImages([ airsim.ImageRequest("0", airsim.ImageType.Scene, False, False) ])
+    Tornado_lock.release()
     response = responses[0]
     img1d = np.fromstring(response.image_data_uint8, dtype=np.uint8) 
     img = img1d.reshape(response.height, response.width, 4)  
@@ -178,3 +194,9 @@ def SimConnectAndCheck():
     Find_BADAS_Client()
     time.sleep(0.5)
     client.confirmConnection()
+
+def GetSuvVel():
+    Tornado_lock.acquire()
+    veh = client.getCarState().speed
+    Tornado_lock.release()
+    return veh
