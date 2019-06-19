@@ -298,10 +298,16 @@ import time
 # To play sounds
 import winsound
 
+#pip install pyserial
+import serial
+import array
+
 last_t = time.time()
 last_dist = 0
 last_RV = 0
 last_VDi = 0
+
+avgd_dist = 0
 
 Braking = False
 BrakeStartTime = time.time()
@@ -316,12 +322,15 @@ def Brake3Secs():
     Braking = True
     BADAS_fns.StartFullBrake()
     time.sleep(3)
-    Braking = False
     BADAS_fns.StopBrake()
+    Braking = False
 
-def BrakeSystemUpdate(new_dist,CurTime,BrakeStartTime):
+def BrakeSystemUpdate():
     global Braking
-    if(Braking and (new_dist > 15 or CurTime - BrakeStartTime > 0.5) ):
+    global avgd_dist
+    global BrakeStartTime
+#     print('WarningSn::veh_speed',veh_speed , flush=True)
+    if(Braking and (avgd_dist > 15 or time.time() - BrakeStartTime > 1) ):
         print('StopBrake')
         BADAS_fns.StopBrake()
         Braking = False
@@ -334,7 +343,6 @@ def WarningSn():
     global WarningSnRunning
     global veh_speed
     while(inlane):
-        print('veh_speed',veh_speed)
         if(veh_speed > 5 and Braking == False):
             winsound.Beep(300, 800)
         time.sleep(0.5)
@@ -347,25 +355,36 @@ def LaneWarningControllerUpdate():
         WarningSnRunning = True
         threading.Thread(target=WarningSn).start()
 
+def EmergencyEventSeq():
+    global Braking
+    global BrakeStartTime
+    if(Braking != True):
+        Braking = True
+        print('StartBrake')
+        BADAS_fns.StartFullBrake()
+        BrakeStartTime = time.time()
+
 History_Dists = []
 def AvgLastDists(new_dist):
+    global History_Dists
     History_Dists.append(new_dist)
     if(len(History_Dists) == 4 ):
-       History_Dists.pop(0)
+        History_Dists.pop(0)
     return sum(History_Dists)/len(History_Dists)
 
+#recent_dist
 def BrakeDecide(new_dist):
-    global BrakeStartTime
-    global Braking
+    global tiva_send
     global last_RV
     global last_dist
     global last_VDi
     global last_t
-
-    new_dist = AvgLastDists(new_dist)
+    global avgd_dist
+    
+    avgd_dist = AvgLastDists(new_dist)
     
     time_from_last_frame = time.time() - last_t
-    RV =  ( last_dist - new_dist ) / time_from_last_frame
+    RV =  ( last_dist - avgd_dist ) / time_from_last_frame
     RA = -( last_RV - RV) / time_from_last_frame
     
     VDi = veh_speed #BADAS_fns.client.getCarState().speed
@@ -375,7 +394,7 @@ def BrakeDecide(new_dist):
     
     ###Set last frame vals
     last_t = time.time()
-    last_dist = new_dist
+    last_dist = avgd_dist
     last_RV = RV
     last_VDi = VDi
     
@@ -391,7 +410,8 @@ def BrakeDecide(new_dist):
         else:
             do = -(VOi * VOi) / (2 * AO)
 
-#     print('\ndistance = ' , new_dist )
+#     print('\nnew_dist = ' , new_dist )
+#     print('\navgd_dist = ' , avgd_dist )
 #     print('time_from_last_frame = ' , time_from_last_frame )
 #     print('RV = ' , RV )
 #     print('RA = ' , RA )
@@ -402,19 +422,23 @@ def BrakeDecide(new_dist):
 #     print('ds = ' , ds )
 #     print('ts = ' , ts )
 #     print('do = ' , do )
-#     print('(new_dist + do) - ds = ' , (new_dist + do) - ds )
+#     print('(avgd_dist + do) - ds = ' , (avgd_dist + do) - ds )
     
     min_safe_dist = 8
-    X = (new_dist + do) - ds
+    X = (avgd_dist + do) - ds
     
     if( X <= 0 ):
-        prob = 1
+        VISIONprob = 1
     elif( X >= min_safe_dist ):
-        prob = 0
+        VISIONprob = 0
     else:
-        prob = scale(X , [0,min_safe_dist] , [1,0])
+        VISIONprob = scale(X , [0,min_safe_dist] , [1,0])
     
     return prob
+    
+#     CalypsoReceive(1) #timeout of 1 sec to receive result
+    #if( VISIONprob > 0.5 ):
+    #    TEMPTIME = time.time()
 
 ##################################################################################################################################################################
 
@@ -443,7 +467,7 @@ def EstimateDistance():
     t1 = t3
     
     global veh_speed
-    veh_speed = BADAS_fns.client.getCarState().speed
+    veh_speed = BADAS_fns.GetSuvVel()
     
     try:
         img = BADAS_fns.GetSimImg()
@@ -513,7 +537,7 @@ def EstimateDistance():
             #paste yolo img on lane img
             img[0:pred.shape[0] , 146:146 + pred.shape[1]] = pred
             #img = pred
-			
+    
             distance = str(round_float(float_dist))+"m"
 #             if(EmergencyBool):
 #                 cv2.putText(img, "EMERGENCY",(cx-60+146, cy-60), font, fontScale,fontColor, lineType)
@@ -530,20 +554,19 @@ def EstimateDistance():
         print('FrameEnd\n')
         
     return prob
-	
-	
+
 class VisionThread(threading.Thread):
 
     def __init__(self, BADAS_fns_param):
         super().__init__()
-        self.prop = 0
+        self.prob = 0
         global BADAS_fns
         BADAS_fns = BADAS_fns_param
         return
 
     def run(self):
         while(True):
-            self.prop = EstimateDistance()
+            self.prob = EstimateDistance()
         return
     
     def stop(self):
