@@ -31,7 +31,7 @@ import numpy as np
 from pathlib import Path
 
 CalypsoReceive_BADASbool = True
-live_testing = False
+live_testing_BADASbool = False
 if(live_testing_BADASbool):
     from model_training_and_live_testing import *
 
