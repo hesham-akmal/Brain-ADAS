@@ -57,16 +57,18 @@ import BADAS_fns
 
 BADAS_fns.SimConnectAndCheck()
 
-RunVision = True
+RunVision_BADASbool = False
+
+DriverBADAS = None
 visionThread = None
-if(RunVision):
+if(RunVision_BADASbool):
     os.chdir("../../CarDetection/YOLO and Distance")
     import DriverBADAS
     visionThread = DriverBADAS.VisionThread(BADAS_fns)
     visionThread.start()
     os.chdir("../../CyKITv2/CyKITv2 Win Python3")
 
-cy_IO = eeg.ControllerIO(BADAS_fns.client , visionThread)
+cy_IO = eeg.ControllerIO(BADAS_fns.client , visionThread , DriverBADAS)
 
 def main(CyINIT):
 
