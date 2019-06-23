@@ -40,6 +40,16 @@ def Find_BADAS_Client(): #Thread
 #Feedback Haptic effects
 import sdl2 #Local sdl2 dir which is a wrapper to SDL2.dll
 
+sdl2.SDL_Init(sdl2.SDL_INIT_JOYSTICK)
+joystick = sdl2.SDL_JoystickOpen(0)
+
+def getBrakeVal():
+    sdl2.SDL_PumpEvents()
+    joy_y = sdl2.SDL_JoystickGetAxis(joystick, 1) 
+    joy_y = (joy_y / 32767)
+    if(joy_y < 0.001):
+        joy_y=0
+    return joy_y
 
 class Haptic:
 

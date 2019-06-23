@@ -29,16 +29,21 @@ import traceback
 import winsound
 import numpy as np
 from pathlib import Path
+import serial
 
-CalypsoReceive_BADASbool = True
-live_testing_BADASbool = False
+CalypsoReceive_BADASbool = False
+live_testing_BADASbool = True
 if(live_testing_BADASbool):
+    print('training eeg data start')
     from model_training_and_live_testing import *
+    print('training eeg data finished')
 
 #  Import C functions for Bluetooth.
 # ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
 from ctypes import *
 from ctypes.wintypes import HANDLE, ULONG, DWORD, USHORT
+
+ 
 
 ##############################################################
 
@@ -187,7 +192,7 @@ class ControllerIO():
     
     #  Initialize at thread creation.
     # ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-    def __init__(self, AC, VT, DB):
+    def __init__(self, BADAS_fns, VT, DB):
         global BTLE_device_name
         BTLE_device_name = ""
         self.integer = False
@@ -216,7 +221,8 @@ class ControllerIO():
         self.setInfo("recording","False")
         self.CurrentPacket = 'x'
         self.mode = ''
-        self.airsimClient = AC
+        self.BADAS_fns = BADAS_fns
+        self.airsimClient = BADAS_fns.client
         self.visionThread = VT
         self.DriverBADAS = DB
 
@@ -774,6 +780,9 @@ class EEG(object):
     def __init__(self, model, io, config):
         ##################################################################################################################################################################
         #Opening Two Tivas Serials #BADAS
+        self.tiva_receive = None
+        self.tiva_send = None
+
         if(CalypsoReceive_BADASbool):
             try:
                 self.tiva_receive = serial.Serial('COM11', 115200, timeout=0, parity=serial.PARITY_NONE, rtscts=1)
@@ -967,7 +976,7 @@ class EEG(object):
                     self.cyIO.DriverBADAS.EmergencyEventSeq()
                     #EmergencyEventSeq()
                 elif("data=0x00" in line):
-                    print('CalypsoReceiveLoop::No Brake')
+                    #print('CalypsoReceiveLoop::No Brake')
                     self.cyIO.DriverBADAS.BrakeSystemUpdate()
                     #BrakeSystemUpdate()
             time.sleep(0.01)
@@ -981,7 +990,7 @@ class EEG(object):
         #############################################
         #BADAS
         if(CalypsoReceive_BADASbool):
-            #Run loop receiving from calypso in thread
+            #Run loop receiving from calypso in threadstick
             threading.Thread(target=self.CalypsoReceiveLoop).start()
             print('self.CalypsoReceiveLoop.start()')
 
@@ -989,7 +998,6 @@ class EEG(object):
             if 'eegThread' == t.getName():
                 return self.cyIO
                 self.thread_1.start()
-                
         
         self.thread_1.start()
         return self.cyIO
@@ -1640,18 +1648,14 @@ class EEG(object):
                             packet_data = packet_data[:-len(self.delimiter)]
 
                             ####### HW PEDAL VALS
-                            #sdl2.SDL_PumpEvents()
-                            #joy_y = sdl2.SDL_JoystickGetAxis(joystick, 1) 
-                            #joy_y = (joy_y / 32767)
-                            #if(joy_y < 0.001):
-                            #    joy_y=0
+                            PedalBrakeValue = str(self.cyIO.BADAS_fns.getBrakeVal())
                             ############
+
                             self.pkts_num += 1
 
                             if(live_testing_BADASbool):
                                 EEGprob = 0.0
                                 #print('cyIO.visionThread.prob: ' , cyIO.visionThread.prob)
-
                                 #packet_formatted = airsim_data + packet_data + self.delimiter + y
                                 #packet_formatted = packet_formatted.split(',') 
                                 if (packetIndex < 64):
@@ -1675,40 +1679,42 @@ class EEG(object):
                                 if(CalypsoReceive_BADASbool): # Calypso Testing
                                     #Transfer probabilities to Calypso
                                     if(cyIO.DriverBADAS != None): #Vision thread running 
-                                        toSend = str((cyIO.visionThread.prob)*100) + '\n' + str(EEGprob*100) + '\n50\n50\n'
+                                        toSend = str((cyIO.visionThread.prob)*100) + '\n' + str(EEGprob*100) + '\n100\n0\n'
                                     else: #No vision thread running ( Only EEG prediction )
                                         toSend = '0\n' + str(EEGprob*100) + '\n0\n100\n'
                                     b = bytearray()
                                     b.extend(map(ord,toSend))
-                                    self.tiva_send.write(toSend.encode('ascii'))
+                                    #self.tiva_send.write(toSend.encode('ascii'))
                                 ##################################################
                                 else: # Without Calypso | Unaccurate simulation of decision algo
 
                                     if(cyIO.DriverBADAS != None): #Vision thread running 
-                                        if( (cyIO.visionThread.prob + EEGprob)/2 > 0.5 ):
-                                            print('Simulation of calypso algo + EEG and No vision :: Brake')
+                                        EEGprob = 0
+                                        print('cyIO.visionThread.prob ' , cyIO.visionThread.prob)
+                                        if( (cyIO.visionThread.prob + EEGprob)/2 >= 0.5 ):
+                                            print('Simulation of calypso algo :: Brake')
                                             self.cyIO.DriverBADAS.EmergencyEventSeq()
                                         else:
-                                            print('Simulation of calypso algo + EEG and No vision :: No Brake')
+                                            #print('Simulation of calypso algo :: No Brake')
                                             self.cyIO.DriverBADAS.BrakeSystemUpdate()
 
                                     else: #No vision thread running ( Only EEG prediction )
                                         if( EEGprob > 0.5 ):
-                                            print('Simulation of calypso algo + EEG and vision :: Brake')
+                                            print('Simulation of calypso algo | No vision :: Brake')
                                             self.cyIO.DriverBADAS.EmergencyEventSeq()
                                         else:
-                                            print('Simulation of calypso algo + EEG and vision :: No Brake')
+                                            #print('Simulation of calypso algo | No vision :: No Brake')
                                             self.cyIO.DriverBADAS.BrakeSystemUpdate()
                                 ##################################################
 
-                                print('EEGprob: ' , EEGprob)
-                                print('cyIO.visionThread.prob: ' , cyIO.visionThread.prob)
-                                cyIO.CurrentPacket = 'X,' + counter_data + packet_data + self.delimiter + 'X,' + str(EEGprob) + self.delimiter + str(cyIO.visionThread.prob)
+                                #print('EEGprob: ' , EEGprob)
+                                #print('cyIO.visionThread.prob: ' , cyIO.visionThread.prob)
+                                cyIO.CurrentPacket = PedalBrakeValue + self.delimiter + counter_data + packet_data + self.delimiter + 'X,' + str(EEGprob) + self.delimiter + str(cyIO.visionThread.prob)
 
                             else: # Recording
                                 AdasPacket = cyIO.airsimClient.getAdasPacket()
-                                CarControls = cyIO.airsimClient.getCarControls()
-                                airsim_data = str(CarControls['brake']) + self.delimiter
+                                #CarControls = cyIO.airsimClient.getCarControls()
+                                #airsim_data = str(CarControls['brake'])  + self.delimiter
 
                                 #AdasPacket[0]: car event num
                                 #AdasPacket[1]: car distance
@@ -1732,7 +1738,7 @@ class EEG(object):
                                 else:
                                     y = '?'
 
-                                cyIO.CurrentPacket = airsim_data + counter_data + packet_data + self.delimiter + y
+                                cyIO.CurrentPacket = PedalBrakeValue + self.delimiter + counter_data + packet_data + self.delimiter + y
 
                             #print(cyIO.CurrentPacket)
                             if cyIO.isRecording() == True:

@@ -57,7 +57,7 @@ import BADAS_fns
 
 BADAS_fns.SimConnectAndCheck()
 
-RunVision_BADASbool = False
+RunVision_BADASbool = True
 
 DriverBADAS = None
 visionThread = None
@@ -68,7 +68,7 @@ if(RunVision_BADASbool):
     visionThread.start()
     os.chdir("../../CyKITv2/CyKITv2 Win Python3")
 
-cy_IO = eeg.ControllerIO(BADAS_fns.client , visionThread , DriverBADAS)
+cy_IO = eeg.ControllerIO(BADAS_fns , visionThread , DriverBADAS)
 
 def main(CyINIT):
 

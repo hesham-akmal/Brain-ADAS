@@ -31,6 +31,9 @@ import vanishing_point
 #import utilities
 import perspective_transform
 
+import warnings
+warnings.filterwarnings("ignore") #Not recommended
+
 # YOLO code to be run only once ########################################################################################
 
 #Driver values
@@ -69,7 +72,8 @@ classes = load_classes("data/coco.names")
 print("Loading network.....")
 model = Darknet(cfg_file)
 model.load_weights(weights_file)
-print("Network successfully loaded")
+print("Yolo Network successfully loaded")
+print("DriverBADAS loading")
 
 model.net_info["height"] = reso
 inp_dim = int(model.net_info["height"])
@@ -433,8 +437,8 @@ def BrakeDecide(new_dist):
         VISIONprob = 0
     else:
         VISIONprob = scale(X , [0,min_safe_dist] , [1,0])
-    
-    return prob
+
+    return VISIONprob
     
 #     CalypsoReceive(1) #timeout of 1 sec to receive result
     #if( VISIONprob > 0.5 ):
@@ -458,11 +462,13 @@ lineType               = 2
 img = cv2.imread('imgs/noshade1200x500.JPG')
 H, x_pixels_per_meter, y_pixels_per_meter = driver_perspective_transform(img, False)
 
+print("DriverBADAS successfully loaded")
+
 drawDebug = False
 printDebug = False
 
 def EstimateDistance():
-    prob = -1
+    prob = 0
     t3 = time.time()
     t1 = t3
     
@@ -505,8 +511,6 @@ def EstimateDistance():
         if(drawDebug):
             show_images([cv2.cvtColor(pred, cv2.COLOR_BGR2RGB)])
     except Exception as e:
-        print('YException ')
-        print(e)
         return prob
     
     t1 = time.time()
