@@ -63,7 +63,7 @@ def positive_events(newCols, y, data, electrodes):
 
 def check_if_driver_brake(start_stim, data):
     for i in range(start_stim,start_stim+192):
-        if(data["Brake Pedal"][i] == 1):
+        if(data["Brake Pedal " ][i] == 1):
             return True
     return False
 
@@ -111,7 +111,7 @@ def upload_and_save_pos_neg(folder):
         d = upload_file(folder + "/" + f)
         d = d.drop("COUNTER", axis = 1)
         data = data.append(d, ignore_index=True)
-    electrodes = data.columns.drop(["Brake Pedal", "y"])
+    electrodes = data.columns.drop(["Brake Pedal ", "y"])
     newCols = make_all_columns(electrodes)
     y = data["y"]
     posDfs, indices = positive_events(newCols, y, data, electrodes)
@@ -212,16 +212,18 @@ def time_intervals_features_test(packets, interval, numOfCols):
     
 def live_test(packets): #listen to me
  
+    t = time.time()
     test_packets = convert_to_row_test(packets)
 
-
+    t = time.time()
     mean_features_packets = time_intervals_features_test(test_packets, interval=64, numOfCols=32)
     
+    t = time.time()
     mean_features_packets = np.nan_to_num(mean_features_packets)
 
-    #y_predict = model.predict(mean_features_packets.reshape(1, -1))
-
-    y_predict = model.predict_proba(mean_features_packets.reshape(1, -1))[0][1]
+    t = time.time()
+    y_predict = model.predict(mean_features_packets.reshape(1, -1))
+    
 
     return y_predict
 
@@ -246,9 +248,9 @@ colsTest = make_all_columns_test(electrodes)
 #2-make another directory inide our dataset, and call it Hesham2
 #3-put all csv files inside Hesham2
 
-fnames = ["Subject_1", "Subject_2"]
-upload_and_save_pos_neg("Hesham2")
-model = train_for_live_test("Hesham2")
+fnames = [ "Subject_1", "Subject_2"]
+upload_and_save_pos_neg("wagih6")
+model = train_for_live_test("wagih6")
 
 
 
