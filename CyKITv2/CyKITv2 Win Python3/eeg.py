@@ -1653,6 +1653,32 @@ class EEG(object):
 
                             self.pkts_num += 1
 
+                            if(cyIO.DriverBADAS == None):
+                                AdasPacket = cyIO.airsimClient.getAdasPacket()
+                                #AdasPacket[0]: car event num
+                                #AdasPacket[1]: car distance
+                                #AdasPacket[2]: ped event num
+                                #AdasPacket[3]: pedestrian distance
+                                y = '0'
+                                if AdasPacket[0] == 0 and AdasPacket[2] == 0:
+                                    y = '0'
+                                elif AdasPacket[0] == 1 and AdasPacket[2] == 0:
+                                    y = '1'
+                                elif AdasPacket[0] == 0 and AdasPacket[2] == 1:
+                                    y = '2'
+                                elif AdasPacket[0] == 0 and AdasPacket[2] == 2:
+                                    y = '3'
+                                elif AdasPacket[0] == 0 and AdasPacket[2] == 3:
+                                    y = '4'
+                                elif AdasPacket[0] == 1 and AdasPacket[2] == 1:
+                                    y = '5'
+                                elif AdasPacket[0] == -1 and AdasPacket[2] == -1:
+                                    y = '-1'
+                                else:
+                                    y = '?'
+                            else:
+                                 y = 'X'
+
                             if(live_testing_BADASbool):
                                 EEGprob = 0.0
                                 #print('cyIO.visionThread.prob: ' , cyIO.visionThread.prob)
@@ -1682,15 +1708,13 @@ class EEG(object):
                                         toSend = str((cyIO.visionThread.prob)*100) + '\n' + str(EEGprob*100) + '\n100\n0\n'
                                     else: #No vision thread running ( Only EEG prediction )
                                         toSend = '0\n' + str(EEGprob*100) + '\n0\n100\n'
-                                    b = bytearray()
-                                    b.extend(map(ord,toSend))
                                     #self.tiva_send.write(toSend.encode('ascii'))
                                 ##################################################
                                 else: # Without Calypso | Unaccurate simulation of decision algo
 
                                     if(cyIO.DriverBADAS != None): #Vision thread running 
                                         EEGprob = 0
-                                        print('cyIO.visionThread.prob ' , cyIO.visionThread.prob)
+                                        #print('cyIO.visionThread.prob ' , cyIO.visionThread.prob)
                                         if( (cyIO.visionThread.prob + EEGprob)/2 >= 0.5 ):
                                             print('Simulation of calypso algo :: Brake')
                                             self.cyIO.DriverBADAS.EmergencyEventSeq()
@@ -1700,44 +1724,23 @@ class EEG(object):
 
                                     else: #No vision thread running ( Only EEG prediction )
                                         if( EEGprob > 0.5 ):
-                                            print('Simulation of calypso algo | No vision :: Brake')
-                                            self.cyIO.DriverBADAS.EmergencyEventSeq()
+                                            a=0 #meaningless line
+                                            #print('Simulation of calypso algo | No vision :: Brake')
+                                            #self.cyIO.DriverBADAS.EmergencyEventSeq() Cant run this bcz DriverBADAS is null
                                         else:
+                                            a=0 #meaningless line
                                             #print('Simulation of calypso algo | No vision :: No Brake')
-                                            self.cyIO.DriverBADAS.BrakeSystemUpdate()
+                                            #self.cyIO.DriverBADAS.BrakeSystemUpdate()
                                 ##################################################
-
                                 #print('EEGprob: ' , EEGprob)
                                 #print('cyIO.visionThread.prob: ' , cyIO.visionThread.prob)
-                                cyIO.CurrentPacket = PedalBrakeValue + self.delimiter + counter_data + packet_data + self.delimiter + 'X,' + str(EEGprob) + self.delimiter + str(cyIO.visionThread.prob)
+
+                                if(cyIO.DriverBADAS != None): #Vision thread running
+                                    cyIO.CurrentPacket = PedalBrakeValue + self.delimiter + counter_data + packet_data + self.delimiter + y + self.delimiter + str(EEGprob) + self.delimiter + str(cyIO.visionThread.prob)
+                                else:    
+                                    cyIO.CurrentPacket = PedalBrakeValue + self.delimiter + counter_data + packet_data + self.delimiter + y + self.delimiter + str(EEGprob) + self.delimiter + 'X'
 
                             else: # Recording
-                                AdasPacket = cyIO.airsimClient.getAdasPacket()
-                                #CarControls = cyIO.airsimClient.getCarControls()
-                                #airsim_data = str(CarControls['brake'])  + self.delimiter
-
-                                #AdasPacket[0]: car event num
-                                #AdasPacket[1]: car distance
-                                #AdasPacket[2]: ped event num
-                                #AdasPacket[3]: pedestrian distance
-                                y = '0'
-                                if AdasPacket[0] == 0 and AdasPacket[2] == 0:
-                                    y = '0'
-                                elif AdasPacket[0] == 1 and AdasPacket[2] == 0:
-                                    y = '1'
-                                elif AdasPacket[0] == 0 and AdasPacket[2] == 1:
-                                    y = '2'
-                                elif AdasPacket[0] == 0 and AdasPacket[2] == 2:
-                                    y = '3'
-                                elif AdasPacket[0] == 0 and AdasPacket[2] == 3:
-                                    y = '4'
-                                elif AdasPacket[0] == 1 and AdasPacket[2] == 1:
-                                    y = '5'
-                                elif AdasPacket[0] == -1 and AdasPacket[2] == -1:
-                                    y = '-1'
-                                else:
-                                    y = '?'
-
                                 cyIO.CurrentPacket = PedalBrakeValue + self.delimiter + counter_data + packet_data + self.delimiter + y
 
                             #print(cyIO.CurrentPacket)
