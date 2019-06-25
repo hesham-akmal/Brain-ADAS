@@ -797,7 +797,8 @@ def DataCallback(EventOutParameter):
 
 
 class EEG(object):
-
+    #interval has to be changed in model_training_and_live_testing as well
+    INTERVAL = int(93.75*192/1500)
     def __init__(self, model, io, config):
         ##################################################################################################################################################################
         #Opening Two Tivas Serials #BADAS
@@ -1541,7 +1542,7 @@ class EEG(object):
                 secondPacket = ''
                 #sixtyFourPackets = pd.DataFrame(columns = ['Brake Pedal', 'F3', 'FC5', 'AF3', 'F7', 'T7', 'P7', 'O1', 'O2', 'P8', 'T8', 'F8', 'AF4', 'FC6', 'F4', 'y'])
                 packetIndex = 0
-                testPackets = np.zeros((64, 14), dtype=np.float64)
+                testPackets = np.zeros((INTERVAL, 14), dtype=np.float64)
             while not tasks.empty() and self.running == True:
                 time.sleep(0)
 
@@ -1701,7 +1702,7 @@ class EEG(object):
                                 #print('cyIO.visionThread.prob: ' , cyIO.visionThread.prob)
                                 #packet_formatted = airsim_data + packet_data + self.delimiter + y
                                 #packet_formatted = packet_formatted.split(',') 
-                                if (packetIndex < 64):
+                                if (packetIndex < INTERVAL):
                                     testPackets[packetIndex] = [float(x) for x in packet_data.split(',')]
                                     packetIndex += 1
                                 elif (firstPacket == ''):
@@ -1714,7 +1715,7 @@ class EEG(object):
                                     #print(testPackets.dtype)
                                     testPackets = np.append(testPackets, [firstPacket], axis=0)
                                     testPackets = np.append(testPackets, [secondPacket], axis=0)
-                                    EEGprob = live_test(testPackets)
+                                    EEGprob = live_test(testPackets)[1]
                                     firstPacket = ''
                                     secondPacket = ''
 

@@ -226,7 +226,7 @@ def live_test(packets): #listen to me
     y_predict = model.predict_proba(mean_features_packets.reshape(1, -1))[1]
     
 
-    return y_predict
+    return mean_features_packets, y_predict
 
 # In[16]:
 
@@ -236,7 +236,7 @@ electrodes = ['F3', ' FC5', ' AF3', ' F7', ' T7', ' P7', ' O1', ' O2', ' P8', ' 
 
 
 # In[17]:
-INTERVAL=93.75*192/1500
+INTERVAL= int(93.75*192/1500)
 newCols = make_all_columns(electrodes)
 electrodes =['F3', 'FC5', 'AF3', 'F7', 'T7', 'P7', 'O1', 'O2', 'P8', 'T8',
        'F8', 'AF4', 'FC6', 'F4']
