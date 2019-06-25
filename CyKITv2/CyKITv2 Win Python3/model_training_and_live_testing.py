@@ -30,10 +30,10 @@ def make_all_columns(electrodes):
     newCols.append('y')
     return newCols
 
-def make_all_columns_test(electrodes):
+def make_all_columns_test(electrodes, INTERVAL):
     newCols = []
     for col in electrodes:
-        for i in range(64):
+        for i in range(INTERVAL):
             newCols.append(col + '.' + str(i))
     
     return newCols
@@ -94,10 +94,10 @@ def convert_to_row(start, label, electrodes, data):
     row += [label]
     return row
 
-def convert_to_row_test(data):
-    row = np.zeros(64*14, dtype=np.float64)
+def convert_to_row_test(data, INTERVAL):
+    row = np.zeros(INTERVAL*14, dtype=np.float64)
     for i in range(14):
-        row[i*64:i*64+64] = data[:,i]
+        row[i*INTERVAL:i*INTERVAL+INTERVAL] = data[:,i]
     #print(row)
     return row
 
@@ -172,13 +172,13 @@ def time_intervals_features(pos, neg, interval, numOfCols):
 
 # In[27]:
 
-def train_for_live_test(f):
+def train_for_live_test(f, INTERVAL):
     LDAClassifier = LinearDiscriminantAnalysis()
     pos, neg = upload_pos_neg(f)
-    dropCols = get_drop_cols(12*6)
+    dropCols = get_drop_cols(INTERVAL)
     pos = pos.drop(dropCols, axis = 1)
     neg = neg.drop(dropCols, axis = 1)
-    mean_features_pos, mean_features_neg = time_intervals_features(pos, neg, 12*6, 32)
+    mean_features_pos, mean_features_neg = time_intervals_features(pos, neg, INTERVAL, int(INTERVAL/2))
     mean_features_pos['y'] = 1
     mean_features_neg['y'] = 0
     all_data = mean_features_pos.append(mean_features_neg)
@@ -189,7 +189,7 @@ def train_for_live_test(f):
     X_test = np.nan_to_num(X_test)
     LDAClassifier.fit(X_train, y_train)
     y_predict = LDAClassifier.predict(X_test)
-    print(str(500) + "ms")
+    print(str(INTERVAL*1500/192) + "ms")
     print(classification_report(y_test, y_predict))
     fpr, tpr, thresholds = metrics.roc_curve(y_test, y_predict)
     acc_auc = metrics.auc(fpr, tpr)
@@ -211,18 +211,19 @@ def time_intervals_features_test(packets, interval, numOfCols):
     return mean_features_packets
     
 def live_test(packets): #listen to me
+    INTERVAL = len(packets)
  
     t = time.time()
-    test_packets = convert_to_row_test(packets)
+    test_packets = convert_to_row_test(packets, INTERVAL)
 
     t = time.time()
-    mean_features_packets = time_intervals_features_test(test_packets, interval=64, numOfCols=32)
+    mean_features_packets = time_intervals_features_test(test_packets, interval=INTERVAL, numOfCols=int(INTERVAL/2))
     
     t = time.time()
     mean_features_packets = np.nan_to_num(mean_features_packets)
 
     t = time.time()
-    y_predict = model.predict(mean_features_packets.reshape(1, -1))
+    y_predict = model.predict_proba(mean_features_packets.reshape(1, -1))[1]
     
 
     return y_predict
@@ -235,11 +236,11 @@ electrodes = ['F3', ' FC5', ' AF3', ' F7', ' T7', ' P7', ' O1', ' O2', ' P8', ' 
 
 
 # In[17]:
-
+INTERVAL=93.75*192/1500
 newCols = make_all_columns(electrodes)
 electrodes =['F3', 'FC5', 'AF3', 'F7', 'T7', 'P7', 'O1', 'O2', 'P8', 'T8',
        'F8', 'AF4', 'FC6', 'F4']
-colsTest = make_all_columns_test(electrodes)
+colsTest = make_all_columns_test(electrodes, INTERVAL)
 
 
 # In[18]:
@@ -250,7 +251,7 @@ colsTest = make_all_columns_test(electrodes)
 
 fnames = [ "Subject_1", "Subject_2"]
 upload_and_save_pos_neg("wagih6")
-model = train_for_live_test("wagih6")
+model = train_for_live_test("wagih6", INTERVAL)
 
 
 
