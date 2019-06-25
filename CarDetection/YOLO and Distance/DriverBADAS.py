@@ -272,7 +272,7 @@ def get_lane_image(img, ratio, debug=False):
     left_lane_lines, right_lane_lines = lane_detection.get_lane_lines(lines, base_left_m, base_left_c, base_right_m,
                                                                       base_right_c, max_m_diff, max_c_diff)
     if(len(left_lane_lines)==0 or len(right_lane_lines)==0):
-        inlane = True
+        outOfLane = True
         cv2.putText(test_img,
             "Not inside lane",
             (int(width/2-150), 50), 
@@ -281,7 +281,7 @@ def get_lane_image(img, ratio, debug=False):
             fontColor,
             lineType)
     else:
-        inlane = False
+        outOfLane = False
         left_lane_line, right_lane_line = get_lines_mean(left_lane_lines), get_lines_mean(right_lane_lines)
         low_y, high_y = height-1, int(height * 0.6)
         left_low, left_high = (int((low_y-left_lane_line[1])/left_lane_line[0]), low_y),\
@@ -291,7 +291,7 @@ def get_lane_image(img, ratio, debug=False):
         cv2.line(test_img, tuple(left_low), tuple(left_high),(0,0,255),5)
         cv2.line(test_img, tuple(right_low), tuple(right_high),(0,0,255),5)
     
-    return test_img, inlane
+    return test_img, outOfLane
 
 #########################################################################################################################
 
@@ -313,60 +313,28 @@ last_VDi = 0
 
 avgd_dist = 0
 
-Braking = False
-BrakeStartTime = time.time()
-
 def scale(val, src, dst):
     return ((val - src[0]) / (src[1]-src[0])) * (dst[1]-dst[0]) + dst[0]
 
-def Brake3Secs():
-    global Braking
-    if(Braking):
-        return
-    Braking = True
-    BADAS_fns.StartFullBrake()
-    time.sleep(3)
-    BADAS_fns.StopBrake()
-    Braking = False
-
-def BrakeSystemUpdate():
-    global Braking
-    global avgd_dist
-    global BrakeStartTime
-#     print('WarningSn::veh_speed',veh_speed , flush=True)
-    if(Braking and (avgd_dist > 15 or time.time() - BrakeStartTime > 1) ):
-        print('StopBrake')
-        BADAS_fns.StopBrake()
-        Braking = False
-
-inlane = False
+outOfLane = False
 WarningSnRunning = False
 def WarningSn():
-    global Braking
-    global inlane
+    print('WarningSn' , flush = True)
+    global outOfLane
     global WarningSnRunning
     global veh_speed
-    while(inlane):
-        if(veh_speed > 5 and Braking == False):
+    while(outOfLane):
+        if(veh_speed > 5 and BADAS_fns.Braking == False):
             winsound.Beep(300, 800)
         time.sleep(0.5)
     WarningSnRunning = False
 
 def LaneWarningControllerUpdate():
-    global inlane
+    global outOfLane
     global WarningSnRunning
-    if(inlane and WarningSnRunning == False):
+    if(outOfLane and WarningSnRunning == False):
         WarningSnRunning = True
         threading.Thread(target=WarningSn).start()
-
-def EmergencyEventSeq():
-    global Braking
-    global BrakeStartTime
-    if(Braking != True):
-        Braking = True
-        print('StartBrake')
-        BADAS_fns.StartFullBrake()
-        BrakeStartTime = time.time()
 
 History_Dists = []
 def AvgLastDists(new_dist):
@@ -391,7 +359,7 @@ def BrakeDecide(new_dist):
     RV =  ( last_dist - avgd_dist ) / time_from_last_frame
     RA = -( last_RV - RV) / time_from_last_frame
     
-    VDi = veh_speed #BADAS_fns.client.getCarState().speed
+    VDi = veh_speed
     VOi = VDi - RV
     AD = (VDi - last_VDi) / time_from_last_frame
     AO = AD - RA
@@ -440,10 +408,6 @@ def BrakeDecide(new_dist):
 
     return VISIONprob
     
-#     CalypsoReceive(1) #timeout of 1 sec to receive result
-    #if( VISIONprob > 0.5 ):
-    #    TEMPTIME = time.time()
-
 ##################################################################################################################################################################
 
 def crop_center(img,cropx,cropy):
@@ -465,9 +429,11 @@ H, x_pixels_per_meter, y_pixels_per_meter = driver_perspective_transform(img, Fa
 print("DriverBADAS successfully loaded")
 
 drawDebug = False
-printDebug = False
+printDebug = True
 
 def EstimateDistance():
+    global outOfLane
+
     prob = 0
     t3 = time.time()
     t1 = t3
@@ -491,11 +457,11 @@ def EstimateDistance():
     
     try:
         t1 = time.time()
-        img, inlane = get_lane_image(img, float(img.shape[0])/500)
-        LaneWarningControllerUpdate()
-
+        img, outOfLane = get_lane_image(img, float(img.shape[0])/500)
         if(printDebug):
             print('T get_lane_image: ' , time.time() - t1)
+            
+        LaneWarningControllerUpdate()
 
         imgYOLO = crop_center(img,208,208)
         #imgYOLO = img
