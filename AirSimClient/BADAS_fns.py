@@ -212,7 +212,7 @@ def GetSuvVel():
 
 def GetADASPacket():
     Tornado_lock.acquire()
-    AdasPacket = cyIO.airsimClient.getAdasPacket()
+    AdasPacket = client.getAdasPacket()
     Tornado_lock.release()
     return AdasPacket
 
