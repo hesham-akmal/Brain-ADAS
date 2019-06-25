@@ -177,7 +177,6 @@ def EmergencyBrake_TillCarStop():
 ##Change Airsim Img Res
 from shutil import copy2
 AirSimDocPath = os.path.expanduser('~/Documents') + '/AirSim'
-
 def SetSimImgRes(resoW,resoH):
     AirSimDocPath = os.path.expanduser('~/Documents') + '/AirSim/settings.json'
     with open(AirSimDocPath , "r+") as f:
@@ -210,3 +209,31 @@ def GetSuvVel():
     veh = client.getCarState().speed
     Tornado_lock.release()
     return veh
+
+def GetADASPacket():
+    Tornado_lock.acquire()
+    AdasPacket = cyIO.airsimClient.getAdasPacket()
+    Tornado_lock.release()
+    return AdasPacket
+
+Braking = False
+BrakeStartTime = time.time()
+
+def BrakeSystemUpdate():
+    global Braking
+    #global avgd_dist
+    global BrakeStartTime
+#     print('WarningSn::veh_speed',veh_speed , flush=True)
+    if(Braking and (time.time() - BrakeStartTime > 2) ): #or avgd_dist > 15  ):
+        print('StopBrake')
+        StopBrake()
+        Braking = False
+
+def EmergencyEventSeq():
+    global Braking
+    global BrakeStartTime
+    if(Braking != True):
+        Braking = True
+        print('StartBrake')
+        StartFullBrake()
+        BrakeStartTime = time.time()
