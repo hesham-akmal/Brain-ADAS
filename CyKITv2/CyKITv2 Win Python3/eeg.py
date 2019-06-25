@@ -1673,31 +1673,28 @@ class EEG(object):
 
                             self.pkts_num += 1
 
-                            if(cyIO.DriverBADAS == None): #No vision thread running
-                                AdasPacket = self.cyIO.BADAS_fns.GetADASPacket() # cyIO.airsimClient.getAdasPacket()
-                                #AdasPacket[0]: car event num
-                                #AdasPacket[1]: car distance
-                                #AdasPacket[2]: ped event num
-                                #AdasPacket[3]: pedestrian distance
+                            AdasPacket = self.cyIO.BADAS_fns.GetADASPacket() # cyIO.airsimClient.getAdasPacket()
+                            #AdasPacket[0]: car event num
+                            #AdasPacket[1]: car distance
+                            #AdasPacket[2]: ped event num
+                            #AdasPacket[3]: pedestrian distance
+                            y = '0'
+                            if AdasPacket[0] == 0 and AdasPacket[2] == 0:
                                 y = '0'
-                                if AdasPacket[0] == 0 and AdasPacket[2] == 0:
-                                    y = '0'
-                                elif AdasPacket[0] == 1 and AdasPacket[2] == 0:
-                                    y = '1'
-                                elif AdasPacket[0] == 0 and AdasPacket[2] == 1:
-                                    y = '2'
-                                elif AdasPacket[0] == 0 and AdasPacket[2] == 2:
-                                    y = '3'
-                                elif AdasPacket[0] == 0 and AdasPacket[2] == 3:
-                                    y = '4'
-                                elif AdasPacket[0] == 1 and AdasPacket[2] == 1:
-                                    y = '5'
-                                elif AdasPacket[0] == -1 and AdasPacket[2] == -1:
-                                    y = '-1'
-                                else:
-                                    y = '?'
-                            else: #Vision thread running
-                                 y = 'X'
+                            elif AdasPacket[0] == 1 and AdasPacket[2] == 0:
+                                y = '1'
+                            elif AdasPacket[0] == 0 and AdasPacket[2] == 1:
+                                y = '2'
+                            elif AdasPacket[0] == 0 and AdasPacket[2] == 2:
+                                y = '3'
+                            elif AdasPacket[0] == 0 and AdasPacket[2] == 3:
+                                y = '4'
+                            elif AdasPacket[0] == 1 and AdasPacket[2] == 1:
+                                y = '5'
+                            elif AdasPacket[0] == -1 and AdasPacket[2] == -1:
+                                y = '-1'
+                            else:
+                                y = '?'
 
                             if(live_testing_BADASbool):
                                 EEGprob = 0.0
