@@ -21,8 +21,7 @@ from pynput import keyboard
 
 def on_press(key):
     if(str(key) == 'Key.caps_lock'):
-
-        cy_IO.onData(0,'CyKITv2:::RecordStart:::Subject')
+        cy_IO.onData(0,'CyKITv2:::RecordStart:::Session')
 
 def keyboardListener():
     # Collect events until released
@@ -57,7 +56,7 @@ import BADAS_fns
 
 BADAS_fns.SimConnectAndCheck()
 
-RunVision_BADASbool = True
+RunVision_BADASbool = False
 
 DriverBADAS = None
 visionThread = None

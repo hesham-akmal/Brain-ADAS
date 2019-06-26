@@ -30,8 +30,9 @@ import winsound
 import numpy as np
 from pathlib import Path
 import serial
+import numpy
 
-CalypsoReceive_BADASbool = True
+CalypsoReceive_BADASbool = False
 live_testing_BADASbool = True
 if(live_testing_BADASbool):
     print('training eeg data start')
@@ -231,6 +232,11 @@ class ControllerIO():
         self.setMask = [None] * 14
         self.recordInc = 1
         self.recordFile = "EEG_recording_"
+
+        
+        if(live_testing_BADASbool):
+            self.recordFile = "EEG_recording_TESTING"
+
         self.delimiter = ", "
         self.samplingRate = 128
         self.channels = 40
@@ -246,6 +252,8 @@ class ControllerIO():
         self.BADAS_fns = BADAS_fns_param
         self.visionThread = visionThread_param
         self.DriverBADAS = DriverBADAS_param
+        self.recordingBADAS = False
+        self.fatemanumpy = np.array([])
 
     #  Data Input.
     # ¯¯¯¯¯¯¯¯¯¯¯¯¯¯
@@ -312,6 +320,12 @@ class ControllerIO():
                     winsound.Beep(700, 100)
                     self.stopRecord()
                     mirror.text("[Record Stopped] Saved.")
+                    
+                    if(live_testing_BADASbool):
+                        self.recordingBADAS = False # we should save here
+                        cyPath = os.path.realpath("")
+                        filename = cyPath + "/EEG-Logs/" + self.recordFile + "fatemanumpy.csv"
+                        numpy.savetxt(filename, np.column_stack(np.transpose(self.fatemanumpy)), delimiter=",", fmt='%.18g')
                     return
                 
                 cyPath = os.path.realpath("")
@@ -325,6 +339,8 @@ class ControllerIO():
                         
                 #print("[Start] Recording to File: " + ioCommand[2])
                 self.recordFile = str(ioCommand[2])
+                if(live_testing_BADASbool):
+                    self.recordFile  += str("_LiveTesting_")
 
                 pathFinder = cyPath + "/EEG-Logs/" + self.recordFile + '.csv'
                 if os.path.exists(pathFinder):
@@ -344,6 +360,8 @@ class ControllerIO():
                     while os.path.exists(pathFinder):
                         self.recordInc += 1
                         self.recordFile = self.recordFile.split("_")[0] + "_" + str(self.recordInc)
+                        if(live_testing_BADASbool):
+                            self.recordFile += "_LiveTesting_"
                         pathFinder = cyPath + "/EEG-Logs/" + self.recordFile + ".csv"
                         if eval(self.getInfo("verbose")) == True:
                             mirror.text("[Record: File exists. Changing to: " + self.recordFile + ".csv ]")
@@ -352,6 +370,11 @@ class ControllerIO():
                     return
                 
                 mirror.text("[Start] Recording to File: " + self.recordFile + " \r\n")
+
+                if(live_testing_BADASbool):
+                    self.fatemanumpy = np.array([]) #new file
+                    self.recordingBADAS = True
+
                 try:
                     self.cyFile = open(cyPath + "\\EEG-Logs\\" + self.recordFile + ".csv", "w+" ,newline='')
                     #mirror.text(str(dir(self.f)))
@@ -369,8 +392,8 @@ class ControllerIO():
                         #F8 AF4 "
                         csvHeader += ",F3, FC5, AF3, F7, T7, P7, O1, O2, P8, T8, F8, AF4, FC6, F4"
                         csvHeader += ',y'
-                        if(live_testing_BADASbool):
-                            csvHeader += ',EEGprob,CVprob'
+                        #if(live_testing_BADASbool):
+                        #    csvHeader += ',EEGprob,CVprob'
 
                     self.cyFile.write(csvHeader + "\r\n")
                     self.cyFile.flush()
@@ -387,15 +410,15 @@ class ControllerIO():
                     mirror.text(" =E.3: " + print_format.format(exc_type.__name__, line_number, ex))    
                     return
                 
-            if ioCommand[1] == "RecordStop":
-                if eval(self.getInfo("recording")) == False:
-                    return
-                mirror.text("[Stop] Recording \r\n")
-                mirror.text(("═" * 50))
-                self.setInfo("total_packets", str(self.packet_count))
-                mirror.text(" Recorded File: " + self.recordFile + "\r\n Packet Count: " + str(self.packet_count))
-                mirror.text(("═" * 50))
-                self.stopRecord()
+            #if ioCommand[1] == "RecordStop": #NOT CALLED
+            #    if eval(self.getInfo("recording")) == False:
+            #        return
+            #    mirror.text("[Stop] Recording \r\n")
+            #    mirror.text(("═" * 50))
+            #    self.setInfo("total_packets", str(self.packet_count))
+            #    mirror.text(" Recorded File: " + self.recordFile + "\r\n Packet Count: " + str(self.packet_count))
+            #    mirror.text(("═" * 50))
+            #    self.stopRecord()
                 
             if ioCommand[1] == "setMask":
                 try:
@@ -799,6 +822,7 @@ def DataCallback(EventOutParameter):
 class EEG(object):
     #interval has to be changed in model_training_and_live_testing as well
     INTERVAL = int(93.75*192/1500)
+
     def __init__(self, model, io, config):
         ##################################################################################################################################################################
         #Opening Two Tivas Serials #BADAS
@@ -1715,7 +1739,19 @@ class EEG(object):
                                     #print(testPackets.dtype)
                                     testPackets = np.append(testPackets, [firstPacket], axis=0)
                                     testPackets = np.append(testPackets, [secondPacket], axis=0)
-                                    EEGprob = live_test(testPackets)[1]
+                                    EEGevent, EEGProbArray  = live_test(testPackets)
+                                    EEGprob = EEGProbArray[0]  
+                                    newEvent = np.concatenate([EEGevent, EEGProbArray])
+                                    #print(newEvent.shape)
+                                    #print("----" + str(self.cyIO.fatemanumpy.shape))
+                                    if(self.cyIO.recordingBADAS):
+                                        if(self.cyIO.fatemanumpy.shape[0] == 0):
+                                            self.cyIO.fatemanumpy =np.hstack((self.cyIO.fatemanumpy, newEvent)) #
+                                        else:
+                                            self.cyIO.fatemanumpy =np.vstack((self.cyIO.fatemanumpy, newEvent)) #
+
+
+                                    #print('EEGprob' , EEGprob)
                                     firstPacket = ''
                                     secondPacket = ''
 
@@ -1737,25 +1773,30 @@ class EEG(object):
                                     if(cyIO.DriverBADAS != None): #Vision thread running 
                                         EEGprob = 0
                                         if( (cyIO.visionThread.prob + EEGprob)/2 >= 0.5 ):
-                                            print('\nSimulation of calypso algo :: Brake')
-                                            self.cyIO.BADAS_fns.EmergencyEventSeq()
+                                            #print('\nSimulation of calypso algo :: Brake')
+                                            #self.cyIO.BADAS_fns.EmergencyEventSeq()
+                                            a=0
                                         else:
-                                            self.cyIO.BADAS_fns.BrakeSystemUpdate()
+                                            #print('\nSimulation of calypso algo :: NOBrake')
+                                            #self.cyIO.BADAS_fns.BrakeSystemUpdate()
+                                            a=0
 
                                     else: #No vision thread running ( Only EEG prediction )
-                                        if( EEGprob > 0.5 ):
-                                            print('Simulation of calypso algo | No vision :: Brake')
+                                        if( EEGprob >= 0.5 ):
+                                            a=0
+                                            #print('Simulation of calypso algo | No vision :: Brake')
                                             self.cyIO.BADAS_fns.EmergencyEventSeq()
                                         else:
+                                            a=0
                                             self.cyIO.BADAS_fns.BrakeSystemUpdate()
                                 ##################################################
                                 #print('EEGprob: ' , EEGprob)
                                 #print('cyIO.visionThread.prob: ' , cyIO.visionThread.prob)
 
                                 if(cyIO.DriverBADAS != None): #Vision thread running
-                                    cyIO.CurrentPacket = PedalBrakeValue + self.delimiter + counter_data + packet_data + self.delimiter + y + self.delimiter + str(EEGprob) + self.delimiter + str(cyIO.visionThread.prob)
+                                    cyIO.CurrentPacket = PedalBrakeValue + self.delimiter + counter_data + packet_data + self.delimiter + y #+ self.delimiter + str(EEGprob) + self.delimiter + str(cyIO.visionThread.prob)
                                 else:    
-                                    cyIO.CurrentPacket = PedalBrakeValue + self.delimiter + counter_data + packet_data + self.delimiter + y + self.delimiter + str(EEGprob) + self.delimiter + 'X'
+                                    cyIO.CurrentPacket = PedalBrakeValue + self.delimiter + counter_data + packet_data + self.delimiter + y #+ self.delimiter + str(EEGprob) + self.delimiter + 'X'
 
                             ##################################################
                             ###calpyso receive, synchronous, need to read all until empty (not done), ignored
