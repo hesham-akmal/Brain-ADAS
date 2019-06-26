@@ -12,13 +12,13 @@ from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn import metrics
 import time
 
+INTERVAL= int(93.75*192/1500)
 
 # In[2]:
 
 def upload_file(fname):
-    data = pd.read_csv("Our Dataset/" + fname + ".csv",  index_col=False)
+    data = pd.read_csv("EEG-Logs/" + fname + ".csv",  index_col=False)
     return data
-
 
 # In[11]:
 
@@ -105,7 +105,7 @@ def convert_to_row_test(data, INTERVAL):
 # In[24]:
 
 def upload_and_save_pos_neg(folder):
-    data = upload_file(folder + "/Subject")
+    data = upload_file(folder + "/Session")
     data = data.drop("COUNTER", axis = 1)
     for f in fnames:
         d = upload_file(folder + "/" + f)
@@ -115,16 +115,16 @@ def upload_and_save_pos_neg(folder):
     newCols = make_all_columns(electrodes)
     y = data["y"]
     posDfs, indices = positive_events(newCols, y, data, electrodes)
-    posDfs.to_csv("Our Dataset/csv/"+folder+"pos.csv", index = False)
+    posDfs.to_csv("EEG-Logs/csv/"+folder+"pos.csv", index = False)
     negDfs = negative_events(indices, newCols, y, data, electrodes)
-    negDfs.to_csv("Our Dataset/csv/"+folder+"neg.csv", index = False)
+    negDfs.to_csv("EEG-Logs/csv/"+folder+"neg.csv", index = False)
 
 
 # In[3]:
 
 def upload_pos_neg(fname):
-    pos = pd.read_csv("Our Dataset/csv/" + fname + "pos" + ".csv", index_col=False)
-    neg = pd.read_csv("Our Dataset/csv/" + fname + "neg" + ".csv", index_col=False)
+    pos = pd.read_csv("EEG-Logs/csv/" + fname + "pos" + ".csv", index_col=False)
+    neg = pd.read_csv("EEG-Logs/csv/" + fname + "neg" + ".csv", index_col=False)
     return pos, neg
 
 
@@ -209,8 +209,11 @@ def time_intervals_features_test(packets, interval, numOfCols):
         for j in range(0, numOfCols):
             mean_features_packets[i*numOfCols + j] = np.mean(packets[i*interval+step*j:i*interval+numOfCols*j + step], axis = 0)
     return mean_features_packets
-    
+   
+
 def live_test(packets): #listen to me
+    global model
+
     INTERVAL = len(packets)
  
     test_packets = convert_to_row_test(packets, INTERVAL)
@@ -223,35 +226,28 @@ def live_test(packets): #listen to me
     #print('y_predict' ,y_predict.shape)
     #print('mean_features_packets' , mean_features_packets.shape)
     
-    
     return mean_features_packets, y_predict
 
-# In[16]:
+def StartTrain():
+    global fnames
+    global newCols
+    global electrodes
+    global INTERVAL
+    global model
 
-electrodes = ['F3', ' FC5', ' AF3', ' F7', ' T7', ' P7', ' O1', ' O2', ' P8', ' T8',
-       ' F8', ' AF4', ' FC6', ' F4']
+    # In[16]:
+    electrodes =['F3', ' FC5', ' AF3', ' F7', ' T7', ' P7', ' O1', ' O2', ' P8', ' T8', ' F8', ' AF4', ' FC6', ' F4']
 
+    # In[17]:
+    newCols = make_all_columns(electrodes)
+    electrodes =['F3', 'FC5', 'AF3', 'F7', 'T7', 'P7', 'O1', 'O2', 'P8', 'T8', 'F8', 'AF4', 'FC6', 'F4']
+    colsTest = make_all_columns_test(electrodes, INTERVAL)
 
+    # In[18]:
+    #1-make a directory called "EEG-Logs"
+    #2-make another directory inide EEG-Logs, and call it Hesham2
+    #3-put all csv files inside Hesham2
 
-# In[17]:
-INTERVAL= int(93.75*192/1500)
-newCols = make_all_columns(electrodes)
-electrodes =['F3', 'FC5', 'AF3', 'F7', 'T7', 'P7', 'O1', 'O2', 'P8', 'T8',
-       'F8', 'AF4', 'FC6', 'F4']
-colsTest = make_all_columns_test(electrodes, INTERVAL)
-
-
-# In[18]:
-
-#1-make a directory called "Our Dataset"
-#2-make another directory inide our dataset, and call it Hesham2
-#3-put all csv files inside Hesham2
-
-fnames = [ "Subject_1", "Subject_2"]
-upload_and_save_pos_neg("wagih6")
-model = train_for_live_test("wagih6", INTERVAL)
-
-
-
-
-# In[25]:
+    fnames = []
+    upload_and_save_pos_neg("SessionDir")
+    model = train_for_live_test("SessionDir", INTERVAL)
