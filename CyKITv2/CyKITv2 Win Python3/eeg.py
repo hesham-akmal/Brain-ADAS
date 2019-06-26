@@ -34,8 +34,8 @@ import numpy
 
 CalypsoReceive_BADASbool = False
 
-live_testing_BADASbool = False         #Must be opposite of auto_live_testing_BADASbool
-auto_live_testing_BADASbool = True     #Must be opposite of live_testing_BADASbool
+live_testing_BADASbool = False         #Can't be true while auto_live_testing_BADASbool is true
+auto_live_testing_BADASbool = True     #Can't be true while live_testing_BADASbool is true
 
 auto_live_testing_started = False #unused
 auto_live_testing_timeStart = time.time() #unused
@@ -43,7 +43,7 @@ auto_live_testing_timeWait = 60 #secs   #unused
 
 #from model_training_and_live_testing import *
 #BADAS
-## Delete all pos and neg csvs ############
+## Delete all pos and neg csvs ############ prob useless
 if(auto_live_testing_BADASbool):
     rootdir = os.path.realpath("") + "/EEG-Logs/"
     extensions = ('.csv')
