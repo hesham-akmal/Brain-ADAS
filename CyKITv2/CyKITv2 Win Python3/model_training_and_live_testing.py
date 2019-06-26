@@ -213,19 +213,17 @@ def time_intervals_features_test(packets, interval, numOfCols):
 def live_test(packets): #listen to me
     INTERVAL = len(packets)
  
-    t = time.time()
     test_packets = convert_to_row_test(packets, INTERVAL)
 
-    t = time.time()
     mean_features_packets = time_intervals_features_test(test_packets, interval=INTERVAL, numOfCols=int(INTERVAL/2))
     
-    t = time.time()
     mean_features_packets = np.nan_to_num(mean_features_packets)
 
-    t = time.time()
-    y_predict = model.predict_proba(mean_features_packets.reshape(1, -1))[1]
+    y_predict = np.array([model.predict_proba(mean_features_packets.reshape(1, -1))[0][1]])
+    #print('y_predict' ,y_predict.shape)
+    #print('mean_features_packets' , mean_features_packets.shape)
     
-
+    
     return mean_features_packets, y_predict
 
 # In[16]:
