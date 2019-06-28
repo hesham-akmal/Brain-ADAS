@@ -32,34 +32,13 @@ from pathlib import Path
 import serial
 import numpy
 
-CalypsoReceive_BADASbool = False
+CalypsoReceive_BADASbool = True
+live_testing_BADASbool = True
 
-live_testing_BADASbool = False         #Can't be true while auto_live_testing_BADASbool is true
-auto_live_testing_BADASbool = True     #Can't be true while live_testing_BADASbool is true
-
-auto_live_testing_started = False #unused
-auto_live_testing_timeStart = time.time() #unused
-auto_live_testing_timeWait = 60 #secs   #unused
-
-#from model_training_and_live_testing import *
-#BADAS
-## Delete all pos and neg csvs ############ prob useless
-if(auto_live_testing_BADASbool):
-    rootdir = os.path.realpath("") + "/EEG-Logs/"
-    extensions = ('.csv')
-    for subdir, dirs, files in os.walk(rootdir):
-        for file in files:
-            ext = os.path.splitext(file)[-1].lower()
-            if ext in extensions:
-                if("pos" in file or "neg" in file  ):
-                    os.remove(os.path.join(subdir, file))
-###########################################
-
-import model_training_and_live_testing
 if(live_testing_BADASbool):
     print('training eeg data start')
-    model_training_and_live_testing.StartTrain()
-    print('training eeg data finish')
+    from model_training_and_live_testing import *
+    print('training eeg data finished')
 
 #################################################### BADAS, pySerial wrapper class to improve performance of reading
 class ReadLine:
@@ -255,6 +234,7 @@ class ControllerIO():
         self.recordInc = 1
         self.recordFile = "EEG_recording_"
 
+        
         if(live_testing_BADASbool):
             self.recordFile = "EEG_recording_TESTING"
 
@@ -276,26 +256,10 @@ class ControllerIO():
         self.recordingBADAS = False
         #self.fatemanumpy = np.array([])
 
-
-     #BADAS#################################################################################
-    def StartLiveTesting(self):
-        global auto_live_testing_started 
-        global live_testing_BADASbool
-        self.onData(0,'CyKITv2:::RecordStart:::Session')
-        auto_live_testing_started = True
-        live_testing_BADASbool = True
-        print('training eeg data start')
-        model_training_and_live_testing.StartTrain()
-        print('training eeg data finished')
-        self.onData(0,'CyKITv2:::RecordStart:::Session')
-        #sleep_time = time.time()
-        #################################################################################
-
     #  Data Input.
     # ¯¯¯¯¯¯¯¯¯¯¯¯¯¯
     def onData(self, uid, text):
-        global auto_live_testing_timeStart
-        global auto_live_testing_BADASbool
+        #global airsimClient
         ioCommand = text.split(":::")
         if ioCommand[0] == "CyKITv2":
             if ioCommand[1] == "setModel":
@@ -358,27 +322,11 @@ class ControllerIO():
                     self.stopRecord()
                     mirror.text("[Record Stopped] Saved.")
                     
-                    #BADAS ######################################################
-                    if(auto_live_testing_BADASbool):
-                        done_files_list = []
-                        rootdir = os.path.realpath("") + "\\EEG-Logs\\"
-                        extensions = ('.csv')
-                        for subdir, dirs, files in os.walk(rootdir):
-                            for file in files:
-                                print('file found: ' , file)
-                                ext = os.path.splitext(file)[-1].lower()
-                                if ext in extensions:
-                                    if(file in done_files_list):
-                                        break
-                                    a = subdir + 'SessionDir\\' + file
-                                    os.rename(os.path.join(subdir, file), a)
-                                    done_files_list.append(file)
-
                     if(live_testing_BADASbool):
                         self.recordingBADAS = False # we should save here
-                        #filename = os.path.realpath("") + "/EEG-Logs/" + self.recordFile + "fatemanumpy.csv"
+                        #cyPath = os.path.realpath("")
+                        #filename = cyPath + "/EEG-Logs/" + self.recordFile + "fatemanumpy.csv"
                         #numpy.savetxt(filename, np.column_stack(np.transpose(self.fatemanumpy)), delimiter=",", fmt='%.18g')
-                    ######################################################
                     return
                 
                 cyPath = os.path.realpath("")
@@ -423,13 +371,10 @@ class ControllerIO():
                     return
                 
                 mirror.text("[Start] Recording to File: " + self.recordFile + " \r\n")
-                
-                #BADAS
+
                 if(live_testing_BADASbool):
                     #self.fatemanumpy = np.array([]) #new file
                     self.recordingBADAS = True
-                else:
-                    auto_live_testing_timeStart = time.time() #reset wait time when start training
 
                 try:
                     self.cyFile = open(cyPath + "\\EEG-Logs\\" + self.recordFile + ".csv", "w+" ,newline='')
@@ -448,8 +393,8 @@ class ControllerIO():
                         #F8 AF4 "
                         csvHeader += ",F3, FC5, AF3, F7, T7, P7, O1, O2, P8, T8, F8, AF4, FC6, F4"
                         csvHeader += ',y'
-                        if(live_testing_BADASbool):
-                            csvHeader += ',EEGprob,CVprob'
+                        #if(live_testing_BADASbool):
+                        #    csvHeader += ',EEGprob,CVprob'
 
                     self.cyFile.write(csvHeader + "\r\n")
                     self.cyFile.flush()
@@ -877,6 +822,8 @@ def DataCallback(EventOutParameter):
 
 class EEG(object):
     #interval has to be changed in model_training_and_live_testing as well
+    INTERVAL = int(468.75*192/1500)
+
     def __init__(self, model, io, config):
         ##################################################################################################################################################################
         #Opening Two Tivas Serials #BADAS
@@ -1073,10 +1020,11 @@ class EEG(object):
         while(True):
             line = str(self.RL.readline())
             if("data=0x01" in line):
-                print('\nCalypsoReceiveLoop::Brake |||X||| @' , time.time() ) 
+                print('\nCalypsoReceive::Brake at' , time.time() ) 
                 self.cyIO.BADAS_fns.EmergencyEventSeq()
             elif("data=0x00" in line):
                 self.cyIO.BADAS_fns.BrakeSystemUpdate()
+                a=0
             elif("CAN" in line):
                 print(line)
     #############################################
@@ -1459,8 +1407,6 @@ class EEG(object):
             return str(int(float(edk_value)))
         return edk_value
          
-   
-
     #  eegThread.  (Thread Start).
     # ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
     def run(self, key, cyIO):       
@@ -1613,20 +1559,16 @@ class EEG(object):
                     mirror.text(" ¯¯¯¯¯ eegThread.run() Error reading data.")
                     mirror.text(" =E.11: " + print_format.format(exc_type.__name__, line_number, ex))
             
-            ##########################################################################################
-            #BADAS
-            global auto_live_testing_started 
-            global auto_live_testing_timeStart 
-            global auto_live_testing_timeWait
-            global auto_live_testing_BADASbool
-            global live_testing_BADASbool
-            dataLoss = 0
-            firstPacket = ''
-            secondPacket = ''
-            packetIndex = 0
-            testPackets = np.zeros((model_training_and_live_testing.INTERVAL, 14), dtype=np.float64)
-            ##########################################################################################
-
+                #############################################
+                #BADAS
+            if(live_testing_BADASbool):
+                sleep_time = time.time()
+                dataLoss = 0
+                firstPacket = ''
+                secondPacket = ''
+                #sixtyFourPackets = pd.DataFrame(columns = ['Brake Pedal', 'F3', 'FC5', 'AF3', 'F7', 'T7', 'P7', 'O1', 'O2', 'P8', 'T8', 'F8', 'AF4', 'FC6', 'F4', 'y'])
+                packetIndex = 0
+                testPackets = np.zeros((INTERVAL, 14), dtype=np.float64)
             while not tasks.empty() and self.running == True:
                 time.sleep(0)
 
@@ -1752,15 +1694,6 @@ class EEG(object):
 
                             packet_data = packet_data[:-len(self.delimiter)]
 
-
-                            #######Auto Live Testing 
-
-                            #if(auto_live_testing_BADASbool == True and auto_live_testing_started == False and time.time() - auto_live_testing_timeStart > auto_live_testing_timeWait ):
-                            #    self.initLiveTesting()
-                                 
-
-                            ###############################################
-                            
                             ####### HW PEDAL VALS
                             PedalBrakeValue = str(self.cyIO.BADAS_fns.getBrakeVal())
                             ############
@@ -1777,6 +1710,7 @@ class EEG(object):
                                 y = '0'
                             elif AdasPacket[0] == 1 and AdasPacket[2] == 0:
                                 y = '1'
+                                print('\nEmergency event occured at ' , time.time())
                             elif AdasPacket[0] == 0 and AdasPacket[2] == 1:
                                 y = '2'
                             elif AdasPacket[0] == 0 and AdasPacket[2] == 2:
@@ -1789,13 +1723,13 @@ class EEG(object):
                                 y = '-1'
                             else:
                                 y = '?'
-                                
+
                             if(live_testing_BADASbool):
-                                EEGprob = 0.0
+                                EEGprob = -1
                                 #print('cyIO.visionThread.prob: ' , cyIO.visionThread.prob)
                                 #packet_formatted = airsim_data + packet_data + self.delimiter + y
                                 #packet_formatted = packet_formatted.split(',') 
-                                if (packetIndex < model_training_and_live_testing.INTERVAL):
+                                if (packetIndex < INTERVAL):
                                     testPackets[packetIndex] = [float(x) for x in packet_data.split(',')]
                                     packetIndex += 1
                                 elif (firstPacket == ''):
@@ -1808,13 +1742,9 @@ class EEG(object):
                                     #print(testPackets.dtype)
                                     testPackets = np.append(testPackets, [firstPacket], axis=0)
                                     testPackets = np.append(testPackets, [secondPacket], axis=0)
-                                    try:
-                                        EEGevent, EEGProbArray  = model_training_and_live_testing.live_test(testPackets)
-                                        EEGprob = EEGProbArray[0]  
+                                    EEGprob  = live_test(testPackets)
+                                    #print('EEGprob: ' , EEGprob)
                                         #newEvent = np.concatenate([EEGevent, EEGProbArray])
-                                    except:
-                                        EEGprob = 0
-                                        pass
                                     #print(newEvent.shape)
                                     #print("----" + str(self.cyIO.fatemanumpy.shape))
                                     #if(self.cyIO.recordingBADAS):
@@ -1822,17 +1752,25 @@ class EEG(object):
                                     #        self.cyIO.fatemanumpy =np.hstack((self.cyIO.fatemanumpy, newEvent)) #
                                     #    else:
                                     #        self.cyIO.fatemanumpy =np.vstack((self.cyIO.fatemanumpy, newEvent)) #
+
+
                                     #print('EEGprob' , EEGprob)
                                     firstPacket = ''
                                     secondPacket = ''
 
                                 ################################################## 
                                 #Transfer probabilities values to Calypso
-                                if(CalypsoReceive_BADASbool):
+                                if(CalypsoReceive_BADASbool and EEGprob != -1):
                                     if(cyIO.DriverBADAS != None): #Vision thread running 
-                                        toSend = str((cyIO.visionThread.prob)*100) + '\n' + str(EEGprob*100) + '\n100\n0\n'
-                                        if(cyIO.visionThread.prob >= 0.5): #DEBUG PRINT
-                                            print('\nto SEND VISION PROB= ' , str(cyIO.visionThread.prob) , ' |||||| @' , time.time() ) #DEBUG PRINT
+
+                                        #clamping both probabilities
+                                        CVprob  = str( max(0, min(99, cyIO.visionThread.prob*100) ) )
+                                        EEGprob = str( max(0, min(99, EEGprob*100) ) )
+
+                                        toSend = CVprob + '\n' + EEGprob + '\n50\n50\n'
+                                        #print('str(EEGprob*100)' , str(EEGprob*100))
+                                        #if(cyIO.visionThread.prob >= 0.5): #DEBUG PRINT
+                                        #    print('\nto SEND VISION PROB= ' , str(cyIO.visionThread.prob) , ' |||||| @' , time.time() ) #DEBUG PRINT
                                     else: #No vision thread running ( Only EEG prediction )
                                         toSend = '0\n' + str(EEGprob*100) + '\n0\n100\n'
 
@@ -1853,19 +1791,20 @@ class EEG(object):
                                             a=0
 
                                     else: #No vision thread running ( Only EEG prediction )
-                                        if( EEGprob >= 0.5 ):
+                                        if( EEGprob >= 0.999 ):
                                             a=0
-                                            #print('Simulation of calypso algo | No vision :: Brake')
-                                            self.cyIO.BADAS_fns.EmergencyEventSeq()
+                                            print('Simulation of calypso algo | No vision :: Brake')
+                                            #self.cyIO.BADAS_fns.EmergencyEventSeq()
                                         else:
                                             a=0
-                                            self.cyIO.BADAS_fns.BrakeSystemUpdate()
+                                            #self.cyIO.BADAS_fns.BrakeSystemUpdate()
                                 ##################################################
                                 #print('EEGprob: ' , EEGprob)
                                 #print('cyIO.visionThread.prob: ' , cyIO.visionThread.prob)
 
                                 if(cyIO.DriverBADAS != None): #Vision thread running
-                                    cyIO.CurrentPacket = PedalBrakeValue + self.delimiter + counter_data + packet_data + self.delimiter + y + self.delimiter + str(EEGprob) + self.delimiter + str(cyIO.visionThread.prob)
+                                    #cyIO.CurrentPacket = PedalBrakeValue + self.delimiter + counter_data + packet_data + self.delimiter + y + self.delimiter + str(EEGprob) + self.delimiter + str(cyIO.visionThread.prob)
+                                    cyIO.CurrentPacket = PedalBrakeValue + self.delimiter + counter_data + packet_data + self.delimiter + y + self.delimiter + str( EEGprob ) + self.delimiter + str( CVprob )
                                 else:    
                                     cyIO.CurrentPacket = PedalBrakeValue + self.delimiter + counter_data + packet_data + self.delimiter + y + self.delimiter + str(EEGprob) + self.delimiter + 'X'
 

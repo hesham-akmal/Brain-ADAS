@@ -167,7 +167,7 @@ def EmergencyBrake_TillCarStop():
     StartFullBrake()
     
 #   Keep brakes on till car speed almost zero
-    while(client.getCarState().speed > 1):
+    while(GetSuvVel() > 1):
         time.sleep(0.1)
     
     StopBrake()
@@ -191,7 +191,9 @@ def SetSimImgRes(resoW,resoH):
         
 import cv2
 def GetSimImg():
+    #print('GetSimImg Request@' , time.time() , flush= True)
     Tornado_lock.acquire()
+    #print('GetSimImg Acquired@' , time.time() , flush= True)
     responses = client.simGetImages([ airsim.ImageRequest("0", airsim.ImageType.Scene, False, False) ])
     Tornado_lock.release()
     response = responses[0]
@@ -205,7 +207,9 @@ def SimConnectAndCheck():
     client.confirmConnection()
 
 def GetSuvVel():
+    #print('GetSuvVel Request@' , time.time() , flush= True)
     Tornado_lock.acquire()
+    #print('GetSuvVel Acquired@' , time.time() , flush= True)
     veh = client.getCarState().speed
     Tornado_lock.release()
     return veh
