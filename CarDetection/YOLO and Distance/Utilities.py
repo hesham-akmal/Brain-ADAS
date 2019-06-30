@@ -191,6 +191,8 @@ def write_img(x, results, color, classes):
     c2 = tuple(x[3:5].int())
     img = results[int(x[0])]
     cls = int(x[-1])
+    if(classes[cls] != "car"):
+        return img
     label = "{0}".format(classes[cls])
     cv2.rectangle(img, c1, c2,color, 2)
     t_size = cv2.getTextSize(label, cv2.FONT_HERSHEY_PLAIN, 1 , 1)[0]
