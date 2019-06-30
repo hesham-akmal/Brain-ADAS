@@ -34,6 +34,8 @@ import numpy
 
 CalypsoReceive_BADASbool = True
 live_testing_BADASbool = True
+rand_SysOff_BADASbool = True
+isSysOn = True
 
 if(live_testing_BADASbool):
     print('training eeg data start')
@@ -393,8 +395,8 @@ class ControllerIO():
                         #F8 AF4 "
                         csvHeader += ",F3, FC5, AF3, F7, T7, P7, O1, O2, P8, T8, F8, AF4, FC6, F4"
                         csvHeader += ',y'
-                        #if(live_testing_BADASbool):
-                        #    csvHeader += ',EEGprob,CVprob'
+                        if(live_testing_BADASbool):
+                            csvHeader += ',EEGprob,CVprob,timestamp,SystemBrake,isSysOn'
 
                     self.cyFile.write(csvHeader + "\r\n")
                     self.cyFile.flush()
@@ -1017,10 +1019,15 @@ class EEG(object):
     #############################################
     #BADAS
     def CalypsoReceiveLoop(self):
+        global rand_SysOff_BADASbool
+        global isSysOn
         while(True):
             line = str(self.RL.readline())
             if("data=0x01" in line):
-                print('\nCalypsoReceive::Brake at' , time.time() ) 
+                print('\nSystem brake start @' , time.time() )
+                isSysOn = bool(random.getrandbits(1))
+                if(rand_SysOff_BADASbool and isSysOn==False ):
+                    return
                 self.cyIO.BADAS_fns.EmergencyEventSeq()
             elif("data=0x00" in line):
                 self.cyIO.BADAS_fns.BrakeSystemUpdate()
@@ -1710,7 +1717,7 @@ class EEG(object):
                                 y = '0'
                             elif AdasPacket[0] == 1 and AdasPacket[2] == 0:
                                 y = '1'
-                                print('\nEmergency event occured at ' , time.time())
+                                #print('\nEmergency event occured at ' , time.time())
                             elif AdasPacket[0] == 0 and AdasPacket[2] == 1:
                                 y = '2'
                             elif AdasPacket[0] == 0 and AdasPacket[2] == 2:
@@ -1758,6 +1765,7 @@ class EEG(object):
                                     firstPacket = ''
                                     secondPacket = ''
 
+                                CVprob = 'X'
                                 ################################################## 
                                 #Transfer probabilities values to Calypso
                                 if(CalypsoReceive_BADASbool and EEGprob != -1):
@@ -1782,12 +1790,12 @@ class EEG(object):
                                     if(cyIO.DriverBADAS != None): #Vision thread running 
                                         EEGprob = 0
                                         if( (cyIO.visionThread.prob + EEGprob)/2 >= 0.5 ):
-                                            #print('\nSimulation of calypso algo :: Brake')
-                                            #self.cyIO.BADAS_fns.EmergencyEventSeq()
+                                            print('\nSimulation of calypso algo :: Brake')
+                                            self.cyIO.BADAS_fns.EmergencyEventSeq()
                                             a=0
                                         else:
                                             #print('\nSimulation of calypso algo :: NOBrake')
-                                            #self.cyIO.BADAS_fns.BrakeSystemUpdate()
+                                            self.cyIO.BADAS_fns.BrakeSystemUpdate()
                                             a=0
 
                                     else: #No vision thread running ( Only EEG prediction )
@@ -1804,9 +1812,9 @@ class EEG(object):
 
                                 if(cyIO.DriverBADAS != None): #Vision thread running
                                     #cyIO.CurrentPacket = PedalBrakeValue + self.delimiter + counter_data + packet_data + self.delimiter + y + self.delimiter + str(EEGprob) + self.delimiter + str(cyIO.visionThread.prob)
-                                    cyIO.CurrentPacket = PedalBrakeValue + self.delimiter + counter_data + packet_data + self.delimiter + y + self.delimiter + str( EEGprob ) + self.delimiter + str( CVprob )
+                                    cyIO.CurrentPacket = PedalBrakeValue + self.delimiter + counter_data + packet_data + self.delimiter + y + self.delimiter + str( EEGprob ) + self.delimiter + str( CVprob ) + self.delimiter + str( time.time() )  + self.delimiter + str( self.cyIO.BADAS_fns.Braking ) + self.delimiter + str( isSysOn )
                                 else:    
-                                    cyIO.CurrentPacket = PedalBrakeValue + self.delimiter + counter_data + packet_data + self.delimiter + y + self.delimiter + str(EEGprob) + self.delimiter + 'X'
+                                    cyIO.CurrentPacket = PedalBrakeValue + self.delimiter + counter_data + packet_data + self.delimiter + y + self.delimiter + str(EEGprob) + self.delimiter + 'X,' + str( time.time() ) + self.delimiter + str( self.cyIO.BADAS_fns.Braking ) + self.delimiter + str( isSysOn )
 
                             ##################################################
                             ###calpyso receive, synchronous, need to read all until empty (not done), ignored

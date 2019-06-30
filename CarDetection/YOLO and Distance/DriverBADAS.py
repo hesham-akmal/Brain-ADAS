@@ -361,6 +361,11 @@ def BrakeDecide(new_dist):
     
     VDi = veh_speed
     VOi = VDi - RV
+
+    #Only once "time_from_last_frame" occured to be zero for an unknown reason, handling it below
+    if(time_from_last_frame == 0):
+        return 0 #VISIONprob is zero (ignored)
+
     AD = (VDi - last_VDi) / time_from_last_frame
     AO = AD - RA
     
@@ -428,11 +433,15 @@ H, x_pixels_per_meter, y_pixels_per_meter = driver_perspective_transform(img, Fa
 
 print("DriverBADAS successfully loaded")
 
-drawDebug = False
-printDebug = True
+drawDebug = True
+printDebug = False
 
 def EstimateDistance():
     global outOfLane
+
+    if cv2.waitKey(25) & 0xFF == ord("q"):
+        cv2.destroyAllWindows()
+        return 999
 
     prob = 0
     t3 = time.time()
@@ -444,12 +453,12 @@ def EstimateDistance():
     try:
         img = BADAS_fns.GetSimImg()
         if(drawDebug):
-            #cv2.imshow("", img)
-            show_images([cv2.cvtColor(img, cv2.COLOR_BGR2RGB)])
+            cv2.imshow("", img)
+            #show_images([cv2.cvtColor(img, cv2.COLOR_BGR2RGB)])
         if(printDebug):
             print('T Sim image extract: ' , time.time() - t1)
-    except:
-        print('GetSimImg Exception ')
+    except Exception as e:
+        print('GetSimImg Exception ' , str(e))
         return prob
     
     # Image bottom center coordinates
@@ -467,15 +476,15 @@ def EstimateDistance():
         #imgYOLO = img
 
         if(drawDebug):
-            #cv2.imshow("", img)
-            show_images([cv2.cvtColor(img, cv2.COLOR_BGR2RGB)])
+            cv2.imshow("", img)
+            #show_images([cv2.cvtColor(img, cv2.COLOR_BGR2RGB)])
         # Getting predictions from yolo
         t1 = time.time()
         pred, top_left, bottom_right, labels = get_pred(imgYOLO)
         if(printDebug):
             print('T Yolo: ' , time.time() - t1)
-        if(drawDebug):
-            show_images([cv2.cvtColor(pred, cv2.COLOR_BGR2RGB)])
+        #if(drawDebug):
+        #    show_images([cv2.cvtColor(pred, cv2.COLOR_BGR2RGB)])
     except Exception as e:
         return prob
     
@@ -509,14 +518,14 @@ def EstimateDistance():
             #img = pred
     
             distance = str(round_float(float_dist))+"m"
-#             if(EmergencyBool):
-#                 cv2.putText(img, "EMERGENCY",(cx-60+146, cy-60), font, fontScale,fontColor, lineType)
+            if(prob>=0.5):
+                cv2.putText(img, "EMERGENCY",(cx-60+146, cy-60), font, fontScale,fontColor, lineType)
            # Annotate yolo image with distance to car
             cv2.putText(img, distance, (cx-60+146, cy+30), font, fontScale, fontColor, lineType)
             if(printDebug):
                 print('T Get distance: ' , time.time() - t1)
-            #cv2.imshow("", img)
-            show_images([cv2.cvtColor(pred, cv2.COLOR_BGR2RGB)])
+            cv2.imshow("", img)
+            #show_images([cv2.cvtColor(pred, cv2.COLOR_BGR2RGB)])
             if(printDebug):
                 print('T Debug Draw: ' , time.time() - dtime)
     if(printDebug):

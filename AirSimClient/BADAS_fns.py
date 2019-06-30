@@ -141,21 +141,25 @@ def BeepAlertStart():
         
 def StartFullBrake():
     global h
+    global Braking
 
     Tornado_lock.acquire()
     client.setBrakeInput(1)
     Tornado_lock.release()
+    Braking = True
 
     threading.Thread(target=BeepAlertStart).start()
     if(h is not None):
         h.start_haptic(5) # Start Steering wheel Haptic
 
 def StopBrake():
+    global Braking
     global h
 
     Tornado_lock.acquire()
     client.setBrakeInput(0)
     Tornado_lock.release()
+    Braking = False
 
     if(h is not None):
         h.stop_haptic()
@@ -231,13 +235,11 @@ def BrakeSystemUpdate():
     if(Braking and (time.time() - BrakeStartTime > 2) ): #or avgd_dist > 15  ):
         print('StopBrake')
         StopBrake()
-        Braking = False
 
 def EmergencyEventSeq():
     global Braking
     global BrakeStartTime
     if(Braking != True):
-        Braking = True
         print('StartBrake')
         StartFullBrake()
         BrakeStartTime = time.time()
