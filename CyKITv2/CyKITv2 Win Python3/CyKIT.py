@@ -21,7 +21,7 @@ from pynput import keyboard
 
 def on_press(key):
     if(str(key) == 'Key.caps_lock'):
-        cy_IO.onData(0,'CyKITv2:::RecordStart:::Session')
+        cy_IO.onData(0,'CyKITv2:::RecordStart:::Subject')
 
 def keyboardListener():
     # Collect events until released

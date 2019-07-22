@@ -31,11 +31,11 @@ import numpy as np
 from pathlib import Path
 import serial
 import numpy
+import random
 
-CalypsoReceive_BADASbool = True
+CalypsoReceive_BADASbool = False
 live_testing_BADASbool = True
-rand_SysOff_BADASbool = True
-isSysOn = True
+rand_SysOff_BADASbool = False
 
 if(live_testing_BADASbool):
     print('training eeg data start')
@@ -396,7 +396,7 @@ class ControllerIO():
                         csvHeader += ",F3, FC5, AF3, F7, T7, P7, O1, O2, P8, T8, F8, AF4, FC6, F4"
                         csvHeader += ',y'
                         if(live_testing_BADASbool):
-                            csvHeader += ',EEGprob,CVprob,timestamp,SystemBrake,isSysOn'
+                            csvHeader += ',EEGprob,CVprob,timestamp,SystemBrake'#,isSysOn'
 
                     self.cyFile.write(csvHeader + "\r\n")
                     self.cyFile.flush()
@@ -824,7 +824,7 @@ def DataCallback(EventOutParameter):
 
 class EEG(object):
     #interval has to be changed in model_training_and_live_testing as well
-    INTERVAL = int(468.75*192/1500)
+    INTERVAL = int(375*192/1500)
 
     def __init__(self, model, io, config):
         ##################################################################################################################################################################
@@ -857,6 +857,8 @@ class EEG(object):
         global cyIO
         self.sec_test = time.time()
         self.pkts_num = 0
+        self.isSysOn = True
+        self.SysOnOffCntr = 0
         
         config = config.lower()
         self.config = config
@@ -1020,18 +1022,16 @@ class EEG(object):
     #BADAS
     def CalypsoReceiveLoop(self):
         global rand_SysOff_BADASbool
-        global isSysOn
         while(True):
             line = str(self.RL.readline())
             if("data=0x01" in line):
-                print('\nSystem brake start @' , time.time() )
-                isSysOn = bool(random.getrandbits(1))
-                if(rand_SysOff_BADASbool and isSysOn==False ):
-                    return
+                print('\nSystem brake start @' , time.time() , flush = True)
+                if(rand_SysOff_BADASbool and self.isSysOn==False ):
+                    continue
                 self.cyIO.BADAS_fns.EmergencyEventSeq()
             elif("data=0x00" in line):
                 self.cyIO.BADAS_fns.BrakeSystemUpdate()
-                a=0
+                #print('\nSystem brake stop @' , time.time() , flush = True )
             elif("CAN" in line):
                 print(line)
     #############################################
@@ -1707,6 +1707,12 @@ class EEG(object):
 
                             self.pkts_num += 1
 
+                            #############
+                            self.SysOnOffCntr += 1
+                            if(self.SysOnOffCntr > 3000):
+                                self.SysOnOffCntr = 0
+                                self.isSysOn = not self.isSysOn
+
                             AdasPacket = self.cyIO.BADAS_fns.GetADASPacket() # cyIO.airsimClient.getAdasPacket()
                             #AdasPacket[0]: car event num
                             #AdasPacket[1]: car distance
@@ -1732,89 +1738,84 @@ class EEG(object):
                                 y = '?'
 
                             if(live_testing_BADASbool):
-                                EEGprob = -1
-                                #print('cyIO.visionThread.prob: ' , cyIO.visionThread.prob)
-                                #packet_formatted = airsim_data + packet_data + self.delimiter + y
-                                #packet_formatted = packet_formatted.split(',') 
-                                if (packetIndex < INTERVAL):
-                                    testPackets[packetIndex] = [float(x) for x in packet_data.split(',')]
-                                    packetIndex += 1
-                                elif (firstPacket == ''):
-                                    firstPacket = [float(x) for x in packet_data.split(',')]
-                                elif(secondPacket == ''):
-                                    secondPacket = [float(x) for x in packet_data.split(',')]
-                                else:
-                                    #sixtyFourP`ackets.to_csv('s'+ counter_data +".csv", index = False)
-                                    testPackets = testPackets[2:]
-                                    #print(testPackets.dtype)
-                                    testPackets = np.append(testPackets, [firstPacket], axis=0)
-                                    testPackets = np.append(testPackets, [secondPacket], axis=0)
-                                    EEGprob  = live_test(testPackets)
-                                    #print('EEGprob: ' , EEGprob)
-                                        #newEvent = np.concatenate([EEGevent, EEGProbArray])
-                                    #print(newEvent.shape)
-                                    #print("----" + str(self.cyIO.fatemanumpy.shape))
-                                    #if(self.cyIO.recordingBADAS):
-                                    #    if(self.cyIO.fatemanumpy.shape[0] == 0):
-                                    #        self.cyIO.fatemanumpy =np.hstack((self.cyIO.fatemanumpy, newEvent)) #
-                                    #    else:
-                                    #        self.cyIO.fatemanumpy =np.vstack((self.cyIO.fatemanumpy, newEvent)) #
+                                #EEGprob = 'X'
+                                #CVprob = 'X'
+                                ##print('cyIO.visionThread.prob: ' , cyIO.visionThread.prob)
+                                ##packet_formatted = airsim_data + packet_data + self.delimiter + y
+                                ##packet_formatted = packet_formatted.split(',') 
+                                #if (packetIndex < INTERVAL):
+                                #    testPackets[packetIndex] = [float(x) for x in packet_data.split(',')]
+                                #    packetIndex += 1
+                                #elif (firstPacket == ''):
+                                #    firstPacket = [float(x) for x in packet_data.split(',')]
+                                #elif(secondPacket == ''):
+                                #    secondPacket = [float(x) for x in packet_data.split(',')]
+                                #else:
+                                #    ###testPackets = testPackets[1:]
+                                #    ###newPacket = [float(x) for x in packet_data.split(',')]
+                                #    ###testPackets = np.append(testPackets, [newPacket], axis=0)
+                                #    #sixtyFourP`ackets.to_csv('s'+ counter_data +".csv", index = False)
+                                #    testPackets = testPackets[2:]
+                                #    #print(testPackets.dtype)
+                                #    testPackets = np.append(testPackets, [firstPacket], axis=0)
+                                #    testPackets = np.append(testPackets, [secondPacket], axis=0)
+                                #    EEGprob  = live_test(testPackets)
+                                #    print('EEGprob: ' , EEGprob)
+                                #    newEvent = np.concatenate([EEGevent, EEGProbArray])
+                                #    print(newEvent.shape)
+                                #    print("----" + str(self.cyIO.fatemanumpy.shape))
+                                #    if(self.cyIO.recordingBADAS):
+                                #        if(self.cyIO.fatemanumpy.shape[0] == 0):
+                                #            self.cyIO.fatemanumpy =np.hstack((self.cyIO.fatemanumpy, newEvent)) #
+                                #        else:
+                                #            self.cyIO.fatemanumpy =np.vstack((self.cyIO.fatemanumpy, newEvent)) #
+                                #    print('EEGprob' , EEGprob)
+                                #    firstPacket = ''
+                                #    secondPacket = ''
+                                    
+                                
+                                CVprob  = cyIO.visionThread.prob*100 
+                                EEGprob = 'None'
+                                if(EEGprob != 'X'):
+                                    #EEGprob = EEGprob*100
+                                    ################################################## 
 
+                                    #Transfer probabilities values to Calypso
+                                    if(CalypsoReceive_BADASbool):
+                                            if(cyIO.DriverBADAS != None): #Vision thread running 
+                                                #clamping both probabilities
+                                                EEGprob = str( max(0, min(99, EEGprob*100) ) )
+                                                toSend = CVprob + '\n' + EEGprob + '\n70\n30\n'
+                                            else: #No vision thread running ( Only EEG prediction )
+                                                toSend = '0\n' + str(EEGprob*100) + '\n0\n100\n'
+                                            self.tiva_send.write(toSend.encode('ascii'))
 
-                                    #print('EEGprob' , EEGprob)
-                                    firstPacket = ''
-                                    secondPacket = ''
-
-                                CVprob = 'X'
-                                ################################################## 
-                                #Transfer probabilities values to Calypso
-                                if(CalypsoReceive_BADASbool and EEGprob != -1):
-                                    if(cyIO.DriverBADAS != None): #Vision thread running 
-
-                                        #clamping both probabilities
-                                        CVprob  = str( max(0, min(99, cyIO.visionThread.prob*100) ) )
-                                        EEGprob = str( max(0, min(99, EEGprob*100) ) )
-
-                                        toSend = CVprob + '\n' + EEGprob + '\n50\n50\n'
-                                        #print('str(EEGprob*100)' , str(EEGprob*100))
-                                        #if(cyIO.visionThread.prob >= 0.5): #DEBUG PRINT
-                                        #    print('\nto SEND VISION PROB= ' , str(cyIO.visionThread.prob) , ' |||||| @' , time.time() ) #DEBUG PRINT
-                                    else: #No vision thread running ( Only EEG prediction )
-                                        toSend = '0\n' + str(EEGprob*100) + '\n0\n100\n'
-
-                                    self.tiva_send.write(toSend.encode('ascii'))
-
-                                ##################################################
-                                else: # Without Calypso | Unaccurate simulation of decision algo
-
-                                    if(cyIO.DriverBADAS != None): #Vision thread running 
-                                        EEGprob = 0
-                                        if( (cyIO.visionThread.prob + EEGprob)/2 >= 0.5 ):
-                                            print('\nSimulation of calypso algo :: Brake')
-                                            self.cyIO.BADAS_fns.EmergencyEventSeq()
+                                    ##################################################
+                                    else: # Without Calypso | Unaccurate simulation of decision algo
+                                        if(cyIO.DriverBADAS != None): #Vision thread running
                                             a=0
-                                        else:
-                                            #print('\nSimulation of calypso algo :: NOBrake')
-                                            self.cyIO.BADAS_fns.BrakeSystemUpdate()
-                                            a=0
+                                            #if( (CVprob + EEGprob)/2 >= 50 ):
+                                            ##if( cyIO.visionThread.prob > 0.5): #VISION ONLY USAGE OF PRED
+                                            #    #EEGprob = str( EEGprob*100 )
+                                            #    #print(cyIO.visionThread.prob)
+                                            #    #print('Simulation of calypso algo :: Brake')
+                                            #    self.cyIO.BADAS_fns.EmergencyEventSeq()
+                                            #else:
+                                            #    #print('\nSimulation of calypso algo :: NOBrake')
+                                            #    self.cyIO.BADAS_fns.BrakeSystemUpdate()
 
-                                    else: #No vision thread running ( Only EEG prediction )
-                                        if( EEGprob >= 0.999 ):
-                                            a=0
-                                            print('Simulation of calypso algo | No vision :: Brake')
-                                            #self.cyIO.BADAS_fns.EmergencyEventSeq()
-                                        else:
-                                            a=0
-                                            #self.cyIO.BADAS_fns.BrakeSystemUpdate()
+                                        else: #No vision thread running ( Only EEG prediction )
+                                            if( EEGprob >= 0.9 ):
+                                                print('Simulation of calypso algo | No vision :: Brake')
+                                                #self.cyIO.BADAS_fns.EmergencyEventSeq()
+                                            else:
+                                                a=0
+                                                #self.cyIO.BADAS_fns.BrakeSystemUpdate()
                                 ##################################################
                                 #print('EEGprob: ' , EEGprob)
                                 #print('cyIO.visionThread.prob: ' , cyIO.visionThread.prob)
 
-                                if(cyIO.DriverBADAS != None): #Vision thread running
-                                    #cyIO.CurrentPacket = PedalBrakeValue + self.delimiter + counter_data + packet_data + self.delimiter + y + self.delimiter + str(EEGprob) + self.delimiter + str(cyIO.visionThread.prob)
-                                    cyIO.CurrentPacket = PedalBrakeValue + self.delimiter + counter_data + packet_data + self.delimiter + y + self.delimiter + str( EEGprob ) + self.delimiter + str( CVprob ) + self.delimiter + str( time.time() )  + self.delimiter + str( self.cyIO.BADAS_fns.Braking ) + self.delimiter + str( isSysOn )
-                                else:    
-                                    cyIO.CurrentPacket = PedalBrakeValue + self.delimiter + counter_data + packet_data + self.delimiter + y + self.delimiter + str(EEGprob) + self.delimiter + 'X,' + str( time.time() ) + self.delimiter + str( self.cyIO.BADAS_fns.Braking ) + self.delimiter + str( isSysOn )
+                                cyIO.CurrentPacket = PedalBrakeValue + self.delimiter + counter_data + packet_data + self.delimiter + y + self.delimiter + str( EEGprob ) + self.delimiter + str( CVprob ) + self.delimiter + str( time.time() )  + self.delimiter + str( self.cyIO.BADAS_fns.Braking ) + self.delimiter #+ str( self.isSysOn )
 
                             ##################################################
                             ###calpyso receive, synchronous, need to read all until empty (not done), ignored

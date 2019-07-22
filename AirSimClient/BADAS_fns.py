@@ -166,8 +166,6 @@ def StopBrake():
         
 # Overrides brake control and brakes until speed is less than 1        
 def EmergencyBrake_TillCarStop():
-    if(h is not None):
-        h.start_haptic(5) # Start Steering wheel Haptic
     StartFullBrake()
     
 #   Keep brakes on till car speed almost zero
@@ -175,8 +173,6 @@ def EmergencyBrake_TillCarStop():
         time.sleep(0.1)
     
     StopBrake()
-    if(h is not None):
-        h.stop_haptic()
 
 ##Change Airsim Img Res
 from shutil import copy2
@@ -229,17 +225,17 @@ BrakeStartTime = time.time()
 
 def BrakeSystemUpdate():
     global Braking
-    #global avgd_dist
     global BrakeStartTime
+    #global avgd_dist
 #     print('WarningSn::veh_speed',veh_speed , flush=True)
     if(Braking and (time.time() - BrakeStartTime > 2) ): #or avgd_dist > 15  ):
-        print('StopBrake')
+        #print('StopBrake' , flush = True)
         StopBrake()
 
 def EmergencyEventSeq():
     global Braking
     global BrakeStartTime
     if(Braking != True):
-        print('StartBrake')
+        #print('StartBrake' , flush = True)
         StartFullBrake()
         BrakeStartTime = time.time()

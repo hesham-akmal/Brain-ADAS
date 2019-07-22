@@ -188,7 +188,7 @@ def time_intervals_features(pos, neg, interval, numOfCols):
 def train_for_live_test(f, INTERVAL):
     LDAClassifier = LinearDiscriminantAnalysis()
     pos, neg = upload_pos_neg(f)
-    pos, neg = apply_filter(pos, neg)
+    #pos, neg = apply_filter(pos, neg)
     dropCols = get_drop_cols(INTERVAL)
     pos = pos.drop(dropCols, axis = 1)
     neg = neg.drop(dropCols, axis = 1)
@@ -300,7 +300,7 @@ electrodes = ['F3', ' FC5', ' AF3', ' F7', ' T7', ' P7', ' O1', ' O2', ' P8', ' 
 
 
 # In[17]:
-INTERVAL= int(468.75*192/1500)
+INTERVAL= int(375*192/1500)
 newCols = make_all_columns(electrodes)
 electrodes =['F3', 'FC5', 'AF3', 'F7', 'T7', 'P7', 'O1', 'O2', 'P8', 'T8',
        'F8', 'AF4', 'FC6', 'F4']
@@ -310,12 +310,17 @@ colsTest = make_all_columns_test(electrodes, INTERVAL)
 # In[18]:
 
 #1-make a directory called "Our Dataset"
-#2-make another directory inide our dataset, and call it Hesham2
-#3-put all csv files inside Hesham2
-
+#2-make another directory inide our dataset called folderName
+#3-put all csv files inside folderName
+folderName = "Hesh7"
 fnames = ["Subject_1"]
-upload_and_save_pos_neg("Hesham5")
-model = train_for_live_test("Hesham5", INTERVAL)
+
+
+
+
+#print('training eeg skipped, line 322 model_training.. py')
+upload_and_save_pos_neg(folderName)
+model = train_for_live_test(folderName, INTERVAL)
 
 
 
